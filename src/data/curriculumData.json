@@ -1,234 +1,36 @@
 {
-  "version": "v3.0-tier1-complete",
-  "modules": [
+  "id": "tier1-mod-1.1",
+  "title": "1.1 Anatomy of a Price Bar & Tick-by-Tick Mechanics",
+  "type": "comprehensive_lesson",
+  "estimatedReadTime": "25 mins",
+  "sections": [
     {
-      "id": "tier1-mod-1.1",
-      "title": "1.1 Anatomy of a Price Bar (OHLC)",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "12 mins",
-      "sections": [
-        {
-          "heading": "1. The Four Pillars of Every Price Bar",
-          "content": "Every chart across every timeframe—especially the default 5-minute E-mini chart—is composed of individual price bars. A bar is a battleground between institutional buyers (bulls) and sellers (bears). Every bar contains four critical data points: Open, High, Low, and Close (OHLC).",
-          "keyRule": "The Close is the single most important data point on any chart. Where a bar closes reveals who won the battle for control during that time period."
-        },
-        {
-          "heading": "2. Bar Psychology & Institutional Intent",
-          "content": "A bar closing near its high (bull trend bar) shows buyers aggressively accumulating inventory right up to the final second. Conversely, a bar closing near its low (bear trend bar) shows aggressive selling dominance.",
-          "barBreakdownExample": {
-            "scenario": "A 5-minute ES bar opens at 5000, drops to an early low of 4995, and surges to close at 5012.",
-            "psychology": "The initial drop to 4995 traps early breakout shorts. When buyers step in and drive the price to 5012, those trapped shorts are forced to buy back positions, fueling the next bar."
-          }
-        },
-        {
-          "heading": "3. Tails and Wicks: The Footprint of Rejection",
-          "content": "Tails represent price extremes where one side attempted a push but was violently rebuffed. A long lower tail indicates aggressive buying pressure near the lows.",
-          "visualCue": "Long lower tail = Bullish rejection. Long upper tail = Bearish rejection."
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "bull_vs_bear",
-        "title": "Visual Breakdown: Bull Trend Bar vs. Bear Trend Bar",
-        "description": "Notice how the bull bar closes near its high with a small upper tail, whereas the bear bar closes near its low."
+      "heading": "1. The Tick-by-Tick Lifecycle of a 5-Minute Bar",
+      "content": "On the default 5-minute E-mini S&P (ES) futures chart, a price bar is not a static drawing; it is a 300-second auction. At the exact second the bar opens, high-frequency institutional trading algorithms (HFTs) test liquidity. The open price represents the initial equilibrium of overnight or inter-bar inventory. As the clock runs, aggressive market orders clash with resting limit orders. The high and low represent the absolute limits of price discovery where one side temporarily exhausted its capital before counter-party limit orders absorbed the remaining volume.",
+      "keyRule": "Never evaluate a bar based solely on its final appearance. You must understand the chronological narrative of *how* it reached its high, low, and close."
+    },
+    {
+      "heading": "2. The Absolute Dominance of the Close",
+      "content": "Al Brooks emphasizes that the Close is the single most important data point on any chart because it represents the final verdict of institutional intent before the auction closes and a new one begins. \n\n- **Top 20% Close (Bull Trend Bar):** Proves that buyers were willing to pay higher prices right up to the final second of the 5-minute window, indicating strong overnight or intraday conviction.\n- **Bottom 20% Close (Bear Trend Bar):** Proves that sellers aggressively hammered prices down into the close, leaving bulls trapped.\n- **Middle 50% Close (Doji / Neutral Bar):** Represents complete stalemate and equilibrium.",
+      "keyRule": "A bar that spends 4 minutes as a massive bear trend bar but rallies in the final 30 seconds to close near its high is a bull bar, not a bear bar. The close overrides everything that happened in the middle."
+    },
+    {
+      "heading": "3. Tail and Wick Mechanics: Rejection vs. Exhaustion",
+      "content": "Tails (wicks) are the footprints of failed attempts. When a bar reaches a high and leaves a long upper tail, it reveals that bulls attempted a breakout above resistance, but institutional limit orders filled massive short positions, forcing price down.\n\n- **Long Lower Tail at Support:** Indicates that bears drove price down to trap longs, but institutional buyers stepped in with heavy limit orders, creating an immediate absorption footprint.\n- **Wickless Bars (Marubozu):** A bar with no tails indicates relentless, unresisted momentum. In a 5-minute trend, a wickless trend bar is the hallmark of a tight channel driven by institutional computer programs.",
+      "barBreakdownExample": {
+        "scenario": "A 5-minute ES bar opens at 5000, immediately drops to 4994 (leaving a 6-point lower tail), rallies straight up to 5015, and closes on its high at 5014 with a tiny upper tail.",
+        "psychology": "The drop to 4994 triggered breakout-short stops below the prior bar. Smart money used those sell stops to fill large buy orders (absorption). Once those shorts were trapped, bulls took full control, driving a 20-point reversal that trapped every early bear."
       }
     },
     {
-      "id": "tier1-mod-1.2",
-      "title": "1.2 Trend Bars vs. Dojis",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "10 mins",
-      "sections": [
-        {
-          "heading": "1. Defining Trend Momentum",
-          "content": "Bars fall into two core behavioral categories: Trend Bars and Dojis. A trend bar possesses a wide body that takes up a dominant percentage of the total bar height, closing near its absolute extreme.",
-          "keyRule": "Consecutive trend bars with overlapping bodies indicate a 'Tight Channel'—one of the highest-probability momentum states in trading."
-        },
-        {
-          "heading": "2. The Anatomy of Equilibrium (Dojis)",
-          "content": "A doji occurs when the open and close are virtually identical, representing absolute market equilibrium. Clusters of dojis in a trend often signal exhaustion and an impending transition into a trading range.",
-          "barBreakdownExample": {
-            "scenario": "A doji forming at the top of an extended bull trend.",
-            "psychology": "Longs take profits, shorts test the waters, and institutional algorithms pause. It warns traders not to buy the breakout."
-          }
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "doji_equilibrium",
-        "title": "Visual Breakdown: Doji Equilibrium vs. Trend Momentum",
-        "description": "Comparing a body-dominant trend bar against a center-locked doji bar indicating market stalemate."
-      }
-    },
-    {
-      "id": "tier1-mod-1.3",
-      "title": "1.3 Inside Bars & Compression (IB, II, III)",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "12 mins",
-      "sections": [
-        {
-          "heading": "1. Defining the Inside Bar",
-          "content": "An Inside Bar (IB) is a bar whose entire range (high and low) is completely contained within the high and low of the preceding bar. When multiple inside bars form sequentially, they are designated as an 'II' or 'III' pattern.",
-          "keyRule": "Inside bars represent volatility compression. They signal a market coiling like a spring as institutions pause to reassess value."
-        },
-        {
-          "heading": "2. Trading Inside Bars: Breakout vs. Breakout Mode",
-          "content": "Beginners often trade every inside bar breakout blindly. Al Brooks teaches that in a strong trend, an inside bar is a trend resumption continuation signal. However, inside bars in trading ranges often lead to failed breakouts (traps).",
-          "barBreakdownExample": {
-            "scenario": "An inside bar forming halfway up a strong bull trend channel.",
-            "psychology": "Pullback selling pressure dried up completely. Bulls and bears are deadlocked for one 5-minute period before institutional momentum resumes."
-          }
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "inside_bar",
-        "title": "Visual Breakdown: Inside Bar Compression",
-        "description": "The second bar's high and low are completely engulfed by the mother bar."
-      }
-    },
-    {
-      "id": "tier1-mod-1.4",
-      "title": "1.4 Outside Bars & Expansion (OB, OO)",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "12 mins",
-      "sections": [
-        {
-          "heading": "1. Defining the Outside Bar",
-          "content": "An Outside Bar (OB) occurs when a bar's high is higher than the previous bar's high *and* its low is lower than the previous bar's low. It completely engulfs the prior bar's range.",
-          "keyRule": "Outside bars represent sudden volatility expansion and a violent shift in control from one side to the other."
-        },
-        {
-          "heading": "2. Outside Bars as Reversal Triggers",
-          "content": "When an outside bar forms at the edge of a trading range or at the climax of a trend, it frequently acts as a Major Trend Reversal (MTR) trigger because it traps breakout traders in the opposite direction.",
-          "barBreakdownExample": {
-            "scenario": "A bear outside bar forming after a minor bull leg at resistance.",
-            "psychology": "Bulls tried to push higher (making a new high), but bears aggressively slammed the price down, breaking below the prior bar's low. Bulls are now trapped."
-          }
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "outside_bar",
-        "title": "Visual Breakdown: Outside Bar Engulfing",
-        "description": "The current bar's range completely envelops the body and wicks of the preceding bar."
-      }
-    },
-    {
-      "id": "tier1-mod-1.5",
-      "title": "1.5 Signal Bars vs. Entry Bars",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "14 mins",
-      "sections": [
-        {
-          "heading": "1. The Setup vs. The Trigger",
-          "content": "One of the most common beginner mistakes is entering a trade on the signal bar itself. Al Brooks strictly separates the **Signal Bar** from the **Entry Bar**.",
-          "keyRule": "The Signal Bar is the bar where the pattern completes (e.g., a pullback test). The Entry Bar is the *next* bar where your stop order is triggered."
-        },
-        {
-          "heading": "2. Why Wait for the Entry Bar?",
-          "content": "Waiting for the entry bar ensures that confirmation has occurred. If a signal bar looks promising but closes poorly, entering prematurely leads to unnecessary losses.",
-          "barBreakdownExample": {
-            "scenario": "A bull flag pullback tests a moving average. Bar 3 is the signal bar (closes with a small tail). Bar 4 is the entry bar.",
-            "psychology": "You place a buy stop 1 tick above Bar 3's high. If Bar 4 triggers you in and closes strongly, your thesis is validated."
-          }
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "signal_vs_entry",
-        "title": "Visual Breakdown: Signal Bar vs. Entry Bar Sequence",
-        "description": "Identifying the setup bar versus the execution trigger bar."
-      }
-    },
-    {
-      "id": "tier1-mod-1.6",
-      "title": "1.6 Reversal Bars & Micro Reversals",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "12 mins",
-      "sections": [
-        {
-          "heading": "1. Anatomy of a Reversal Bar",
-          "content": "A reversal bar opens in the direction of the ongoing trend, pushes to a new extreme (testing support or resistance), and then reverses sharply to close near the opposite extreme.",
-          "keyRule": "A valid reversal bar must have a body and close near its extreme. A reversal bar with a massive tail and a small body is often just a sign of indecision."
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "reversal_bar",
-        "title": "Visual Breakdown: Reversal Bar Mechanics",
-        "description": "Price pushes to a new high/low before aggressive counter-party participation drives it back."
-      }
-    },
-    {
-      "id": "tier1-mod-1.7",
-      "title": "1.7 Micro Channels",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "10 mins",
-      "sections": [
-        {
-          "heading": "1. Defining Micro Channels",
-          "content": "A micro channel consists of 3 or more consecutive bars where the price extremes (highs in a bear trend, lows in a bull trend) do not overlap with opposing bars.",
-          "keyRule": "Micro channels represent extreme institutional momentum. Never bet against a tight micro channel on first test."
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "micro_channel",
-        "title": "Visual Breakdown: Tight Micro Channel",
-        "description": "Consecutive overlapping bodies with minimal counter-trend wicks."
-      }
-    },
-    {
-      "id": "tier1-mod-1.8",
-      "title": "1.8 The Two Market States",
-      "type": "comprehensive_lesson",
-      "estimatedReadTime": "10 mins",
-      "sections": [
-        {
-          "heading": "1. Trends vs. Trading Ranges",
-          "content": "Markets spend 60% to 70% of their time in trading ranges and only 30% to 40% in trends. Recognizing which state the market is in dictates your entire strategy.",
-          "keyRule": "In trends, you trade pullbacks and breakouts. In trading ranges, you buy low, sell short high, and scalp in between."
-        }
-      ],
-      "chartIllustration": {
-        "svgType": "market_states",
-        "title": "Visual Breakdown: Trend State vs. Trading Range State",
-        "description": "Comparing directional momentum against sideways equilibrium."
-      }
-    },
-    {
-      "id": "tier1-mod-1.9",
-      "title": "1.9 Milestone Gate 1: Tier 1 Certification Quiz",
-      "type": "quiz",
-      "questions": [
-        {
-          "id": "q1",
-          "prompt": "What is universally considered the single most important data point on any price bar in Al Brooks methodology?",
-          "options": [
-            "The Open, because it sets the day's initial volume.",
-            "The Close, because it reveals who won the battle for control during that time period.",
-            "The High, because it marks the absolute breakout limit."
-          ],
-          "correctIndex": 1,
-          "explanation": "The Close tells you precisely where the market settled and who held institutional control when the timer expired."
-        },
-        {
-          "id": "q2",
-          "prompt": "What does a sequence of Inside Bars (II or III) typically indicate?",
-          "options": [
-            "An explosive market crash with zero buyers.",
-            "Volatility compression and coiling before an impending breakout.",
-            "Absolute market equilibrium with no future direction."
-          ],
-          "correctIndex": 1,
-          "explanation": "Inside bars represent compression where range shrinks as institutions pause."
-        },
-        {
-          "id": "q3",
-          "prompt": "What is the critical difference between a Signal Bar and an Entry Bar?",
-          "options": [
-            "There is no difference; they are always the same bar.",
-            "The Signal Bar is the pattern setup bar, while the Entry Bar is the next bar where your trade order is triggered.",
-            "The Entry Bar occurs before the Signal Bar."
-          ],
-          "correctIndex": 1,
-          "explanation": "Waiting for the entry bar ensures confirmation rather than entering prematurely on the signal bar."
-        }
-      ]
+      "heading": "4. Contextual Dependencies: Why Bar Quality Varies",
+      "content": "A bear bar in a strong bull trend has a completely different meaning than an identical bear bar in a bear trend or a trading range.\n\n- **In a Strong Bull Trend:** A bear bar is usually just a minor pullback (a High 1 setup). Smart bulls view it as a discount to buy.\n- **In a Tight Trading Range:** A bear bar is just noise. Selling it is a trap because the market is in equilibrium.\n- **At Resistance:** A bear bar closing on its low can act as a high-probability Major Trend Reversal (MTR) signal bar.",
+      "keyRule": "Context always supersedes bar appearance. Never trade a bar in isolation without evaluating the preceding 10 to 20 bars and the current market state."
     }
-  ]
+  ],
+  "chartIllustration": {
+    "svgType": "bull_vs_bear",
+    "title": "Visual Breakdown: Tick-by-Tick Structural Anatomy",
+    "description": "Detailed view of body-to-wick ratios, closing locations, and institutional absorption zones."
+  }
 }
