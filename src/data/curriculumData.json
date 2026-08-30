@@ -1,0 +1,81 @@
+{
+  "version": "v1.0",
+  "modules": [
+    {
+      "id": "mod-1",
+      "title": "1. Foundational Concepts: Trends vs. Trading Ranges",
+      "type": "lesson",
+      "content": {
+        "summary": "Every chart is always in one of two states: a trend or a trading range. Even an individual bar can be classified as a trend bar or a doji. Understanding this binary state is the absolute foundation of Al Brooks price action.",
+        "keyTakeaways": [
+          "Markets spend about 60-70% of the time in trading ranges and 30-40% in trends.",
+          "A trend bar closes near its extreme, showing institutional momentum.",
+          "A doji represents market indecision and equilibrium."
+        ]
+      }
+    },
+    {
+      "id": "mod-2",
+      "title": "2. Breakouts, Failed Breakouts & Spikes",
+      "type": "lesson",
+      "content": {
+        "summary": "The market is always trying to break out, and then the market tries to make every breakout fail. Recognizing true breakouts from traps is critical for high-probability entries.",
+        "keyTakeaways": [
+          "Most breakout attempts fail (around 70-80% in a trading range context).",
+          "A strong breakout features a 'spike'—a large trend bar with little to no tail.",
+          "Traders should wait for a pullback or look for the failure trap before entering."
+        ]
+      }
+    },
+    {
+      "id": "mod-3",
+      "title": "3. Pullbacks & First Pullback Sequences",
+      "type": "lesson",
+      "content": {
+        "summary": "A pullback is a temporary counter-trend move within an ongoing trend. The 'First Pullback' after a strong trend breakout offers one of the highest probability trades of the day.",
+        "keyTakeaways": [
+          "Strong trends rarely go straight up or down; they require pullbacks to let institutions reload.",
+          "A High 1 or Low 1 setup represents the first pullback in a trend attempt.",
+          "Counter-trend pullbacks that look too strong often convert the trend into a trading range."
+        ]
+      }
+    },
+    {
+      "id": "mod-4",
+      "title": "4. Flashcards: Acronyms & Key Definitions",
+      "type": "flashcard",
+      "flashcards": [
+        {
+          "id": "fc-1",
+          "question": "What does AIC stand for?",
+          "answer": "Always In Conservative"
+        },
+        {
+          "id": "fc-2",
+          "question": "What does HFT stand for?",
+          "answer": "High Frequency Trading (or High 1 / High 2 context)"
+        },
+        {
+          "id": "fc-3",
+          "question": "What is a Doji bar?",
+          "answer": "A bar where the open and close are essentially the same, indicating market equilibrium and indecision."
+        }
+      ]
+    },
+    {
+      "id": "mod-5",
+      "title": "5. Practice Exercise: Identify the Setup",
+      "type": "exercise",
+      "exercise": {
+        "prompt": "You see a strong bear breakout bar closing on its low, followed immediately by a small inside bar. According to Al Brooks rules, what is the most likely market behavior?",
+        "options": [
+          "A continuation lower (bear breakout)",
+          "An 80% chance of a failed breakout or a deep pullback",
+          "The start of an immediate multi-day bull trend"
+        ],
+        "correctIndex": 1,
+        "explanation": "Most breakout attempts fail, especially in tight trading ranges or without consecutive strong trend bars. Expect a trap or pullback."
+      }
+    }
+  ]
+}
