@@ -109,56 +109,76 @@
         "description": "Detailed schematic showing a mother bar completely enveloping the range of the subsequent inside bar."
       }
     },
-    {
+{
       "id": "tier1-mod-1.4",
-      "title": "1.4 Outside Bars & Expansion (OB, OO)",
+      "title": "1.4 Outside Bars & Volatility Expansion (OB, OO)",
       "type": "comprehensive_lesson",
-      "estimatedReadTime": "12 mins",
+      "estimatedReadTime": "24 mins",
       "sections": [
         {
-          "heading": "1. Defining the Outside Bar & Volatility Expansion",
-          "content": "An Outside Bar (OB) occurs when a bar's high exceeds the high of the previous bar AND its low drops below the low of the previous bar. It completely engulfs the prior bar's range. When two outside bars occur consecutively, it is termed an 'Outside-Outside' (OO) pattern, signaling explosive volatility expansion.",
-          "keyRule": "Outside bars represent a violent tug-of-war where one side completely overpowers the other, expanding the trading range rapidly."
+          "heading": "1. Microstructure and Mechanics of the Outside Bar",
+          "content": "An Outside Bar (OB) occurs when a bar's price range completely engulfs the high and low of the preceding bar—meaning its high is higher than the prior bar's high, and its low is lower than the prior bar's low. From a market microstructure perspective, an outside bar represents a sudden, aggressive expansion of volatility and a violent shift in control. It reflects a multi-directional battle where one side attempted a breakout in one direction, only to be completely overpowered by a counter-offensive that drove price past the opposite extreme before the auction timer closed.",
+          "keyRule": "An outside bar signals a sudden change in market character. Never ignore an outside bar; it indicates that aggressive institutional participants have entered the arena."
         },
         {
-          "heading": "2. Outside Bars as Major Reversal Triggers",
-          "content": "When an outside bar forms at the edge of a trading range, near a key moving average, or at the climax of an extended trend, it frequently acts as a Major Trend Reversal (MTR) trigger. It succeeds because it violently traps breakout traders who jumped into the initial move too late.",
+          "heading": "2. The Trap Mechanism: Why Outside Bars Trigger Reversals",
+          "content": "Outside bars are among the most reliable Major Trend Reversal (MTR) triggers when they form at the boundary of a trading range, near a key moving average, or at the extreme of an extended trend. \n\n- **The Trap:** When price breaks out to a new high, retail breakout traders pile in long, placing their buy stops above the high. Smart-money institutional algorithms use that burst of retail buying to fill massive short positions. \n- **The Reversal:** Bears then slam price downward, breaking below the prior bar's low. This triggers the long breakout traders' stop-losses (sell stops), turning their forced liquidations into fuel for a sharp downward move.",
           "barBreakdownExample": {
-            "scenario": "A bear outside bar forming after a minor bull leg tests major overhead resistance.",
-            "psychology": "Bulls aggressively pushed prices to a new high, trapping late breakout buyers. Bears immediately flooded the market with sell orders, driving the price past the prior bar's low and trapping the bulls on the wrong side."
+            "scenario": "A bear outside bar forming after a minor bull leg tests major overhead resistance on the 5-minute chart.",
+            "psychology": "Bulls pushed prices to a new high, trapping late breakout buyers. Institutional sellers immediately flooded the market with limit sell orders, driving price past the prior bar's low. The breakout buyers are now trapped on the wrong side of the market."
           }
+        },
+        {
+          "heading": "3. Sequential Expansion: Outside-Outside (OO) Patterns",
+          "content": "When an outside bar is immediately followed by another larger outside bar, it forms an 'Outside-Outside' (OO) pattern. \n\n- **Extreme Volatility:** An OO pattern indicates escalating emotional and financial warfare between large institutions. Both bulls and bears are aggressively expanding their positions.\n- **Trading Implication:** OO patterns frequently occur at major turning points or right before massive trend breakouts. They require wide stop-losses due to the extreme range expansion.",
+          "keyRule": "An Outside-Outside (OO) pattern is a high-alert warning. It tells you that the current trading range is expanding into a directional trend or undergoing a major reversal."
+        },
+        {
+          "heading": "4. Contextual Deployment: Reversal Triggers vs. Continuation Noise",
+          "content": "The predictive value of an outside bar depends entirely on where it occurs:\n\n- **At Resistance / Support:** High-probability reversal signal. It traps breakout traders.\n- **In the Middle of a Tight Trend Channel:** Often acts as a continuation bar or a minor pause rather than a reversal, because strong trends frequently feature wide bars that overlap.",
+          "keyRule": "An outside bar in a trading range is a potential reversal trap; an outside bar in a tight trend is usually continuation momentum."
         }
       ],
       "chartIllustration": {
         "svgType": "outside_bar",
-        "title": "Visual Breakdown: Outside Bar Engulfing (OB)",
-        "description": "The current bar's range completely envelops the body and wicks of the preceding bar."
+        "title": "Visual Breakdown: Outside Bar Engulfing Mechanics (OB)",
+        "description": "Detailed view of a bar whose high and low completely envelop the range of the preceding bar."
       }
     },
     {
       "id": "tier1-mod-1.5",
-      "title": "1.5 Signal Bars vs. Entry Bars",
+      "title": "1.5 Signal Bars vs. Entry Bars: The Setup vs. The Trigger",
       "type": "comprehensive_lesson",
-      "estimatedReadTime": "14 mins",
+      "estimatedReadTime": "26 mins",
       "sections": [
         {
-          "heading": "1. The Setup vs. The Execution Trigger",
-          "content": "One of the most destructive beginner mistakes in price action trading is entering a trade on the signal bar itself. Al Brooks strictly separates the **Signal Bar** from the **Entry Bar**. The Signal Bar is the bar that completes the pattern setup (e.g., a pullback testing support). The Entry Bar is the *next* bar where your stop order is actually triggered.",
-          "keyRule": "Always wait for the entry bar to trigger your stop order rather than entering prematurely on the signal bar."
+          "heading": "1. The Fundamental Distinction: Setup vs. Execution",
+          "content": "One of the most destructive beginner errors in price action trading is entering a trade on the signal bar itself. Al Brooks enforces a strict structural separation between the **Signal Bar** and the **Entry Bar**. \n\n- **The Signal Bar:** The bar that completes the pattern setup (e.g., a pullback bar testing a moving average or a swing high). It tells you *where* a trade might be valid.\n- **The Entry Bar:** The *next* chronological bar where your stop order is actually triggered. It tells you *when* the market has confirmed your thesis and is moving in your direction.",
+          "keyRule": "Never enter a trade on the signal bar. Always place a stop order 1 tick beyond the signal bar and let the entry bar trigger you in."
         },
         {
-          "heading": "2. Why Waiting for the Entry Bar Matters",
-          "content": "Waiting for the entry bar ensures that confirmation has occurred. A signal bar can look promising halfway through its duration, but if it closes poorly (e.g., forming a massive tail), entering prematurely exposes you to unnecessary losses. By placing a stop order 1 tick beyond the signal bar, you let the market prove it wants to go in your direction.",
+          "heading": "2. Why Premature Entries Destroy Expectancy",
+          "content": "A signal bar can look exceptionally promising during the first 4 minutes of its 5-minute lifespan. However, if institutional sellers step in during the final 30 seconds and hammer the bar down to close near its low, a promising bull signal bar instantly transforms into a weak bear trap.\n\n- **The Cost of Impatience:** Traders who enter prematurely on the signal bar get caught in the closing reversal. Traders who wait for the entry bar avoid the trade entirely because the trigger order was never hit.",
           "barBreakdownExample": {
-            "scenario": "A bull flag pullback tests a moving average. Bar 3 is the signal bar. Bar 4 is the entry bar.",
-            "psychology": "You place a buy stop 1 tick above Bar 3's high. If Bar 4 breaks that high and triggers you in, institutional buying momentum has been confirmed."
+            "scenario": "A pullback in a bull trend tests the 20-period EMA. Bar 3 forms with a lower tail (Signal Bar). You place a buy stop 1 tick above Bar 3's high. Bar 4 opens and breaks above Bar 3's high (Entry Bar).",
+            "psychology": "By waiting for Bar 4 to trigger your buy stop, you ensure that buyers were actually willing to pay higher prices to enter the market. If Bar 4 fails to break the high, you stay out of a failing setup."
           }
+        },
+        {
+          "heading": "3. Signal Bar Quality Criteria",
+          "content": "Not all signal bars are created equal. Al Brooks grades signal bars based on four strict structural criteria:\n\n1. **Closing Position:** A bull signal bar must close in its upper half (preferably upper third). A bear signal bar must close in its lower half.\n2. **Size:** The bar should not be excessively large (which increases risk and stop distance) nor a tiny doji (which lacks conviction).\n3. **Location:** The bar must form at a logical structural level (moving average, prior support/resistance, trendline pullback).\n4. **Context:** The preceding bars must support the trade direction.",
+          "keyRule": "A mediocre signal bar at a phenomenal location (like a major daily support level) can be tradable, but a pristine signal bar in the middle of a choppy trading range must be skipped."
+        },
+        {
+          "heading": "4. Order Execution Mechanics: Stop Orders vs. Limit Orders",
+          "content": "Executing a signal and entry bar sequence requires strict order discipline:\n\n- **Stop Orders (Breakout Entries):** Placed 1 tick beyond the signal bar in the direction of the trade. Used by most traders because it requires market confirmation.\n- **Limit Orders:** Placed at the extreme of the signal bar or inside its range. Used by advanced traders to get better prices, but carries higher risk if the market continues against them.",
+          "keyRule": "If you are a developing trader, stick exclusively to stop order entries triggered by the entry bar."
         }
       ],
       "chartIllustration": {
         "svgType": "signal_vs_entry",
         "title": "Visual Breakdown: Signal Bar vs. Entry Bar Sequence",
-        "description": "Differentiating between the pattern setup bar and the execution trigger bar."
+        "description": "Detailed schematic showing the separation between the setup pattern bar and the execution trigger bar."
       }
     },
     {
