@@ -1,13 +1,13 @@
 export default function App() {
   return (
-    <div className="h-screen w-screen flex flex-col bg-slate-950 text-slate-50 overflow-hidden font-sans">
+    <div className="h-[100dvh] w-screen flex flex-col bg-slate-950 text-slate-50 overflow-hidden font-sans">
       
       {/* Header */}
       <header className="h-14 border-b border-slate-800 flex items-center px-4 bg-slate-900 shrink-0">
         <h1 className="text-lg font-bold text-blue-400">Al Brooks Price Action Mastery</h1>
       </header>
 
-      {/* Main Grid Container (Pre-scaffolded for Split Panes) */}
+      {/* Main Grid Container (Responsive Split Panes) */}
       <main className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-800 overflow-hidden">
          
          {/* Left Pane Shell */}
