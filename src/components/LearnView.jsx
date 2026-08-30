@@ -1,4 +1,4 @@
-// Version: v2.3 - Interactive Quizzes & Enterprise Layout
+// Version: v2.4 - Enterprise UI & All Tier 1 SVGs Connected
 import { useState } from 'react'
 import data from '../data/curriculumData.json'
 
@@ -39,7 +39,7 @@ export default function LearnView() {
   };
 
   const handleSelectQuizOption = (index, correctIndex) => {
-    if (showExplanation) return; // Prevent changing answer after selection
+    if (showExplanation) return;
     setSelectedOption(index);
     setShowExplanation(true);
     if (index === correctIndex) {
@@ -81,10 +81,9 @@ export default function LearnView() {
         </div>
       </aside>
 
-      {/* Main Full-Width Scrolling Area - Flush right scrollbar fix */}
+      {/* Main Full-Width Scrolling Area */}
       <div className="flex-1 overflow-y-auto bg-slate-950 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700">
         
-        {/* Centered Content Wrapper */}
         <section className="p-6 md:p-12 flex flex-col max-w-4xl mx-auto w-full">
           <div className="mb-8 pb-4 border-b border-slate-800 flex items-center justify-between">
             <div>
@@ -110,7 +109,7 @@ export default function LearnView() {
                     {sec.heading}
                   </h3>
                   
-                  <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                  <p className="text-slate-300 text-sm md:text-base leading-relaxed whitespace-pre-line">
                     {sec.content}
                   </p>
 
@@ -131,6 +130,7 @@ export default function LearnView() {
                 </div>
               ))}
 
+              {/* DYNAMIC SVG CHART ILLUSTRATION RENDERER */}
               {selectedModule.chartIllustration && (
                 <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
                   <h4 className="text-sm font-bold text-slate-200">📊 {selectedModule.chartIllustration.title}</h4>
@@ -158,6 +158,78 @@ export default function LearnView() {
                         <line x1="280" y1="20" x2="280" y2="130" stroke="#94a3b8" strokeWidth="2" />
                         <rect x="265" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
                         <text x="250" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Indecision)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'inside_bar' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="140" y1="10" x2="140" y2="140" stroke="#3b82f6" strokeWidth="2" />
+                        <rect x="120" y="30" width="40" height="90" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+                        <text x="110" y="145" fill="#3b82f6" fontSize="9" fontFamily="monospace">Mother Bar (1)</text>
+
+                        <line x1="260" y1="45" x2="260" y2="105" stroke="#f59e0b" strokeWidth="2" />
+                        <rect x="245" y="55" width="30" height="40" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
+                        <text x="235" y="145" fill="#f59e0b" fontSize="9" fontFamily="monospace">Inside Bar (2)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'outside_bar' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="140" y1="50" x2="140" y2="100" stroke="#94a3b8" strokeWidth="2" />
+                        <rect x="125" y="60" width="30" height="30" fill="#334155" stroke="#94a3b8" strokeWidth="2" rx="2" />
+                        <text x="120" y="145" fill="#94a3b8" fontSize="9" fontFamily="monospace">Prior Bar</text>
+
+                        <line x1="260" y1="15" x2="260" y2="135" stroke="#10b981" strokeWidth="2" />
+                        <rect x="240" y="25" width="40" height="100" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
+                        <text x="230" y="145" fill="#10b981" fontSize="9" fontFamily="monospace">Outside Bar (OB)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'signal_vs_entry' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="130" y1="30" x2="130" y2="120" stroke="#f59e0b" strokeWidth="2" />
+                        <rect x="115" y="45" width="30" height="60" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
+                        <text x="110" y="140" fill="#f59e0b" fontSize="9" fontFamily="monospace">Signal Bar (Setup)</text>
+
+                        <line x1="270" y1="15" x2="270" y2="110" stroke="#3b82f6" strokeWidth="2" />
+                        <rect x="255" y="25" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+                        <text x="245" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Entry Bar (Trigger)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'reversal_bar' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="200" y1="10" x2="200" y2="140" stroke="#ec4899" strokeWidth="2" />
+                        <rect x="180" y="20" width="40" height="90" fill="#831843" stroke="#ec4899" strokeWidth="2" rx="2" />
+                        <text x="160" y="145" fill="#ec4899" fontSize="9" fontFamily="monospace">Reversal Bar (Climax Close)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'micro_channel' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="100" y1="80" x2="100" y2="130" stroke="#3b82f6" strokeWidth="2" />
+                        <rect x="90" y="90" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+
+                        <line x1="160" y1="60" x2="160" y2="110" stroke="#3b82f6" strokeWidth="2" />
+                        <rect x="150" y="70" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+
+                        <line x1="220" y1="40" x2="220" y2="90" stroke="#3b82f6" strokeWidth="2" />
+                        <rect x="210" y="50" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+
+                        <line x1="280" y1="20" x2="280" y2="70" stroke="#3b82f6" strokeWidth="2" />
+                        <rect x="270" y="30" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+
+                        <text x="160" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Tight Bull Micro Channel</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'market_states' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="30" y="30" width="140" height="90" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.5" rx="4" />
+                        <text x="60" y="80" fill="#3b82f6" fontSize="11" fontFamily="monospace" fontWeight="bold">Trend State (30-40%)</text>
+
+                        <rect x="230" y="30" width="140" height="90" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
+                        <text x="245" y="80" fill="#f59e0b" fontSize="11" fontFamily="monospace" fontWeight="bold">Trading Range (60-70%)</text>
                       </svg>
                     )}
                   </div>
