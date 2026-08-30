@@ -1,80 +1,81 @@
 {
-  "version": "v1.0",
+  "version": "v1.1",
   "modules": [
     {
-      "id": "mod-1",
-      "title": "1. Foundational Concepts: Trends vs. Trading Ranges",
+      "id": "tier1-mod-1",
+      "title": "1.1 Anatomy of a Price Bar",
       "type": "lesson",
       "content": {
-        "summary": "Every chart is always in one of two states: a trend or a trading range. Even an individual bar can be classified as a trend bar or a doji. Understanding this binary state is the absolute foundation of Al Brooks price action.",
+        "summary": "Every financial chart is built from individual price bars. Before you can read market trends or trade breakouts, you must understand the four components of a single bar: Open, High, Low, and Close (OHLC). In Al Brooks price action, the Close is universally considered the most important data point on the chart.",
         "keyTakeaways": [
-          "Markets spend about 60-70% of the time in trading ranges and 30-40% in trends.",
-          "A trend bar closes near its extreme, showing institutional momentum.",
-          "A doji represents market indecision and equilibrium."
+          "The Open: Indicates where institutional and retail interest stood at the exact start of the time frame.",
+          "The High & Low: Represent the absolute extremes and price discovery limits reached during the bar's duration, often highlighting failed breakout attempts.",
+          "The Close: The ultimate verdict of the bar. A close near the high shows bulls maintained control until the final bell; a close near the low shows bears dominated.",
+          "Tails (Wicks): Indicate price rejection. Long tails mean the market tested a price level but was aggressively pushed back by opposing market participants."
         ]
       }
     },
     {
-      "id": "mod-2",
-      "title": "2. Breakouts, Failed Breakouts & Spikes",
+      "id": "tier1-mod-2",
+      "title": "1.2 Trend Bars vs. Dojis",
       "type": "lesson",
       "content": {
-        "summary": "The market is always trying to break out, and then the market tries to make every breakout fail. Recognizing true breakouts from traps is critical for high-probability entries.",
+        "summary": "Bars can be categorized into two primary behavioral types: Trend Bars and Dojis. Recognizing the difference tells you instantly whether institutions are driving momentum or if the market is deadlocked in indecision.",
         "keyTakeaways": [
-          "Most breakout attempts fail (around 70-80% in a trading range context).",
-          "A strong breakout features a 'spike'—a large trend bar with little to no tail.",
-          "Traders should wait for a pullback or look for the failure trap before entering."
+          "Trend Bar: A bar with a real body (distance between open and close) that spans a large portion of the total bar, closing near its extreme. It signals strong directional conviction.",
+          "Doji Bar: A bar where the open and close are nearly identical, resulting in a tiny or nonexistent body. It signals market equilibrium, balance, and indecision.",
+          "Context Matters: A doji in a tight trading range is normal; a sudden cluster of dojis in a strong trend often signals an impending exhaustion point or pullback."
         ]
       }
     },
     {
-      "id": "mod-3",
-      "title": "3. Pullbacks & First Pullback Sequences",
+      "id": "tier1-mod-3",
+      "title": "1.3 The Two Market States",
       "type": "lesson",
       "content": {
-        "summary": "A pullback is a temporary counter-trend move within an ongoing trend. The 'First Pullback' after a strong trend breakout offers one of the highest probability trades of the day.",
+        "summary": "A core premise of Al Brooks methodology is that the market is always in one of two states: a Trend or a Trading Range. Markets spend approximately 60% to 70% of their time in trading ranges and only 30% to 40% in trends.",
         "keyTakeaways": [
-          "Strong trends rarely go straight up or down; they require pullbacks to let institutions reload.",
-          "A High 1 or Low 1 setup represents the first pullback in a trend attempt.",
-          "Counter-trend pullbacks that look too strong often convert the trend into a trading range."
+          "Trends: Directional price movement where bars overlap minimally and closes trend consistently in one direction.",
+          "Trading Ranges: Two-sided price action where prices move sideways within a defined boundary, frustrating breakout traders.",
+          "The Transition: Every trend eventually runs out of steam and transitions into a trading range, and every trading range eventually breaks out into a new trend."
         ]
       }
     },
     {
-      "id": "mod-4",
-      "title": "4. Flashcards: Acronyms & Key Definitions",
+      "id": "tier1-mod-4",
+      "title": "1.4 Flashcards: Acronyms & Key Definitions",
       "type": "flashcard",
       "flashcards": [
         {
           "id": "fc-1",
-          "question": "What does AIC stand for?",
-          "answer": "Always In Conservative"
+          "question": "What does AIC stand for in Al Brooks methodology?",
+          "answer": "Always In Conservative. It defines the dominant market direction when you must be either long or short."
         },
         {
           "id": "fc-2",
-          "question": "What does HFT stand for?",
-          "answer": "High Frequency Trading (or High 1 / High 2 context)"
+          "question": "What does a long tail (wick) on the bottom of a bear bar indicate?",
+          "answer": "Price rejection. Sellers pushed the price down, but buyers stepped in aggressively near the low, creating buying pressure."
         },
         {
           "id": "fc-3",
-          "question": "What is a Doji bar?",
-          "answer": "A bar where the open and close are essentially the same, indicating market equilibrium and indecision."
+          "question": "What percentage of time do markets typically spend in trading ranges?",
+          "answer": "Roughly 60% to 70% of the time, meaning most breakout attempts fail."
         }
       ]
     },
     {
-      "id": "mod-5",
-      "title": "5. Practice Exercise: Identify the Setup",
+      "id": "tier1-mod-5",
+      "title": "1.5 Practice Exercise: Bar Interpretation",
       "type": "exercise",
       "exercise": {
-        "prompt": "You see a strong bear breakout bar closing on its low, followed immediately by a small inside bar. According to Al Brooks rules, what is the most likely market behavior?",
+        "prompt": "You observe a 5-minute bar on the E-mini S&P (ES) that opened at 5000, reached a high of 5012, dropped to a low of 4995, and closed right at 5010. How would you classify this bar?",
         "options": [
-          "A continuation lower (bear breakout)",
-          "An 80% chance of a failed breakout or a deep pullback",
-          "The start of an immediate multi-day bull trend"
+          "A weak doji indicating total market indecision",
+          "A strong bull trend bar with a small upper tail, showing strong buying pressure into the close",
+          "A bear reversal bar because it pulled down to 4995 during its duration"
         ],
         "correctIndex": 1,
-        "explanation": "Most breakout attempts fail, especially in tight trading ranges or without consecutive strong trend bars. Expect a trap or pullback."
+        "explanation": "Despite dropping to 4995 early in its life, the bar closed near its high (5010 out of a 5012 high). A wide body closing near the extreme confirms strong bull momentum."
       }
     }
   ]
