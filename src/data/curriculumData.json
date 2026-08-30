@@ -1,82 +1,77 @@
 {
-  "version": "v1.1",
+  "version": "v2.0",
   "modules": [
     {
-      "id": "tier1-mod-1",
-      "title": "1.1 Anatomy of a Price Bar",
-      "type": "lesson",
-      "content": {
-        "summary": "Every financial chart is built from individual price bars. Before you can read market trends or trade breakouts, you must understand the four components of a single bar: Open, High, Low, and Close (OHLC). In Al Brooks price action, the Close is universally considered the most important data point on the chart.",
-        "keyTakeaways": [
-          "The Open: Indicates where institutional and retail interest stood at the exact start of the time frame.",
-          "The High & Low: Represent the absolute extremes and price discovery limits reached during the bar's duration, often highlighting failed breakout attempts.",
-          "The Close: The ultimate verdict of the bar. A close near the high shows bulls maintained control until the final bell; a close near the low shows bears dominated.",
-          "Tails (Wicks): Indicate price rejection. Long tails mean the market tested a price level but was aggressively pushed back by opposing market participants."
-        ]
+      "id": "tier1-mod-1.1",
+      "title": "1.1 Anatomy of a Price Bar (The Building Block)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "12 mins",
+      "sections": [
+        {
+          "heading": "1. The Four Pillars of Every Price Bar (OHLC)",
+          "content": "Every financial chart—whether a 2-minute E-mini futures chart or a daily stock chart—is composed of individual price bars. In Al Brooks price action, a bar is not merely a visual tick; it is a battleground between institutional buyers (bulls) and sellers (bears). Every bar contains four critical data points: Open, High, Low, and Close (OHLC).",
+          "keyRule": "The Close is universally considered the single most important data point on any chart. Where a bar closes tells you precisely who won the battle during that time period."
+        },
+        {
+          "heading": "2. Bar Psychology & Institutional Intent",
+          "content": "When a bar closes near its high (forming a bull trend bar), it proves that buyers were willing to accumulate inventory aggressively right up to the final second of the bar's timeframe. Institutions do not chase the market unless they have high conviction. Conversely, a bar closing near its low (a bear trend bar) shows aggressive selling dominance.",
+          "barBreakdownExample": {
+            "scenario": "A 5-minute ES bar opens at 5000, drops to an early low of 4995, and surges to close at 5012.",
+            "psychology": "The initial drop to 4995 traps early breakout shorts. When buyers step in and drive the price up to 5012, those trapped shorts are forced to buy back their positions to cut losses, creating fuel for the next bar."
+          }
+        },
+        {
+          "heading": "3. Tails and Wicks: The Footprint of Rejection",
+          "content": "Tails represent price extremes where one side attempted a breakout or directional push but was violently rebuffed by opposing participants. A long lower tail means bears pushed prices down, but buyers flooded the market with limit orders, creating immediate rejection and buying pressure.",
+          "visualCue": "Long lower tail = Bullish rejection / buying pressure. Long upper tail = Bearish rejection / selling pressure."
+        }
+      ],
+      "chartIllustration": {
+        "title": "Visual Breakdown: Bull Trend Bar vs. Bear Trend Bar",
+        "description": "Notice how the bull bar closes near its high with a small upper tail, whereas the bear bar closes near its low with a small lower tail."
       }
     },
     {
-      "id": "tier1-mod-2",
+      "id": "tier1-mod-1.2",
       "title": "1.2 Trend Bars vs. Dojis",
-      "type": "lesson",
-      "content": {
-        "summary": "Bars can be categorized into two primary behavioral types: Trend Bars and Dojis. Recognizing the difference tells you instantly whether institutions are driving momentum or if the market is deadlocked in indecision.",
-        "keyTakeaways": [
-          "Trend Bar: A bar with a real body (distance between open and close) that spans a large portion of the total bar, closing near its extreme. It signals strong directional conviction.",
-          "Doji Bar: A bar where the open and close are nearly identical, resulting in a tiny or nonexistent body. It signals market equilibrium, balance, and indecision.",
-          "Context Matters: A doji in a tight trading range is normal; a sudden cluster of dojis in a strong trend often signals an impending exhaustion point or pullback."
-        ]
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "10 mins",
+      "sections": [
+        {
+          "heading": "1. Defining Trend Momentum",
+          "content": "Bars fall into two core behavioral categories: Trend Bars and Dojis. A trend bar possesses a wide body (the distance between open and close) that takes up a dominant percentage of the total bar height, closing near its absolute extreme.",
+          "keyRule": "Consecutive trend bars with overlapping bodies indicate a 'Tight Channel'—one of the highest-probability momentum states in trading."
+        },
+        {
+          "heading": "2. The Anatomy of Equilibrium (Dojis)",
+          "content": "A doji occurs when the open and close are virtually identical. This represents absolute market equilibrium—neither bulls nor bears could maintain control. Clusters of dojis in a trend often signal exhaustion and an impending transition into a trading range.",
+          "barBreakdownExample": {
+            "scenario": "A doji forming at the top of an extended bull trend.",
+            "psychology": "Longs are taking profits, shorts are testing the waters, and institutional algorithms are pausing. It warns traders not to buy the breakout."
+          }
+        }
+      ],
+      "chartIllustration": {
+        "title": "Visual Breakdown: Doji Equilibrium vs. Trend Momentum",
+        "description": "Comparing a body-dominant trend bar against a center-locked doji bar."
       }
     },
     {
-      "id": "tier1-mod-3",
-      "title": "1.3 The Two Market States",
-      "type": "lesson",
-      "content": {
-        "summary": "A core premise of Al Brooks methodology is that the market is always in one of two states: a Trend or a Trading Range. Markets spend approximately 60% to 70% of their time in trading ranges and only 30% to 40% in trends.",
-        "keyTakeaways": [
-          "Trends: Directional price movement where bars overlap minimally and closes trend consistently in one direction.",
-          "Trading Ranges: Two-sided price action where prices move sideways within a defined boundary, frustrating breakout traders.",
-          "The Transition: Every trend eventually runs out of steam and transitions into a trading range, and every trading range eventually breaks out into a new trend."
-        ]
-      }
-    },
-    {
-      "id": "tier1-mod-4",
-      "title": "1.4 Flashcards: Acronyms & Key Definitions",
+      "id": "tier1-mod-flash",
+      "title": "1.3 Flashcards: Core Definitions",
       "type": "flashcard",
       "flashcards": [
         {
           "id": "fc-1",
-          "question": "What does AIC stand for in Al Brooks methodology?",
-          "answer": "Always In Conservative. It defines the dominant market direction when you must be either long or short."
+          "question": "What is the single most important data point on any price bar?",
+          "answer": "The Close. It reveals who won the battle for control during that time period."
         },
         {
           "id": "fc-2",
-          "question": "What does a long tail (wick) on the bottom of a bear bar indicate?",
-          "answer": "Price rejection. Sellers pushed the price down, but buyers stepped in aggressively near the low, creating buying pressure."
-        },
-        {
-          "id": "fc-3",
-          "question": "What percentage of time do markets typically spend in trading ranges?",
-          "answer": "Roughly 60% to 70% of the time, meaning most breakout attempts fail."
+          "question": "What does a long lower tail on a bear bar signify?",
+          "answer": "Price rejection. Sellers drove the price down, but aggressive buyers stepped in near the low."
         }
       ]
-    },
-    {
-      "id": "tier1-mod-5",
-      "title": "1.5 Practice Exercise: Bar Interpretation",
-      "type": "exercise",
-      "exercise": {
-        "prompt": "You observe a 5-minute bar on the E-mini S&P (ES) that opened at 5000, reached a high of 5012, dropped to a low of 4995, and closed right at 5010. How would you classify this bar?",
-        "options": [
-          "A weak doji indicating total market indecision",
-          "A strong bull trend bar with a small upper tail, showing strong buying pressure into the close",
-          "A bear reversal bar because it pulled down to 4995 during its duration"
-        ],
-        "correctIndex": 1,
-        "explanation": "Despite dropping to 4995 early in its life, the bar closed near its high (5010 out of a 5012 high). A wide body closing near the extreme confirms strong bull momentum."
-      }
     }
   ]
 }
