@@ -181,15 +181,15 @@
         "description": "Detailed schematic showing the separation between the setup pattern bar and the execution trigger bar."
       }
     },
-    {
+{
       "id": "tier1-mod-1.6",
       "title": "1.6 Reversal Bars & Micro Reversals",
       "type": "comprehensive_lesson",
-      "estimatedReadTime": "12 mins",
+      "estimatedReadTime": "24 mins",
       "sections": [
         {
           "heading": "1. Anatomy of a True Reversal Bar",
-          "content": "A reversal bar is a specialized trend bar that opens in the direction of the ongoing trend, pushes aggressively to a new extreme (testing a support or resistance level), and then reverses sharply to close near its opposite extreme. It demonstrates that counter-trend participants took over completely before the bar closed.",
+          "content": "A reversal bar is a specialized trend bar that opens in the direction of the ongoing trend, pushes aggressively to a new extreme (testing a support or resistance level), and then reverses sharply to close near its opposite extreme. It demonstrates that counter-trend participants took over completely before the bar closed, absorbing all opposing pressure.",
           "keyRule": "A valid reversal bar must close near its extreme. A massive tail with a weak, middle-of-the-range close is merely market indecision, not a reversal."
         },
         {
@@ -199,6 +199,11 @@
             "scenario": "A bear trend bar drops below a prior swing low, but buyers step in instantly, driving the bar to close near its high.",
             "psychology": "Bears tried to trigger a breakout below support, but limit orders absorbed all selling, trapping the bears and forcing an immediate bullish reversal."
           }
+        },
+        {
+          "heading": "3. Algorithmic Reversal Execution",
+          "content": "High-frequency algorithms look for specific exhaustion signatures. When a bar reaches an extreme price and encounters heavy limit-order liquidity, momentum stalls and turns. Understanding this tick-by-tick shift prevents traders from chasing fading momentum.",
+          "keyRule": "Always require the entry bar confirmation following a reversal bar before committing capital."
         }
       ],
       "chartIllustration": {
@@ -211,11 +216,11 @@
       "id": "tier1-mod-1.7",
       "title": "1.7 Micro Channels",
       "type": "comprehensive_lesson",
-      "estimatedReadTime": "10 mins",
+      "estimatedReadTime": "22 mins",
       "sections": [
         {
           "heading": "1. Defining Tight Micro Channels",
-          "content": "A micro channel consists of 3 or more consecutive bars where price extremes (the highs in a bear trend, or the lows in a bull trend) do not overlap with opposing bars. In a bull micro channel, every bar's low stays at or above the previous bar's low.",
+          "content": "A micro channel consists of 3 or more consecutive bars where price extremes (the highs in a bear trend, or the lows in a bull trend) do not overlap with opposing bars. In a bull micro channel, every bar's low stays at or above the previous bar's low, indicating absolute directional dominance.",
           "keyRule": "Never bet against a tight micro channel on first test. Institutional algorithms are driving price with absolute conviction."
         },
         {
@@ -225,6 +230,11 @@
             "scenario": "Four consecutive 5-minute bull trend bars where each bar's low remains above the midpoint of the prior bar.",
             "psychology": "Sellers have zero opportunity to exit profitably. Panic sets in among bears, providing continuous fuel for the trend."
           }
+        },
+        {
+          "heading": "3. Trading Rules Within Micro Channels",
+          "content": "Operating inside a micro channel requires specialized tactical rules:\n\n- **No Counter-Trend Scalping:** Fading a micro channel is financial suicide because pullbacks are virtually nonexistent.\n- **Stop Entry Additions:** Add to winning trend positions on minor inside bars or shallow pullbacks within the channel.",
+          "keyRule": "Respect the micro channel. Until there is a clear break of channel geometry, treat every pullback as a trap."
         }
       ],
       "chartIllustration": {
