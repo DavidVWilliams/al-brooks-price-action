@@ -1,5 +1,5 @@
 {
-  "version": "v2.0",
+  "version": "v2.1",
   "modules": [
     {
       "id": "tier1-mod-1.1",
@@ -27,6 +27,7 @@
         }
       ],
       "chartIllustration": {
+        "svgType": "bull_vs_bear",
         "title": "Visual Breakdown: Bull Trend Bar vs. Bear Trend Bar",
         "description": "Notice how the bull bar closes near its high with a small upper tail, whereas the bear bar closes near its low with a small lower tail."
       }
@@ -52,24 +53,40 @@
         }
       ],
       "chartIllustration": {
+        "svgType": "doji_equilibrium",
         "title": "Visual Breakdown: Doji Equilibrium vs. Trend Momentum",
-        "description": "Comparing a body-dominant trend bar against a center-locked doji bar."
+        "description": "Comparing a body-dominant trend bar against a center-locked doji bar indicating market stalemate."
       }
     },
     {
       "id": "tier1-mod-flash",
-      "title": "1.3 Flashcards: Core Definitions",
+      "title": "1.3 Flashcards: Core Definitions & Rules",
       "type": "flashcard",
       "flashcards": [
         {
           "id": "fc-1",
           "question": "What is the single most important data point on any price bar?",
-          "answer": "The Close. It reveals who won the battle for control during that time period."
+          "answer": "The Close. It reveals who won the battle for control during that exact time period."
         },
         {
           "id": "fc-2",
           "question": "What does a long lower tail on a bear bar signify?",
-          "answer": "Price rejection. Sellers drove the price down, but aggressive buyers stepped in near the low."
+          "answer": "Price rejection. Sellers drove the price down, but aggressive buyers stepped in near the low to accumulate shares."
+        },
+        {
+          "id": "fc-3",
+          "question": "What percentage of time do markets typically spend in trading ranges?",
+          "answer": "Roughly 60% to 70% of the time. This is why the vast majority of breakout attempts fail."
+        },
+        {
+          "id": "fc-4",
+          "question": "What is a Tight Channel?",
+          "answer": "Consecutive trend bars with overlapping bodies. It represents strong institutional momentum where pullbacks are minimal."
+        },
+        {
+          "id": "fc-5",
+          "question": "What does a cluster of Doji bars in a strong trend usually signal?",
+          "answer": "Market equilibrium and potential exhaustion, often preceding a pullback or a transition into a trading range."
         }
       ]
     }
