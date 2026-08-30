@@ -243,24 +243,34 @@
         "description": "Consecutive overlapping bodies with minimal counter-trend wicks showing strong momentum."
       }
     },
-    {
+{
       "id": "tier1-mod-1.8",
-      "title": "1.8 The Two Market States",
+      "title": "1.8 The Two Market States: Trends vs. Trading Ranges",
       "type": "comprehensive_lesson",
-      "estimatedReadTime": "10 mins",
+      "estimatedReadTime": "22 mins",
       "sections": [
         {
-          "heading": "1. Trends vs. Trading Ranges",
-          "content": "A core foundational premise of Al Brooks methodology is that the market is always in one of two states: a Trend or a Trading Range. Markets spend approximately 60% to 70% of their time trapped in trading ranges and only 30% to 40% of their time in directional trends.",
+          "heading": "1. The 60–70% Rule and Market Equilibrium",
+          "content": "A core foundational premise of Al Brooks methodology is that the market is always operating in one of two distinct states: a Trend or a Trading Range. Statistically, markets spend approximately 60% to 70% of their time trapped inside sideways trading ranges and only 30% to 40% of their time in directional trends. Recognizing which state the market is currently in dictates your entire trading strategy, risk parameters, and order execution style.",
           "keyRule": "In trends, you trade pullbacks and breakouts. In trading ranges, you buy low, sell short high, and scalp in between."
         },
         {
-          "heading": "2. Recognizing State Transitions",
-          "content": "Every trend eventually runs out of institutional momentum and transitions into a trading range. Conversely, every trading range eventually breaks out into a new trend. Misidentifying the current market state (e.g., trying to trade a trend strategy inside a tight trading range) is the #1 cause of trading losses.",
+          "heading": "2. Trend State Mechanics and Institutional Posture",
+          "content": "A trend is defined as a series of higher highs and higher lows (bull trend) or lower lows and lower highs (bear trend) accompanied by directional momentum. \n\n- **Institutional Accumulation:** Large financial institutions cannot execute their massive orders all at once without moving the market against themselves. They accumulate positions over time, creating sustained directional momentum.\n- **Algorithmic Reinforcement:** Computer programs track moving averages and trend channels, automatically buying pullbacks or shorting rallies.",
           "barBreakdownExample": {
-            "scenario": "A clean bull trend begins overlapping sideways after reaching a measured move target.",
-            "psychology": "Institutions stop chasing new highs and begin taking profits, turning directional conviction into two-sided balance."
+            "scenario": "A clean 5-minute bull trend where every pullback lasts 1 to 2 bars before resuming upward.",
+            "psychology": "Sellers have zero opportunity to exit profitably. Panic sets in among counter-trend traders, providing continuous fuel for the trend."
           }
+        },
+        {
+          "heading": "3. Trading Range State Mechanics and Two-Sided Balance",
+          "content": "A trading range represents a state of two-sided equilibrium where neither bulls nor bears can maintain control. Price oscillates between a support floor and a resistance ceiling.\n\n- **Failed Breakouts:** Over 80% of breakout attempts out of a trading range fail because institutions use breakout extremes to take profits and initiate counter-positions.\n- **The Scalping Environment:** In a trading range, limit orders outperform stop orders. You buy near the bottom of the range and sell near the top.",
+          "keyRule": "Never trade trend continuation strategies inside a tight trading range. You will get whipsawed to death by failed breakouts."
+        },
+        {
+          "heading": "4. Recognizing State Transitions",
+          "content": "Every trend eventually runs out of institutional momentum, reaches a measured move target, and transitions into a trading range. Conversely, every trading range eventually breaks out into a new trend. Misidentifying the current market state is the single largest cause of trading losses.",
+          "keyRule": "When a trend begins to overlap heavily and form horizontal boundaries, immediately switch from trend-following to trading-range tactics."
         }
       ],
       "chartIllustration": {
@@ -278,36 +288,48 @@
           "id": "q1",
           "prompt": "What is universally considered the single most important data point on any price bar in Al Brooks methodology?",
           "options": [
-            "The Open, because it sets the day's initial volume.",
-            "The Close, because it reveals who won the battle for control during that time period.",
+            "The Open, because it sets the day's initial volume baseline.",
+            "The Close, because it reveals who won the battle for institutional control during that time period.",
             "The High, because it marks the absolute breakout limit."
           ],
           "correctIndex": 1,
-          "explanation": "The Close tells you precisely where the market settled and who held institutional control when the timer expired."
+          "explanation": "The Close tells you precisely where the market settled and who held institutional control when the auction timer expired."
         },
         {
           "id": "q2",
-          "prompt": "What does a sequence of Inside Bars (II or III) typically indicate?",
+          "prompt": "What does a sequence of Inside Bars (II or III) typically indicate about market microstructure?",
           "options": [
-            "An explosive market crash with zero buyers.",
-            "Volatility compression and coiling before an impending breakout.",
-            "Absolute market equilibrium with no future direction."
+            "An explosive market crash driven by aggressive panic selling.",
+            "Volatility compression and coiling as market participants pause activity before an impending breakout.",
+            "Absolute market equilibrium with no future directional bias."
           ],
           "correctIndex": 1,
-          "explanation": "Inside bars represent compression where range shrinks as institutions pause."
+          "explanation": "Inside bars represent volatility compression where range shrinks as institutions pause to reassess value."
         },
         {
           "id": "q3",
-          "prompt": "What is the critical difference between a Signal Bar and an Entry Bar?",
+          "prompt": "Why does Al Brooks strictly prohibit entering a trade directly on the Signal Bar?",
           "options": [
-            "There is no difference; they are always the same bar.",
-            "The Signal Bar is the pattern setup bar, while the Entry Bar is the next bar where your trade order is triggered.",
-            "The Entry Bar occurs before the Signal Bar."
+            "Because signal bars are illegal to trade on futures exchanges.",
+            "Because a signal bar can look promising mid-stream but close poorly, leading to premature execution and trapped capital; waiting for the Entry Bar ensures confirmation.",
+            "Because entry bars always have a better risk-to-reward ratio."
           ],
           "correctIndex": 1,
-          "explanation": "Waiting for the entry bar ensures confirmation rather than entering prematurely on the signal bar."
+          "explanation": "Waiting for the entry bar ensures confirmation. If a signal bar closes poorly at the end of its lifespan, entering prematurely exposes you to unnecessary losses."
+        },
+        {
+          "id": "q4",
+          "prompt": "Approximately what percentage of time do financial markets spend in trading ranges versus directional trends?",
+          "options": [
+            "20% trading ranges, 80% trends",
+            "50% trading ranges, 50% trends",
+            "60% to 70% trading ranges, 30% to 40% trends"
+          ],
+          "correctIndex": 2,
+          "explanation": "Markets spend 60% to 70% of their time trapped in sideways trading ranges and only 30% to 40% in directional trends."
         }
       ]
     }
-  ]
-}
+      ]
+    }
+
