@@ -1,5 +1,5 @@
 {
-  "version": "v2.1",
+  "version": "v2.2",
   "modules": [
     {
       "id": "tier1-mod-1.1",
@@ -59,7 +59,7 @@
       }
     },
     {
-      "id": "tier1-mod-flash",
+      "id": "tier1-mod-1.3",
       "title": "1.3 Flashcards: Core Definitions & Rules",
       "type": "flashcard",
       "flashcards": [
@@ -87,6 +87,46 @@
           "id": "fc-5",
           "question": "What does a cluster of Doji bars in a strong trend usually signal?",
           "answer": "Market equilibrium and potential exhaustion, often preceding a pullback or a transition into a trading range."
+        }
+      ]
+    },
+    {
+      "id": "tier1-mod-1.4",
+      "title": "1.4 Knowledge Check: Bar Mechanics & Rules",
+      "type": "quiz",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "You observe a 5-minute E-mini S&P bar that opened at 5000, reached a high of 5012, dropped to a low of 4995, and closed right at 5010. How should you classify this bar?",
+          "options": [
+            "A weak doji indicating absolute market equilibrium and indecision.",
+            "A strong bull trend bar with a small upper tail, showing strong buying pressure into the close.",
+            "A bear reversal bar because it pulled down to 4995 during its duration."
+          ],
+          "correctIndex": 1,
+          "explanation": "Despite dropping to 4995 early in its life, the bar closed near its high (5010 out of a 5012 high). A wide body closing near the extreme confirms strong bull momentum and institutional buying pressure."
+        },
+        {
+          "id": "q2",
+          "prompt": "According to Al Brooks price action rules, approximately what percentage of time do markets spend in trading ranges?",
+          "options": [
+            "20% to 30% of the time",
+            "50% of the time",
+            "60% to 70% of the time"
+          ],
+          "correctIndex": 2,
+          "explanation": "Markets spend 60% to 70% of their time in trading ranges. This is why the vast majority of breakout attempts fail and trap breakout traders."
+        },
+        {
+          "id": "q3",
+          "prompt": "What does a series of consecutive trend bars with overlapping bodies indicate about the market state?",
+          "options": [
+            "A tight channel, representing high-probability institutional momentum.",
+            "A deadlocked trading range where neither buyers nor sellers have control.",
+            "An imminent market crash requiring immediate short entries."
+          ],
+          "correctIndex": 0,
+          "explanation": "Overlapping trend bodies forming a tight channel signify strong momentum where pullbacks are shallow and infrequent."
         }
       ]
     }
