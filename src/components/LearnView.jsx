@@ -1,4 +1,4 @@
-// Version: v2.0
+// Version: v2.1
 import { useState } from 'react'
 import data from '../data/curriculumData.json'
 
@@ -16,6 +16,16 @@ export default function LearnView() {
     setIsFlipped(false);
   };
 
+  const handleNextCard = (total) => {
+    setIsFlipped(false);
+    setCurrentCardIndex((prev) => (prev + 1) % total);
+  };
+
+  const handlePrevCard = (total) => {
+    setIsFlipped(false);
+    setCurrentCardIndex((prev) => (prev - 1 + total) % total);
+  };
+
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950">
       
@@ -23,7 +33,7 @@ export default function LearnView() {
       <aside className="w-full md:w-80 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/40 flex flex-col shrink-0 h-48 md:h-full">
         <div className="p-3 border-b border-slate-800 bg-slate-900/80 flex items-center justify-between">
           <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Tier 1: Foundations</h3>
-          <span className="text-[10px] font-mono text-emerald-400">v2.0 Deep-Dive</span>
+          <span className="text-[10px] font-mono text-emerald-400">v2.1 Robust</span>
         </div>
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {modules.map((mod) => (
@@ -92,28 +102,44 @@ export default function LearnView() {
               </div>
             ))}
 
-            {/* Embedded SVG Chart Illustration Box */}
+            {/* Dynamic Embedded SVG Chart Illustration Box */}
             {selectedModule.chartIllustration && (
               <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <h4 className="text-sm font-bold text-slate-200">📊 {selectedModule.chartIllustration.title}</h4>
-                  <span className="text-[10px] font-mono text-emerald-400 uppercase bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900/50">Interactive SVG</span>
+                  <span className="text-[10px] font-mono text-emerald-400 uppercase bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900/50">Dynamic SVG</span>
                 </div>
                 <p className="text-xs text-slate-400">{selectedModule.chartIllustration.description}</p>
                 
-                {/* SVG Schematic Mockup */}
+                {/* SVG Schematics based on svgType */}
                 <div className="w-full h-48 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4">
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Bull Bar */}
-                    <line x1="100" y1="20" x2="100" y2="130" stroke="currentColor" strokeWidth="2" />
-                    <rect x="85" y="40" width="30" height="70" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                    <text x="85" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Bull Trend Bar</text>
-                    
-                    {/* Doji Bar */}
-                    <line x1="250" y1="20" x2="250" y2="130" stroke="currentColor" strokeWidth="2" />
-                    <rect x="235" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
-                    <text x="240" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Equilibrium)</text>
-                  </svg>
+                  {selectedModule.chartIllustration.svgType === 'bull_vs_bear' && (
+                    <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Bull Bar */}
+                      <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
+                      <rect x="105" y="40" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+                      <text x="90" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Bull Trend Bar</text>
+                      
+                      {/* Bear Bar */}
+                      <line x1="280" y1="20" x2="280" y2="130" stroke="#f43f5e" strokeWidth="2" />
+                      <rect x="265" y="35" width="30" height="75" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="2" />
+                      <text x="255" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace">Bear Trend Bar</text>
+                    </svg>
+                  )}
+
+                  {selectedModule.chartIllustration.svgType === 'doji_equilibrium' && (
+                    <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      {/* Trend Bar */}
+                      <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
+                      <rect x="105" y="40" width="30" height="70" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+                      <text x="95" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Strong Trend</text>
+                      
+                      {/* Doji Bar */}
+                      <line x1="280" y1="20" x2="280" y2="130" stroke="#94a3b8" strokeWidth="2" />
+                      <rect x="265" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
+                      <text x="250" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Indecision)</text>
+                    </svg>
+                  )}
                 </div>
               </div>
             )}
@@ -121,7 +147,7 @@ export default function LearnView() {
           </div>
         )}
 
-        {/* FLASHCARD RENDERER */}
+        {/* FLASHCARD RENDERER WITH PREV/NEXT CONTROLS */}
         {selectedModule.type === 'flashcard' && selectedModule.flashcards && (
           <div className="w-full max-w-md mx-auto space-y-4 pt-10">
             <div className="flex justify-between text-xs text-slate-400 font-mono">
@@ -150,12 +176,21 @@ export default function LearnView() {
               )}
             </div>
 
-            <button 
-              onClick={() => { setIsFlipped(false); setCurrentCardIndex((prev) => (prev + 1) % selectedModule.flashcards.length); }}
-              className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold transition-colors"
-            >
-              Next Flashcard ➔
-            </button>
+            {/* Navigation Controls: Previous & Next */}
+            <div className="flex gap-3">
+              <button 
+                onClick={() => handlePrevCard(selectedModule.flashcards.length)}
+                className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-sm font-semibold transition-colors"
+              >
+                ◀ Previous
+              </button>
+              <button 
+                onClick={() => handleNextCard(selectedModule.flashcards.length)}
+                className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold transition-colors"
+              >
+                Next ➔
+              </button>
+            </div>
           </div>
         )}
 
