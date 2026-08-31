@@ -327,7 +327,74 @@
           ],
           "correctIndex": 2,
           "explanation": "Markets spend 60% to 70% of their time trapped in sideways trading ranges and only 30% to 40% in directional trends."
+        },
+        {
+      "id": "tier2-mod-2.1",
+      "title": "2.1 The 'Always In' Direction (AIL / AIS)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "24 mins",
+      "sections": [
+        {
+          "heading": "1. Defining the 'Always In' Concept",
+          "content": "Al Brooks uses the 'Always In' concept to force traders to identify the path of least resistance. At any given moment, if you were forced to enter a trade at the market price and could not exit until the end of the day, would you buy or sell? If the answer is buy, the market is 'Always In Long' (AIL). If sell, it is 'Always In Short' (AIS). This mental framework forces you to align with dominant institutional momentum rather than constantly trying to pick tops and bottoms.",
+          "keyRule": "Never take a trade that opposes the current 'Always In' direction unless you are trading a highly probable Major Trend Reversal at a major structural level."
+        },
+        {
+          "heading": "2. Triggers for a Change in 'Always In' Status",
+          "content": "The 'Always In' direction does not change easily. It requires a significant display of institutional force. The most common triggers for a change in direction are:\n\n1. **A massive trend bar** (or two consecutive large trend bars) closing near its extreme in the opposite direction.\n2. **A successful breakout** above a major lower high (shifting to AIL) or below a major higher low (shifting to AIS).\n3. **A Major Trend Reversal (MTR)** that breaks the current trend line and resumes past the signal bar.",
+          "barBreakdownExample": {
+            "scenario": "The market has been grinding down in a bear channel. Suddenly, a massive bull trend bar forms, completely engulfing the last three bear bars and closing on its absolute high.",
+            "psychology": "Institutions have aggressively stepped in, absorbing all sell orders and pushing price up. The market has immediately flipped to Always In Long (AIL). Bears are trapped and will begin buying to cover their shorts, adding fuel to the new bull bias."
+          }
+        },
+        {
+          "heading": "3. Managing Trades using Always In",
+          "content": "When a market is clearly Always In Long, the exact entry price matters less than the direction. Institutions will buy the close of strong bull bars, buy pullbacks, and buy below the lows of prior bars. In a strong Always In environment, you must find a way to get a position on, even if it requires entering at market and using a wider stop.",
+          "keyRule": "When the market flips to Always In, you must immediately abandon your prior thesis. If you are short and the market flips to AIL, you must exit immediately; hoping for a pullback is a recipe for catastrophic losses."
         }
+      ],
+      "chartIllustration": {
+        "svgType": "always_in_flip",
+        "title": "Visual Breakdown: The 'Always In' Flip",
+        "description": "A sequence showing a grinding bear trend instantly reversed by a dominant institutional bull breakout bar, shifting the bias to AIL."
+      }
+    },
+    {
+      "id": "tier2-mod-2.2",
+      "title": "2.2 The Spike and Channel Pattern",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "28 mins",
+      "sections": [
+        {
+          "heading": "1. Anatomy of the Spike (The Breakout Phase)",
+          "content": "Most strong trends begin with a 'Spike'—a sudden, aggressive breakout consisting of one or more large trend bars closing on their extremes. The Spike represents an urgent repricing of the asset by institutional algorithms. During the Spike phase, pullbacks do not exist. Market participants who missed the move are forced to chase price, creating a self-sustaining vacuum.",
+          "keyRule": "The Spike is a breakout. Treat it as a climax phase. You must enter in the direction of the Spike, but be prepared for the momentum to slow as the market transitions to the Channel phase."
+        },
+        {
+          "heading": "2. Transition to the Channel Phase",
+          "content": "A market cannot sustain the extreme energy of a Spike indefinitely. Eventually, early buyers begin taking partial profits, and aggressive counter-trend traders attempt to fade the move. This introduces two-sided trading, creating the first pullback. When the trend resumes after this pullback, it typically does so at a shallower angle, forming a 'Channel'.",
+          "barBreakdownExample": {
+            "scenario": "A 3-bar massive bull spike breaks out of a morning range. Bar 4 is an inside bar (pause). Bar 5 attempts to drop but finds buyers at the moving average. Bars 6 through 15 slowly grind upward with overlapping bodies and deep pullbacks.",
+            "psychology": "The urgency of the Spike has ended. Institutions are still buying, but they are now using limit orders to buy pullbacks (value) rather than market orders to chase breakouts. This controlled accumulation creates the Channel."
+          }
+        },
+        {
+          "heading": "3. The Life Cycle of a Channel",
+          "content": "Channels are inherently weaker than Spikes. A channel is actually a diagonal trading range. While price continues to make new extremes, the deep pullbacks and overlapping bars indicate that counter-trend pressure is building. \n\n- **The Rule of Breakouts:** Al Brooks notes that roughly 75% of breakouts from a channel *fail*. Therefore, if a bull channel breaks out to the upside, it will likely fail and reverse. The eventual successful breakout of a channel is usually in the opposite direction of the trend.",
+          "keyRule": "Buy the pullbacks in a bull channel, but do not buy the breakouts to new highs. Take profits at the top of the channel and look to re-enter at the bottom."
+        },
+        {
+          "heading": "4. The Ultimate Target: The Start of the Channel",
+          "content": "When a channel finally suffers a legitimate breakout in the opposite direction (e.g., a bull channel breaking downward), the highest probability target for the ensuing reversal is the exact price level where the channel began—which is the extreme of the first pullback that followed the initial Spike.",
+          "keyRule": "The start of the channel acts as a magnetic support/resistance zone. When a trend line breaks, expect price to gravitate back to the beginning of the channel phase."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "spike_and_channel",
+        "title": "Visual Breakdown: Spike and Channel Evolution",
+        "description": "Displays the violent vertical Spike phase followed by the first pullback and the subsequent grinding, overlapping Channel phase."
+      }
+    }
       ]
     }
       ]
