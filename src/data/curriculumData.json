@@ -328,7 +328,9 @@
           "correctIndex": 2,
           "explanation": "Markets spend 60% to 70% of their time trapped in sideways trading ranges and only 30% to 40% in directional trends."
         },
-        {
+      ]
+    },
+            {
       "id": "tier2-mod-2.1",
       "title": "2.1 The 'Always In' Direction (AIL / AIS)",
       "type": "comprehensive_lesson",
@@ -394,8 +396,6 @@
         "title": "Visual Breakdown: Spike and Channel Evolution",
         "description": "Displays the violent vertical Spike phase followed by the first pullback and the subsequent grinding, overlapping Channel phase."
       }
-    }
-      ]
     }
       ]
     }
