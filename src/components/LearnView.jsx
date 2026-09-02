@@ -1,4 +1,4 @@
-// Version: v2.4 - Enterprise UI & All Tier 1 SVGs Connected
+// Version: v2.5 - Enterprise UI & All Tier 1 and Tier 2 SVGs Connected
 import { useState } from 'react'
 import data from '../data/curriculumData.json'
 
@@ -230,6 +230,72 @@ export default function LearnView() {
 
                         <rect x="230" y="30" width="140" height="90" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
                         <text x="245" y="80" fill="#f59e0b" fontSize="11" fontFamily="monospace" fontWeight="bold">Trading Range (60-70%)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'always_in_flip' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="50" y1="50" x2="150" y2="150" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
+                        {/* Grinding Bear Trend */}
+                        <rect x="70" y="70" width="16" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+                        <line x1="78" y1="60" x2="78" y2="110" stroke="#f43f5e" strokeWidth="2" />
+                        <rect x="100" y="90" width="16" height="25" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+                        <line x1="108" y1="80" x2="108" y2="125" stroke="#f43f5e" strokeWidth="2" />
+                        <rect x="130" y="110" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+                        <line x1="138" y1="100" x2="138" y2="155" stroke="#f43f5e" strokeWidth="2" />
+                        {/* The Institutional Flip Bar */}
+                        <rect x="180" y="40" width="24" height="110" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <line x1="192" y1="30" x2="192" y2="160" stroke="#3b82f6" strokeWidth="2" />
+                        <text x="192" y="20" fill="#94a3b8" fontSize="10" fontFamily="monospace" textAnchor="middle">AIL Flip</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'spike_and_channel' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="90" width="16" height="50" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="75" y="40" width="16" height="55" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="100" y="10" width="16" height="40" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <text x="75" y="130" fill="#94a3b8" fontSize="10" fontFamily="monospace" textAnchor="middle">Spike</text>
+                        
+                        <rect x="130" y="20" width="12" height="15" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+                        <line x1="136" y1="15" x2="136" y2="45" stroke="#f43f5e" strokeWidth="2" />
+                        
+                        <rect x="160" y="10" width="12" height="20" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="180" y="5" width="12" height="18" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <line x1="130" y1="50" x2="200" y2="25" stroke="#475569" strokeWidth="2" />
+                        <text x="180" y="50" fill="#94a3b8" fontSize="10" fontFamily="monospace" textAnchor="middle">Channel</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'breakout_vs_failure' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="20" y1="80" x2="380" y2="80" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 4" />
+                        <text x="200" y="75" fill="#f59e0b" fontSize="10" fontFamily="monospace" textAnchor="middle">Resistance</text>
+                        
+                        <rect x="60" y="90" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="85" y="50" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="110" y="20" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <text x="85" y="15" fill="#10b981" fontSize="10" fontFamily="monospace" textAnchor="middle">20% Success</text>
+
+                        <rect x="260" y="90" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="285" y="50" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+                        <rect x="310" y="55" width="12" height="15" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+                        <rect x="330" y="75" width="16" height="40" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+                        <text x="295" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace" textAnchor="middle">80% Failure (Trap)</text>
+                      </svg>
+                    )}
+
+                    {selectedModule.chartIllustration.svgType === 'leg1_leg2_measured_move' && (
+                      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="50" y1="130" x2="120" y2="60" stroke="#3b82f6" strokeWidth="4" />
+                        <text x="70" y="100" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 1</text>
+                        <line x1="120" y1="60" x2="160" y2="90" stroke="#f43f5e" strokeWidth="4" />
+                        <line x1="160" y1="90" x2="230" y2="20" stroke="#3b82f6" strokeWidth="4" />
+                        <text x="200" y="50" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 2</text>
+                        <line x1="50" y1="130" x2="50" y2="60" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
+                        <line x1="160" y1="90" x2="160" y2="20" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
+                        <line x1="50" y1="60" x2="160" y2="20" stroke="#f59e0b" strokeWidth="1" strokeDasharray="2 2" />
+                        <text x="240" y="25" fill="#f59e0b" fontSize="10" fontFamily="monospace">Target (PTZ)</text>
                       </svg>
                     )}
                   </div>
