@@ -396,6 +396,68 @@
         "title": "Visual Breakdown: Spike and Channel Evolution",
         "description": "Displays the violent vertical Spike phase followed by the first pullback and the subsequent grinding, overlapping Channel phase."
       }
+    },
+    {
+      "id": "tier2-mod-2.3",
+      "title": "2.3 Breakouts & The 80% Rule",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "26 mins",
+      "sections": [
+        {
+          "heading": "1. The Anatomy of a Breakout",
+          "content": "A breakout is simply a trend bar that extends beyond a prior support or resistance level (a trend line, a moving average, a prior swing high/low, or a trading range boundary). In Al Brooks' methodology, every single trend bar is a breakout of something, even if it is just a breakout of the prior bar's high or low.",
+          "keyRule": "The most important phase of a breakout is not the breakout bar itself, but the follow-through bar. A massive breakout bar followed immediately by a weak doji or a reversal bar indicates a high probability of failure."
+        },
+        {
+          "heading": "2. The 80% Rule (Failed Breakouts)",
+          "content": "Because markets spend 60% to 70% of their time in trading ranges, institutional algorithms are programmed to buy low and sell high. Therefore, when price approaches the extreme edge of a trading range and breaks out, smart money usually fades it.\n\n- **The Statistic:** Al Brooks observes that roughly 80% of all breakout attempts from a trading range will fail. \n- **The Trap:** Breakout traders enter on stop orders as price clears the boundary. Institutional market makers take the other side of those trades, absorbing the momentum. When the breakout stalls, the early breakout traders panic, buy to cover (or sell to exit), and their liquidations fuel a violent move back into the middle of the range.",
+          "barBreakdownExample": {
+            "scenario": "The market has been in a 10-point range for three hours. A large bull trend bar breaks 2 points above the range high. The very next bar is a bear inside bar closing on its low.",
+            "psychology": "Retail bulls bought the breakout, expecting a new trend. Institutions sold the new high (value). The bear inside bar confirms the institutions won the battle. Bulls are now trapped and will sell at a loss, driving price back down."
+          }
+        },
+        {
+          "heading": "3. The 20% Success: Trading Valid Breakouts",
+          "content": "To trade a breakout successfully, you must look for the 20% of setups that have structural backing. A successful breakout usually features:\n1. A buildup of pressure (e.g., higher lows pushing against a resistance ceiling).\n2. A breakout bar that closes on its absolute extreme, well beyond the resistance line.\n3. A follow-through trend bar in the same direction.\n4. A Breakout Pullback that stays above the original breakout point.",
+          "keyRule": "If you miss the initial breakout, do not chase. Wait for the Breakout Pullback. If the pullback holds, enter on the resumption of the trend."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "breakout_vs_failure",
+        "title": "Visual Breakdown: Successful Breakout vs. Failed Breakout (FBO)",
+        "description": "Side-by-side comparison of a breakout with strong follow-through versus a breakout that gets immediately engulfed by a counter-trend trap."
+      }
+    },
+    {
+      "id": "tier2-mod-2.4",
+      "title": "2.4 Measuring Gaps and Target Projections",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. The Concept of the Measuring Gap",
+          "content": "In price action, a 'gap' is not just a blank space on the chart from an overnight open. A Measuring Gap (or moving average gap) occurs during intraday trading when the market breaks out strongly and leaves a space between the low of the breakout bar and the high of the prior resistance level.\n\nWhen a strong breakout leaves a gap that does not get filled by the subsequent pullback, it signals intense institutional momentum. Algorithms use this gap as the midpoint of the current trend leg.",
+          "keyRule": "An unfilled breakout gap acts as a neon sign pointing to a measured move target. It tells you the trend is only half over."
+        },
+        {
+          "heading": "2. Leg 1 = Leg 2 Projections",
+          "content": "The market moves in two-legged structures. When a strong trend begins (Leg 1), pauses for a pullback, and then resumes (Leg 2), the length of Leg 2 is very frequently identical to the length of Leg 1.\n\n- **How to Measure:** Measure the distance from the absolute start of the trend (the bottom of the reversal) to the top of the first climax (the start of the pullback). Project that exact distance upward from the bottom of the pullback. This is your Leg 1 = Leg 2 target.",
+          "barBreakdownExample": {
+            "scenario": "The ES futures rally 15 points from the morning low, pull back 5 points to the moving average, and then form a strong bull reversal bar.",
+            "psychology": "Institutional algorithms calculate the 15-point initial run. As the market resumes from the pullback, computers will automatically place limit sell orders to take profits exactly 15 points higher from the pullback low. This creates a self-fulfilling price magnet."
+          }
+        },
+        {
+          "heading": "3. Trade Management Using Targets",
+          "content": "Measured move targets are not exact reversal points, but they are high-probability 'Profit Taking Zones' (PTZ). \n\n- **For Trend Traders:** If you are long in a bull trend, a Leg 1 = Leg 2 target is the perfect place to scale out of a portion of your position.\n- **For Counter-Trend Traders:** Never step in front of a strong trend to short *until* a major measured move target has been reached. Only look for reversal signal bars after the algorithms have hit their profit targets.",
+          "keyRule": "Price acts as a magnet to measured move targets. Once the target is hit, the magnet is turned off, and the market becomes vulnerable to a two-legged pullback or a reversal."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "leg1_leg2_measured_move",
+        "title": "Visual Breakdown: Leg 1 = Leg 2 Projection",
+        "description": "Chart showing the exact geometric projection of the first trend leg mapped onto the second leg, highlighting the profit-taking zone."
+      }
     }
   ]
 }
