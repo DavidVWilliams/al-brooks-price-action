@@ -1,8 +1,7 @@
-// Version: v3.4 - "Don't Make Me Think" Navigation, Clear Labels & Tier Interstitials
+// Version: v3.5 - Clean Macro Phase Rail in Main Canvas (Zero Sidebar Cutoff)
 import { useState, useMemo, useRef } from 'react';
 import data from '../data/curriculumData.json';
 
-// Explicit, self-explanatory tier metadata (No cryptic T1/T2 abbreviations)
 const TIER_METADATA = {
   tier0: { 
     id: 'tier0', 
@@ -52,7 +51,6 @@ export default function LearnView() {
   const modules = Array.isArray(data?.modules) ? data.modules : [];
   const [selectedModule, setSelectedModule] = useState(modules[0] || null);
 
-  // Dedicated ref to ensure smooth scroll to top on every navigation event
   const mainScrollRef = useRef(null);
 
   // Milestone interstitial state (shown when finishing the final module of a tier)
@@ -117,19 +115,16 @@ export default function LearnView() {
   const prevModule = currentIndex > 0 ? modules[currentIndex - 1] : null;
   const nextModule = currentIndex >= 0 && currentIndex < modules.length - 1 ? modules[currentIndex + 1] : null;
 
-  // Active tier metadata and step position
   const activeTierObj = groupedTiers[currentTierKey] || TIER_METADATA[currentTierKey] || {};
   const currentTierItems = activeTierObj.items || [];
   const currentStepInTier = currentTierItems.findIndex((m) => m.id === selectedModule?.id) + 1;
 
-  // Scroll to top helper
   const scrollToTop = () => {
     if (mainScrollRef.current) {
       mainScrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  // Module Selection Handler
   const handleSelectModule = (mod) => {
     if (!mod) return;
     setShowMilestoneCard(false);
@@ -137,7 +132,6 @@ export default function LearnView() {
     const tier = getTierKey(mod);
     setOpenTierKey(tier);
     
-    // Reset state
     setCurrentCardIndex(0);
     setIsFlipped(false);
     setCurrentQuestionIndex(0);
@@ -149,7 +143,6 @@ export default function LearnView() {
     scrollToTop();
   };
 
-  // Top Rail Tier Jump
   const handleSelectTierRail = (tierKey) => {
     setShowMilestoneCard(false);
     setOpenTierKey(tierKey);
@@ -163,7 +156,6 @@ export default function LearnView() {
     setOpenTierKey((prev) => (prev === tierKey ? null : tierKey));
   };
 
-  // Guided Continuation Handler
   const handleAdvanceToNext = () => {
     if (!nextModule) return;
 
@@ -171,7 +163,6 @@ export default function LearnView() {
     const isCrossingTierBoundary = nextTier !== currentTierKey;
 
     if (isCrossingTierBoundary) {
-      // Option B: Show celebratory milestone interstitial before entering next tier
       setPendingNextModule(nextModule);
       setShowMilestoneCard(true);
       scrollToTop();
@@ -187,7 +178,6 @@ export default function LearnView() {
     }
   };
 
-  // Flashcard controls
   const handleNextCard = (total) => {
     setIsFlipped(false);
     setCurrentCardIndex((prev) => (prev + 1) % total);
@@ -198,7 +188,6 @@ export default function LearnView() {
     setCurrentCardIndex((prev) => (prev - 1 + total) % total);
   };
 
-  // Quiz controls
   const handleSelectQuizOption = (index, correctIndex) => {
     if (showExplanation) return;
     setSelectedOption(index);
@@ -229,41 +218,22 @@ export default function LearnView() {
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 overflow-hidden">
       
-      {/* Sidebar Navigation: Standard md:w-80 (20rem / 320px) */}
+      {/* Sidebar Navigation: Clean, Uncluttered 320px List */}
       <aside className="w-full md:w-80 md:min-w-[20rem] md:max-w-[20rem] border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/60 flex flex-col shrink-0 h-72 md:h-full">
         
-        {/* Top Header & Self-Explanatory Segmented Tier Rail */}
-        <div className="p-3 border-b border-slate-800 bg-slate-900/90 space-y-2 shrink-0">
-          <div className="flex items-center justify-between">
-            <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">
-              Curriculum Roadmap
+        {/* Sidebar Header */}
+        <div className="p-3.5 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between shrink-0">
+          <div>
+            <h3 className="text-[11px] font-bold text-slate-300 uppercase tracking-wider font-mono">
+              Course Syllabus
             </h3>
-            <span className="text-[10px] font-mono text-blue-400 bg-blue-950/60 border border-blue-900 px-2 py-0.5 rounded">
-              {modules.length} Lessons
+            <span className="text-[10px] text-slate-500 font-mono">
+              Al Brooks Price Action Mastery
             </span>
           </div>
-
-          {/* Quick-Jump Segmented Rail with Clear Plain-English Labels */}
-          <div className="flex items-center gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-lg overflow-x-auto [&::-webkit-scrollbar]:hidden">
-            {tierKeys.map((key) => {
-              const tier = groupedTiers[key];
-              const isActiveTier = currentTierKey === key;
-              return (
-                <button
-                  key={key}
-                  onClick={() => handleSelectTierRail(key)}
-                  className={`py-1.5 px-2.5 rounded text-xs font-semibold transition-all whitespace-nowrap shrink-0 ${
-                    isActiveTier
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-                  }`}
-                  title={tier?.title || key}
-                >
-                  {tier?.label || key}
-                </button>
-              );
-            })}
-          </div>
+          <span className="text-[10px] font-mono font-semibold text-blue-400 bg-blue-950/60 border border-blue-900 px-2 py-0.5 rounded">
+            {modules.length} Lessons
+          </span>
         </div>
 
         {/* Exclusive Single-Open Accordion List */}
@@ -303,7 +273,7 @@ export default function LearnView() {
                   </div>
 
                   <span className="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-0.5 rounded border border-slate-800/80 shrink-0 ml-2">
-                    {tier.items?.length || 0} lessons
+                    {tier.items?.length || 0}
                   </span>
                 </button>
 
@@ -346,7 +316,34 @@ export default function LearnView() {
         ref={mainScrollRef}
         className="flex-1 overflow-y-auto bg-slate-950 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700"
       >
-        <section className="p-6 md:p-12 flex flex-col max-w-4xl mx-auto w-full min-h-full justify-between">
+        {/* Generous Macro Phase Rail Across Full Content Header */}
+        <div className="border-b border-slate-800/80 bg-slate-900/40 px-6 py-3 sticky top-0 z-10 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto flex items-center gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            <span className="text-[10px] font-mono uppercase text-slate-500 font-bold tracking-wider shrink-0 mr-1">
+              Phases:
+            </span>
+            {tierKeys.map((key) => {
+              const tier = groupedTiers[key];
+              const isActiveTier = currentTierKey === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => handleSelectTierRail(key)}
+                  className={`py-1.5 px-3 rounded-lg text-xs font-semibold transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+                    isActiveTier
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800'
+                  }`}
+                  title={tier?.title || key}
+                >
+                  <span>{tier?.label || key}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <section className="p-6 md:p-12 flex flex-col max-w-4xl mx-auto w-full min-h-[calc(100%-49px)] justify-between">
           
           {/* OPTION B: MILESTONE INTERSTITIAL CARD */}
           {showMilestoneCard ? (
@@ -373,7 +370,7 @@ export default function LearnView() {
                     Next Phase Unlocked:
                   </span>
                   <h4 className="text-base font-bold text-slate-100">
-                    {TIER_METADATA[getTierKey(pendingNextModule)]?.title || 'Next Tier'}
+                    {TIER_METADATA[getTierKey(pendingNextModule)]?.title || 'Next Phase'}
                   </h4>
                   <p className="text-xs text-slate-400 leading-relaxed">
                     {TIER_METADATA[getTierKey(pendingNextModule)]?.description || ''}
