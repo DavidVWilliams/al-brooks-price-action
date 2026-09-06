@@ -1,9 +1,9 @@
-// Version: v1.0 - Tier 4.4 Double Top/Bottom Pullback Simulator
+// Version: v1.1 - Tier 4.4 Double Top/Bottom Lab with Explicit Lab Exercise Guidance
 import { useState, useMemo } from 'react';
 
 export default function DoubleTopBottomPullbackLab() {
-  const [patternType, setPatternType] = useState('double_bottom'); // 'double_bottom' | 'double_top'
-  const [secondTestOffset, setSecondTestOffset] = useState(0); // -2 (lower low), 0 (exact), +2 (higher low)
+  const [patternType, setPatternType] = useState('double_bottom');
+  const [secondTestOffset, setSecondTestOffset] = useState(1);
   const [pullbackHolding, setPullbackHolding] = useState(true);
 
   const evaluation = useMemo(() => {
@@ -45,6 +45,8 @@ export default function DoubleTopBottomPullbackLab() {
 
   return (
     <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-6 shadow-xl text-slate-100">
+      
+      {/* HEADER & GRADE */}
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-800 gap-2">
         <div>
           <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest bg-blue-950/60 px-2.5 py-0.5 rounded border border-blue-900/60">
@@ -59,29 +61,36 @@ export default function DoubleTopBottomPullbackLab() {
         </span>
       </div>
 
+      {/* EXPLICIT LAB EXERCISE INSTRUCTIONS CARD */}
+      <div className="p-4 bg-blue-950/20 border border-blue-900/50 rounded-lg space-y-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
+          <span>🧪</span> Lab Exercise: The Breakout Pullback Entry
+        </div>
+        <ol className="text-xs text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed font-sans">
+          <li><strong>Step 1 (Select Pattern Direction):</strong> Toggle between &ldquo;Double Bottom&rdquo; (bull reversal/continuation) and &ldquo;Double Top&rdquo; (bear reversal/continuation).</li>
+          <li><strong>Step 2 (The Second Extreme Test):</strong> Test &ldquo;Higher Low&rdquo; vs. &ldquo;Lower Low&rdquo;. In Brooks price action, an exact tick-for-tick match is rare; a Higher Low proves buyers were so eager they bid up early.</li>
+          <li><strong>Step 3 (The Neckline Retest):</strong> Toggle &ldquo;Breakout Pullback Status&rdquo;. Never chase the initial breakout leg—wait for the shallow pullback that tests the neckline, confirms support, and triggers on a stop order.</li>
+        </ol>
+      </div>
+
       {/* SVG CANVAS */}
       <div className="w-full h-56 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4 relative overflow-hidden">
         <svg className="w-full h-full max-h-48" viewBox="0 0 460 180" fill="none">
           {patternType === 'double_bottom' ? (
             <g>
-              {/* Neckline */}
               <line x1="40" y1="50" x2="420" y2="50" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
               <text x="360" y="45" fill="#f59e0b" fontSize="9" fontFamily="monospace">Neckline (Resistance)</text>
 
-              {/* Push 1 Down */}
               <path d="M 50 40 L 100 130" stroke="#f43f5e" strokeWidth="3" />
               <text x="95" y="145" fill="#94a3b8" fontSize="9" fontFamily="monospace">Low 1</text>
 
-              {/* Bounce to Neckline */}
               <path d="M 100 130 L 180 50" stroke="#3b82f6" strokeWidth="2.5" />
 
-              {/* Push 2 Down */}
               <path d={`M 180 50 L 260 ${130 - secondTestOffset * 10}`} stroke="#f43f5e" strokeWidth="3" />
               <text x="255" y={145 - secondTestOffset * 10} fill="#38bdf8" fontSize="9" fontFamily="monospace">
                 Low 2 ({secondTestOffset > 0 ? 'Higher Low' : secondTestOffset < 0 ? 'Lower Low' : 'Equal'})
               </text>
 
-              {/* Breakout & Pullback */}
               <path d={`M 260 ${130 - secondTestOffset * 10} L 330 35`} stroke="#10b981" strokeWidth="3" />
               {pullbackHolding && (
                 <g>
@@ -93,24 +102,19 @@ export default function DoubleTopBottomPullbackLab() {
             </g>
           ) : (
             <g>
-              {/* Neckline */}
               <line x1="40" y1="120" x2="420" y2="120" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
               <text x="360" y="135" fill="#f59e0b" fontSize="9" fontFamily="monospace">Neckline (Support)</text>
 
-              {/* Push 1 Up */}
               <path d="M 50 130 L 100 40" stroke="#3b82f6" strokeWidth="3" />
               <text x="95" y="30" fill="#94a3b8" fontSize="9" fontFamily="monospace">Top 1</text>
 
-              {/* Pullback to Neckline */}
               <path d="M 100 40 L 180 120" stroke="#f43f5e" strokeWidth="2.5" />
 
-              {/* Push 2 Up */}
               <path d={`M 180 120 L 260 ${40 + secondTestOffset * 10}`} stroke="#3b82f6" strokeWidth="3" />
               <text x="255" y={30 + secondTestOffset * 10} fill="#38bdf8" fontSize="9" fontFamily="monospace">
                 Top 2 ({secondTestOffset < 0 ? 'Lower High' : secondTestOffset > 0 ? 'Higher High' : 'Equal'})
               </text>
 
-              {/* Breakout Below Neckline & Pullback */}
               <path d={`M 260 ${40 + secondTestOffset * 10} L 330 135`} stroke="#f43f5e" strokeWidth="3" />
               {pullbackHolding && (
                 <g>
