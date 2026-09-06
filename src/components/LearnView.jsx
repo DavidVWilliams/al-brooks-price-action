@@ -1,4 +1,4 @@
-// Version: v6.1 - Canonical Syllabus Accordion & Guaranteed SVGs (Tiers 0-5)
+// Version: v6.2 - Bulletproof Static SVG Illustration Engine for Tiers 0-5
 import { useState, useMemo, useEffect } from 'react';
 import rawData from '../data/curriculumData.js';
 import { getInteractiveLab } from './interactive/LabRegistry.jsx';
@@ -12,6 +12,377 @@ const TIERS = [
   { id: 'tier5', label: 'Tier 5: Math & Execution (Trader\'s Equation & Risk)' },
 ];
 
+// Dedicated Vector Illustration Renderer
+function LessonChartIllustration({ selectedModule }) {
+  const svgType = selectedModule?.chartIllustration?.svgType || '';
+  const id = (selectedModule?.id || '').toLowerCase();
+  const title = (selectedModule?.title || '').toLowerCase();
+
+  // --- TIER 0: 0.1 DOM AUCTION & ORDER BOOK DEPTH ---
+  if (
+    svgType === 'order_book_dom' ||
+    svgType === 'dom_order_book' ||
+    svgType === 'auction_microstructure' ||
+    id.includes('0.1') ||
+    title.includes('auction theory') ||
+    title.includes('microstructure') ||
+    title.includes('order book')
+  ) {
+    return (
+      <svg className="w-full h-full max-h-40 text-slate-700" viewBox="0 0 440 150" fill="none">
+        {/* Resting Asks (Sellers) */}
+        <rect x="30" y="15" width="130" height="20" fill="#4c0519" stroke="#f43f5e" strokeWidth="1.5" rx="3" />
+        <text x="40" y="29" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold">ASK 5022.50 [140]</text>
+
+        <rect x="30" y="39" width="105" height="20" fill="#4c0519" stroke="#f43f5e" strokeWidth="1.5" rx="3" />
+        <text x="40" y="53" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold">ASK 5022.25 [95]</text>
+
+        {/* 1-Tick Spread / Inside Market */}
+        <line x1="20" y1="68" x2="180" y2="68" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4 4" />
+        <text x="100" y="78" fill="#f59e0b" fontSize="8" fontFamily="monospace" textAnchor="middle">1-Tick Inside Spread (NBBO)</text>
+
+        {/* Resting Bids (Buyers) */}
+        <rect x="30" y="86" width="115" height="20" fill="#065f46" stroke="#10b981" strokeWidth="1.5" rx="3" />
+        <text x="40" y="100" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold">BID 5021.75 [110]</text>
+
+        <rect x="30" y="110" width="140" height="20" fill="#065f46" stroke="#10b981" strokeWidth="1.5" rx="3" />
+        <text x="40" y="124" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold">BID 5021.50 [185]</text>
+
+        {/* Dynamic Aggressive Market Order Sweep */}
+        <path d="M 230 120 L 230 35" stroke="#38bdf8" strokeWidth="3" />
+        <polygon points="222,40 238,40 230,26" fill="#38bdf8" />
+        <text x="245" y="50" fill="#38bdf8" fontSize="11" fontFamily="monospace" fontWeight="bold">Market Buy Sweep (+220)</text>
+        <text x="245" y="68" fill="#94a3b8" fontSize="9" fontFamily="monospace">Aggressive Flow Lifts Resting Asks</text>
+        <text x="245" y="84" fill="#cbd5e1" fontSize="9" fontFamily="monospace">Instant Real-Time Price Discovery</text>
+        <text x="245" y="102" fill="#ef4444" fontSize="9" fontFamily="monospace">⚡ Supersedes Lagging Indicators</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 0: 0.2 DUAL-ENGINE ARCHITECTURE & FEEDBACK LOOP ---
+  if (
+    svgType === 'dual_engine_loop' ||
+    svgType === 'dual_engine_diagram' ||
+    svgType === 'learning_methodology' ||
+    id.includes('0.2') ||
+    title.includes('mindset') ||
+    title.includes('master this platform') ||
+    title.includes('methodology')
+  ) {
+    return (
+      <svg className="w-full h-full max-h-40 text-slate-700" viewBox="0 0 440 150" fill="none">
+        {/* Node 1: Learn Mode */}
+        <rect x="25" y="42" width="105" height="58" fill="#0f172a" stroke="#3b82f6" strokeWidth="2" rx="4" />
+        <text x="77" y="66" fill="#3b82f6" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">1. Learn Mode</text>
+        <text x="77" y="82" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Brooks Axioms</text>
+
+        <line x1="130" y1="71" x2="165" y2="71" stroke="#38bdf8" strokeWidth="2.5" />
+        <polygon points="163,67 171,71 163,75" fill="#38bdf8" />
+
+        {/* Node 2: Simulator Mode */}
+        <rect x="170" y="42" width="115" height="58" fill="#0f172a" stroke="#10b981" strokeWidth="2" rx="4" />
+        <text x="227" y="66" fill="#10b981" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">2. Simulator</text>
+        <text x="227" y="82" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Live Execution</text>
+
+        <line x1="285" y1="71" x2="315" y2="71" stroke="#38bdf8" strokeWidth="2.5" />
+        <polygon points="313,67 321,71 313,75" fill="#38bdf8" />
+
+        {/* Node 3: AI Mentor */}
+        <rect x="320" y="42" width="100" height="58" fill="#0f172a" stroke="#f59e0b" strokeWidth="2" rx="4" />
+        <text x="370" y="66" fill="#f59e0b" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">3. AI Mentor</text>
+        <text x="370" y="82" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Expectancy Audit</text>
+
+        {/* Feedback loop arrow */}
+        <path d="M 370 100 L 370 126 L 77 126 L 77 100" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
+        <polygon points="73,103 81,103 77,95" fill="#475569" />
+        <text x="225" y="140" fill="#64748b" fontSize="9" fontFamily="monospace" textAnchor="middle">Closed-Loop Expectancy Feedback Cycle</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.1 BULL VS BEAR ---
+  if (svgType === 'bull_vs_bear' || id.includes('1.1')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
+        <rect x="105" y="40" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+        <text x="90" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Bull Trend Bar (Top 20% Close)</text>
+        <line x1="280" y1="20" x2="280" y2="130" stroke="#f43f5e" strokeWidth="2" />
+        <rect x="265" y="35" width="30" height="75" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="2" />
+        <text x="245" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace">Bear Trend Bar (Bottom 20% Close)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.2 DOJI EQUILIBRIUM ---
+  if (svgType === 'doji_equilibrium' || id.includes('1.2')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
+        <rect x="105" y="40" width="30" height="70" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+        <text x="95" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Strong Trend Body</text>
+        <line x1="280" y1="20" x2="280" y2="130" stroke="#94a3b8" strokeWidth="2" />
+        <rect x="265" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
+        <text x="245" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Center 50% Equilibrium)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.3 INSIDE BAR ---
+  if (svgType === 'inside_bar' || id.includes('1.3')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="140" y1="10" x2="140" y2="140" stroke="#3b82f6" strokeWidth="2" />
+        <rect x="120" y="30" width="40" height="90" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+        <text x="110" y="145" fill="#3b82f6" fontSize="9" fontFamily="monospace">Mother Bar (1)</text>
+        <line x1="260" y1="45" x2="260" y2="105" stroke="#f59e0b" strokeWidth="2" />
+        <rect x="245" y="55" width="30" height="40" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
+        <text x="235" y="145" fill="#f59e0b" fontSize="9" fontFamily="monospace">Inside Bar (2: Compression)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.4 OUTSIDE BAR ---
+  if (svgType === 'outside_bar' || id.includes('1.4')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="140" y1="50" x2="140" y2="100" stroke="#94a3b8" strokeWidth="2" />
+        <rect x="125" y="60" width="30" height="30" fill="#334155" stroke="#94a3b8" strokeWidth="2" rx="2" />
+        <text x="120" y="145" fill="#94a3b8" fontSize="9" fontFamily="monospace">Prior Bar</text>
+        <line x1="260" y1="15" x2="260" y2="135" stroke="#10b981" strokeWidth="2" />
+        <rect x="240" y="25" width="40" height="100" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
+        <text x="220" y="145" fill="#10b981" fontSize="9" fontFamily="monospace">Outside Bar (Double Sweep Trap)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.5 SIGNAL VS ENTRY BAR ---
+  if (svgType === 'signal_vs_entry' || id.includes('1.5')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="130" y1="30" x2="130" y2="120" stroke="#f59e0b" strokeWidth="2" />
+        <rect x="115" y="45" width="30" height="60" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
+        <text x="105" y="140" fill="#f59e0b" fontSize="9" fontFamily="monospace">Signal Bar (Setup Definition)</text>
+        <line x1="270" y1="15" x2="270" y2="110" stroke="#3b82f6" strokeWidth="2" />
+        <rect x="255" y="25" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+        <text x="245" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Entry Bar (+1 Tick Trigger)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.6 REVERSAL BAR ---
+  if (svgType === 'reversal_bar' || id.includes('1.6')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="200" y1="10" x2="200" y2="140" stroke="#ec4899" strokeWidth="2" />
+        <rect x="180" y="20" width="40" height="90" fill="#831843" stroke="#ec4899" strokeWidth="2" rx="2" />
+        <text x="145" y="145" fill="#ec4899" fontSize="9" fontFamily="monospace">Reversal Bar (Exhaustion Tail + Climax Close)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.7 MICRO CHANNEL ---
+  if (svgType === 'micro_channel' || id.includes('1.7')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <rect x="90" y="90" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+        <rect x="150" y="70" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" rx="1" />
+        <rect x="210" y="50" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+        <rect x="270" y="30" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
+        <text x="145" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Tight Bull Micro Channel (Consecutive Higher Lows)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 1: 1.8 MARKET STATES ---
+  if (svgType === 'market_states' || id.includes('1.8')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <rect x="30" y="30" width="140" height="90" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.5" rx="4" />
+        <text x="45" y="80" fill="#3b82f6" fontSize="10" fontFamily="monospace" fontWeight="bold">Trend State (30-40%)</text>
+        <rect x="230" y="30" width="140" height="90" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
+        <text x="235" y="80" fill="#f59e0b" fontSize="10" fontFamily="monospace" fontWeight="bold">Trading Range (60-70%)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 2: 2.1 ALWAYS IN FLIP ---
+  if (svgType === 'always_in_flip' || id.includes('2.1')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="50" y1="50" x2="150" y2="150" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
+        <rect x="70" y="70" width="16" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <rect x="100" y="90" width="16" height="25" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <rect x="130" y="110" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <rect x="180" y="30" width="24" height="110" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
+        <text x="192" y="20" fill="#38bdf8" fontSize="10" fontFamily="monospace" textAnchor="middle">AIL Surprise Bar (Direction Flip)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 2: 2.2 SPIKE AND CHANNEL ---
+  if (svgType === 'spike_and_channel' || id.includes('2.2')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <rect x="50" y="90" width="16" height="50" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="75" y="40" width="16" height="55" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="100" y="15" width="16" height="40" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <text x="75" y="130" fill="#94a3b8" fontSize="10" fontFamily="monospace" textAnchor="middle">Spike (Urgency)</text>
+        <line x1="130" y1="50" x2="280" y2="15" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 4" />
+        <line x1="130" y1="90" x2="280" y2="55" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 4" />
+        <text x="210" y="75" fill="#38bdf8" fontSize="10" fontFamily="monospace" textAnchor="middle">Channel (Diagonal Range)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 2: 2.3 BREAKOUT VS FAILURE ---
+  if (svgType === 'breakout_vs_failure' || id.includes('2.3')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="20" y1="75" x2="380" y2="75" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 4" />
+        <text x="200" y="70" fill="#f59e0b" fontSize="10" fontFamily="monospace" textAnchor="middle">Range Resistance</text>
+        <rect x="70" y="45" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="95" y="20" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <text x="85" y="15" fill="#10b981" fontSize="10" fontFamily="monospace" textAnchor="middle">20% Genuine Breakout</text>
+        <rect x="280" y="45" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="305" y="55" width="16" height="40" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <text x="295" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace" textAnchor="middle">80% Breakout Trap (FBO)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 2: 2.4 MEASURED MOVE ---
+  if (svgType === 'leg1_leg2_measured_move' || id.includes('2.4')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="50" y1="130" x2="120" y2="60" stroke="#3b82f6" strokeWidth="4" />
+        <text x="70" y="100" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 1</text>
+        <line x1="120" y1="60" x2="160" y2="90" stroke="#f43f5e" strokeWidth="4" />
+        <line x1="160" y1="90" x2="230" y2="20" stroke="#3b82f6" strokeWidth="4" />
+        <text x="200" y="50" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 2</text>
+        <line x1="160" y1="90" x2="160" y2="20" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
+        <text x="260" y="25" fill="#f59e0b" fontSize="10" fontFamily="monospace">Leg 1 = Leg 2 Target (PTZ)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 3: HIGH 1 / HIGH 2 ---
+  if (svgType === 'high1_high2' || id.includes('3.1')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <path d="M 40 120 Q 150 110 360 80" stroke="#38bdf8" strokeWidth="2" strokeDasharray="4 4" />
+        <text x="365" y="83" fill="#38bdf8" fontSize="9" fontFamily="monospace">20 EMA</text>
+        <rect x="70" y="50" width="16" height="50" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="110" y="70" width="16" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <text x="118" y="115" fill="#94a3b8" fontSize="9" fontFamily="monospace" textAnchor="middle">H1</text>
+        <rect x="150" y="85" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <rect x="180" y="65" width="18" height="45" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="1" />
+        <text x="189" y="55" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">H2 Entry (~60%)</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 3: LOW 1 / LOW 2 ---
+  if (svgType === 'low1_low2' || id.includes('3.2')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <path d="M 40 30 Q 150 40 360 70" stroke="#38bdf8" strokeWidth="2" strokeDasharray="4 4" />
+        <text x="365" y="73" fill="#38bdf8" fontSize="9" fontFamily="monospace">20 EMA</text>
+        <rect x="70" y="50" width="16" height="50" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        <rect x="110" y="40" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <text x="118" y="30" fill="#94a3b8" fontSize="9" fontFamily="monospace" textAnchor="middle">L1</text>
+        <rect x="150" y="35" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="180" y="50" width="18" height="45" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="1" />
+        <text x="189" y="115" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">L2 Short Entry</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 3: 20 EMA GAP BAR ---
+  if (svgType === 'ma_gap_bar' || id.includes('3.3')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="30" y1="65" x2="370" y2="65" stroke="#38bdf8" strokeWidth="2" />
+        <text x="375" y="68" fill="#38bdf8" fontSize="9" fontFamily="monospace">20 EMA</text>
+        <rect x="80" y="20" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="140" y="25" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+        <rect x="200" y="80" width="18" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" />
+        <line x1="209" y1="72" x2="209" y2="80" stroke="#f43f5e" strokeWidth="1.5" />
+        <text x="209" y="130" fill="#f59e0b" fontSize="9" fontFamily="monospace" textAnchor="middle">Gap Bar (Entirely Below EMA)</text>
+        <path d="M 230 90 Q 280 40 330 20" stroke="#10b981" strokeWidth="2" strokeDasharray="3 3" />
+        <text x="335" y="18" fill="#10b981" fontSize="9" fontFamily="monospace">~75% Test of High</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 3: WEDGE PULLBACK ---
+  if (svgType === 'wedge_pullback' || id.includes('3.4')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="60" y1="40" x2="280" y2="105" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4 4" />
+        <line x1="100" y1="90" x2="290" y2="120" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4 4" />
+        <text x="110" y="45" fill="#94a3b8" fontSize="9" fontFamily="monospace">Push 1</text>
+        <text x="180" y="70" fill="#94a3b8" fontSize="9" fontFamily="monospace">Push 2</text>
+        <text x="250" y="95" fill="#94a3b8" fontSize="9" fontFamily="monospace">Push 3 (Exhaustion)</text>
+        <rect x="295" y="75" width="18" height="40" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="1" />
+        <text x="304" y="65" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">Wedge Reversal</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 3: BARB WIRE ---
+  if (svgType === 'barb_wire' || id.includes('3.5')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="40" y1="75" x2="360" y2="75" stroke="#38bdf8" strokeWidth="2" />
+        <text x="365" y="78" fill="#38bdf8" fontSize="9" fontFamily="monospace">Flat 20 EMA</text>
+        <g transform="translate(100, 0)">
+          <line x1="20" y1="35" x2="20" y2="115" stroke="#94a3b8" strokeWidth="1.5" />
+          <rect x="12" y="60" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+          <line x1="50" y1="40" x2="50" y2="110" stroke="#94a3b8" strokeWidth="1.5" />
+          <rect x="42" y="55" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+          <line x1="80" y1="30" x2="80" y2="120" stroke="#94a3b8" strokeWidth="1.5" />
+          <rect x="72" y="65" width="16" height="25" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
+          <line x1="110" y1="45" x2="110" y2="115" stroke="#94a3b8" strokeWidth="1.5" />
+          <rect x="102" y="58" width="16" height="32" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
+        </g>
+        <text x="200" y="140" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+          Barb Wire: Flat 20 EMA & Heavy Overlap (Limit Orders Only)
+        </text>
+      </svg>
+    );
+  }
+
+  // --- TIER 4: REVERSALS, MTR, CLIMAXES ---
+  if (svgType === 'mtr_reversal' || id.includes('4.')) {
+    return (
+      <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+        <line x1="40" y1="130" x2="180" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="3 3" />
+        <line x1="180" y1="40" x2="220" y2="90" stroke="#f43f5e" strokeWidth="2" />
+        <text x="230" y="95" fill="#f59e0b" fontSize="9" fontFamily="monospace">1. Trendline Break</text>
+        <line x1="220" y1="90" x2="280" y2="50" stroke="#3b82f6" strokeWidth="2" />
+        <text x="285" y="45" fill="#f59e0b" fontSize="9" fontFamily="monospace">2. Lower High Test</text>
+        <rect x="295" y="55" width="18" height="45" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="1" />
+        <text x="304" y="120" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">MTR Short Trigger</text>
+      </svg>
+    );
+  }
+
+  // --- TIER 5: TRADER'S EQUATION & RISK ---
+  return (
+    <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
+      <line x1="200" y1="30" x2="200" y2="120" stroke="#475569" strokeWidth="3" />
+      <polygon points="180,120 220,120 200,90" fill="#334155" />
+      <line x1="70" y1="70" x2="330" y2="70" stroke="#38bdf8" strokeWidth="3" />
+      <rect x="60" y="40" width="80" height="30" fill="#065f46" stroke="#10b981" strokeWidth="1.5" rx="3" />
+      <text x="100" y="60" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">P × Reward</text>
+      <rect x="260" y="40" width="80" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1.5" rx="3" />
+      <text x="300" y="60" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">(1-P) × Risk</text>
+      <text x="200" y="140" fill="#38bdf8" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">Expectancy &gt; 0: Positive Math Edge</text>
+    </svg>
+  );
+}
+
 export default function LearnView({ activePhase, onSelectPhase }) {
   const data = rawData?.modules ? rawData : (rawData?.curriculumData || { modules: [] });
   const modules = data.modules || [];
@@ -21,7 +392,6 @@ export default function LearnView({ activePhase, onSelectPhase }) {
   const currentTierId = selectedModule.id?.split('-')[0] || 'tier0';
   const [openTier, setOpenTier] = useState(currentTierId);
 
-  // Sync accordion with top navbar phase rail
   useEffect(() => {
     if (activePhase) {
       setOpenTier(activePhase);
@@ -32,7 +402,6 @@ export default function LearnView({ activePhase, onSelectPhase }) {
     }
   }, [activePhase]);
 
-  // Group modules by tier
   const modulesByTier = useMemo(() => {
     const grouped = {};
     TIERS.forEach((t) => {
@@ -118,67 +487,11 @@ export default function LearnView({ activePhase, onSelectPhase }) {
 
   const ActiveLabComponent = selectedModule?.id ? getInteractiveLab(selectedModule.id) : null;
 
-  // Resolve SVG type from module metadata, ID, or title
-  const resolvedSvgType = useMemo(() => {
-    if (selectedModule?.chartIllustration?.svgType) {
-      return selectedModule.chartIllustration.svgType;
-    }
-    const id = (selectedModule?.id || '').toLowerCase();
-    const title = (selectedModule?.title || '').toLowerCase();
-
-    // Tier 0
-    if (id.includes('0.1') || title.includes('paradigm') || title.includes('order book')) return 'order_book_dom';
-    if (id.includes('0.2') || title.includes('methodology') || title.includes('mindset') || title.includes('feedback')) return 'dual_engine_loop';
-
-    // Tier 1
-    if (id.includes('1.1')) return 'bull_vs_bear';
-    if (id.includes('1.2')) return 'doji_equilibrium';
-    if (id.includes('1.3')) return 'inside_bar';
-    if (id.includes('1.4')) return 'outside_bar';
-    if (id.includes('1.5')) return 'signal_vs_entry';
-    if (id.includes('1.6')) return 'reversal_bar';
-    if (id.includes('1.7')) return 'micro_channel';
-    if (id.includes('1.8')) return 'market_states';
-
-    // Tier 2
-    if (id.includes('2.1')) return 'always_in_flip';
-    if (id.includes('2.2')) return 'spike_and_channel';
-    if (id.includes('2.3')) return 'breakout_vs_failure';
-    if (id.includes('2.4')) return 'leg1_leg2_measured_move';
-
-    // Tier 3
-    if (id.includes('3.1') || title.includes('high 1') || title.includes('high 2')) return 'high1_high2';
-    if (id.includes('3.2') || title.includes('low 1') || title.includes('low 2')) return 'low1_low2';
-    if (id.includes('3.3') || title.includes('gap bar') || title.includes('ema gap')) return 'ma_gap_bar';
-    if (id.includes('3.4') || title.includes('wedge')) return 'wedge_pullback';
-    if (id.includes('3.5') || title.includes('barb wire')) return 'barb_wire';
-
-    // Tier 4
-    if (id.includes('4.1') || title.includes('mtr') || title.includes('reversal')) return 'mtr_reversal';
-    if (id.includes('4.2') || title.includes('climax')) return 'climax_overshoot';
-    if (id.includes('4.3') || title.includes('final flag')) return 'final_flag';
-    if (id.includes('4.4') || title.includes('double top') || title.includes('double bottom')) return 'double_top_bottom';
-
-    // Tier 5
-    if (id.includes('5.1') || title.includes('equation')) return 'traders_equation';
-    if (id.includes('5.2') || title.includes('risk')) return 'actual_vs_initial_risk';
-    if (id.includes('5.3') || title.includes('scaling')) return 'scale_in_matrix';
-    if (id.includes('5.4') || title.includes('stop')) return 'stop_discipline';
-
-    return 'order_book_dom';
-  }, [selectedModule]);
-
-  // Illustration metadata
-  const illustrationTitle = selectedModule?.chartIllustration?.title || 'Visual Price Action Schematic';
-  const illustrationDesc = selectedModule?.chartIllustration?.description || 'Tick-by-tick structural price action geometry and institutional mechanics.';
-
   return (
-    <div className="w-full h-full flex flex-col md:flex-row bg-slate-950 text-slate-100 overflow-hidden">
+    <div className="w-full h-full flex-1 flex flex-col md:flex-row bg-slate-950 text-slate-100 overflow-hidden">
       
       {/* SIDEBAR ACCORDION */}
       <aside className="w-full md:w-80 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/50 flex flex-col shrink-0 h-56 md:h-full select-none">
-        
-        {/* Sidebar Header */}
         <div className="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
           <div>
             <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
@@ -193,7 +506,6 @@ export default function LearnView({ activePhase, onSelectPhase }) {
           </span>
         </div>
 
-        {/* Accordion Panels */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
           {TIERS.map((tier) => {
             const tierList = modulesByTier[tier.id] || [];
@@ -253,12 +565,12 @@ export default function LearnView({ activePhase, onSelectPhase }) {
         </div>
       </aside>
 
-      {/* MAIN LESSON & LAB VIEW */}
+      {/* MAIN VIEW */}
       <main className="flex-1 flex flex-col h-full overflow-hidden bg-slate-950">
         <div className="flex-1 overflow-y-auto p-6 md:p-10 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700">
           <div className="max-w-4xl mx-auto w-full space-y-8 pb-12">
             
-            {/* Lesson Breadcrumb & Title */}
+            {/* Header */}
             <div className="pb-4 border-b border-slate-800 flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
@@ -280,309 +592,17 @@ export default function LearnView({ activePhase, onSelectPhase }) {
               )}
             </div>
 
-            {/* GUARANTEED STATIC SVG ILLUSTRATION ENGINE */}
+            {/* GUARANTEED STATIC SVG ILLUSTRATION CARD */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4 shadow-xl">
               <h4 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-                <span>📊</span> {illustrationTitle}
+                <span>📊</span> {selectedModule?.chartIllustration?.title || 'Visual Breakdown: Market Microstructure & Price Action Anatomy'}
               </h4>
-              <p className="text-xs text-slate-400">{illustrationDesc}</p>
+              <p className="text-xs text-slate-400">
+                {selectedModule?.chartIllustration?.description || 'Tick-by-tick order book depth, institutional absorption footprints, and real-time execution mechanics.'}
+              </p>
               
               <div className="w-full h-48 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4">
-                
-                {/* 0.1 DOM ORDER BOOK */}
-                {resolvedSvgType === 'order_book_dom' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <rect x="40" y="15" width="130" height="18" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" rx="2" />
-                    <text x="50" y="28" fill="#f43f5e" fontSize="9" fontFamily="monospace">ASK 5022.50 [140]</text>
-                    <rect x="40" y="37" width="110" height="18" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" rx="2" />
-                    <text x="50" y="50" fill="#f43f5e" fontSize="9" fontFamily="monospace">ASK 5022.25 [95]</text>
-
-                    <line x1="30" y1="65" x2="190" y2="65" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
-                    <text x="110" y="75" fill="#f59e0b" fontSize="8" fontFamily="monospace" textAnchor="middle">1-Tick Inside Market Spread</text>
-
-                    <rect x="40" y="83" width="120" height="18" fill="#065f46" stroke="#10b981" strokeWidth="1" rx="2" />
-                    <text x="50" y="96" fill="#10b981" fontSize="9" fontFamily="monospace">BID 5021.75 [110]</text>
-                    <rect x="40" y="105" width="140" height="18" fill="#065f46" stroke="#10b981" strokeWidth="1" rx="2" />
-                    <text x="50" y="118" fill="#10b981" fontSize="9" fontFamily="monospace">BID 5021.50 [185]</text>
-
-                    <path d="M 230 115 L 230 40" stroke="#38bdf8" strokeWidth="2.5" />
-                    <polygon points="225,45 235,45 230,35" fill="#38bdf8" />
-                    <text x="245" y="65" fill="#38bdf8" fontSize="10" fontFamily="monospace" fontWeight="bold">Market Buy Sweep (+220)</text>
-                    <text x="245" y="80" fill="#94a3b8" fontSize="8" fontFamily="monospace">Instant Liquidity Consumption</text>
-                    <text x="245" y="95" fill="#64748b" fontSize="8" fontFamily="monospace">Overcomes Lagging Oscillator</text>
-                  </svg>
-                )}
-
-                {/* 0.2 DUAL ENGINE LEARNING LOOP */}
-                {resolvedSvgType === 'dual_engine_loop' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <rect x="30" y="45" width="95" height="55" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.5" rx="4" />
-                    <text x="77" y="70" fill="#3b82f6" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">1. Learn Mode</text>
-                    <text x="77" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Price Action Axioms</text>
-
-                    <line x1="125" y1="72" x2="155" y2="72" stroke="#38bdf8" strokeWidth="2" />
-
-                    <rect x="155" y="45" width="105" height="55" fill="#0f172a" stroke="#10b981" strokeWidth="1.5" rx="4" />
-                    <text x="207" y="70" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">2. Simulator</text>
-                    <text x="207" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Live Bar Stepping</text>
-
-                    <line x1="260" y1="72" x2="290" y2="72" stroke="#38bdf8" strokeWidth="2" />
-
-                    <rect x="290" y="45" width="95" height="55" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
-                    <text x="337" y="70" fill="#f59e0b" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">3. AI Mentor</text>
-                    <text x="337" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Trader's Eq Audit</text>
-
-                    <path d="M 337 100 L 337 125 L 77 125 L 77 100" stroke="#475569" strokeWidth="1.5" strokeDasharray="3 3" />
-                    <text x="207" y="138" fill="#475569" fontSize="8" fontFamily="monospace" textAnchor="middle">Institutional Expectancy Feedback Loop</text>
-                  </svg>
-                )}
-
-                {/* 1.1 BULL VS BEAR TREND BAR */}
-                {resolvedSvgType === 'bull_vs_bear' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
-                    <rect x="105" y="40" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                    <text x="90" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Bull Trend Bar (Top 20% Close)</text>
-                    <line x1="280" y1="20" x2="280" y2="130" stroke="#f43f5e" strokeWidth="2" />
-                    <rect x="265" y="35" width="30" height="75" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="2" />
-                    <text x="245" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace">Bear Trend Bar (Bottom 20% Close)</text>
-                  </svg>
-                )}
-
-                {/* 1.2 DOJI EQUILIBRIUM */}
-                {resolvedSvgType === 'doji_equilibrium' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
-                    <rect x="105" y="40" width="30" height="70" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                    <text x="95" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Strong Trend Body</text>
-                    <line x1="280" y1="20" x2="280" y2="130" stroke="#94a3b8" strokeWidth="2" />
-                    <rect x="265" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
-                    <text x="245" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Center 50% Equilibrium)</text>
-                  </svg>
-                )}
-
-                {/* 1.3 INSIDE BAR (IB) */}
-                {resolvedSvgType === 'inside_bar' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="140" y1="10" x2="140" y2="140" stroke="#3b82f6" strokeWidth="2" />
-                    <rect x="120" y="30" width="40" height="90" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                    <text x="110" y="145" fill="#3b82f6" fontSize="9" fontFamily="monospace">Mother Bar (1)</text>
-                    <line x1="260" y1="45" x2="260" y2="105" stroke="#f59e0b" strokeWidth="2" />
-                    <rect x="245" y="55" width="30" height="40" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
-                    <text x="235" y="145" fill="#f59e0b" fontSize="9" fontFamily="monospace">Inside Bar (2: Compression)</text>
-                  </svg>
-                )}
-
-                {/* 1.4 OUTSIDE BAR (OB) */}
-                {resolvedSvgType === 'outside_bar' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="140" y1="50" x2="140" y2="100" stroke="#94a3b8" strokeWidth="2" />
-                    <rect x="125" y="60" width="30" height="30" fill="#334155" stroke="#94a3b8" strokeWidth="2" rx="2" />
-                    <text x="120" y="145" fill="#94a3b8" fontSize="9" fontFamily="monospace">Prior Bar</text>
-                    <line x1="260" y1="15" x2="260" y2="135" stroke="#10b981" strokeWidth="2" />
-                    <rect x="240" y="25" width="40" height="100" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
-                    <text x="220" y="145" fill="#10b981" fontSize="9" fontFamily="monospace">Outside Bar (Double Sweep Trap)</text>
-                  </svg>
-                )}
-
-                {/* 1.5 SIGNAL VS ENTRY BAR */}
-                {resolvedSvgType === 'signal_vs_entry' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="130" y1="30" x2="130" y2="120" stroke="#f59e0b" strokeWidth="2" />
-                    <rect x="115" y="45" width="30" height="60" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
-                    <text x="105" y="140" fill="#f59e0b" fontSize="9" fontFamily="monospace">Signal Bar (Setup Definition)</text>
-                    <line x1="270" y1="15" x2="270" y2="110" stroke="#3b82f6" strokeWidth="2" />
-                    <rect x="255" y="25" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                    <text x="245" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Entry Bar (+1 Tick Trigger)</text>
-                  </svg>
-                )}
-
-                {/* 1.6 REVERSAL BAR */}
-                {resolvedSvgType === 'reversal_bar' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="200" y1="10" x2="200" y2="140" stroke="#ec4899" strokeWidth="2" />
-                    <rect x="180" y="20" width="40" height="90" fill="#831843" stroke="#ec4899" strokeWidth="2" rx="2" />
-                    <text x="145" y="145" fill="#ec4899" fontSize="9" fontFamily="monospace">Reversal Bar (Exhaustion Tail + Climax Close)</text>
-                  </svg>
-                )}
-
-                {/* 1.7 MICRO CHANNEL */}
-                {resolvedSvgType === 'micro_channel' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <rect x="90" y="90" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
-                    <rect x="150" y="70" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" rx="1" />
-                    <rect x="210" y="50" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
-                    <rect x="270" y="30" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
-                    <text x="145" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Tight Bull Micro Channel (Consecutive Higher Lows)</text>
-                  </svg>
-                )}
-
-                {/* 1.8 MARKET STATES */}
-                {resolvedSvgType === 'market_states' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <rect x="30" y="30" width="140" height="90" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.5" rx="4" />
-                    <text x="45" y="80" fill="#3b82f6" fontSize="10" fontFamily="monospace" fontWeight="bold">Trend State (30-40%)</text>
-                    <rect x="230" y="30" width="140" height="90" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
-                    <text x="235" y="80" fill="#f59e0b" fontSize="10" fontFamily="monospace" fontWeight="bold">Trading Range (60-70%)</text>
-                  </svg>
-                )}
-
-                {/* 2.1 ALWAYS IN FLIP */}
-                {resolvedSvgType === 'always_in_flip' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="50" y1="50" x2="150" y2="150" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
-                    <rect x="70" y="70" width="16" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <rect x="100" y="90" width="16" height="25" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <rect x="130" y="110" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <rect x="180" y="30" width="24" height="110" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                    <text x="192" y="20" fill="#38bdf8" fontSize="10" fontFamily="monospace" textAnchor="middle">AIL Surprise Bar (Direction Flip)</text>
-                  </svg>
-                )}
-
-                {/* 2.2 SPIKE AND CHANNEL */}
-                {resolvedSvgType === 'spike_and_channel' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <rect x="50" y="90" width="16" height="50" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="75" y="40" width="16" height="55" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="100" y="15" width="16" height="40" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <text x="75" y="130" fill="#94a3b8" fontSize="10" fontFamily="monospace" textAnchor="middle">Spike (Urgency)</text>
-                    <line x1="130" y1="50" x2="280" y2="15" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <line x1="130" y1="90" x2="280" y2="55" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <text x="210" y="75" fill="#38bdf8" fontSize="10" fontFamily="monospace" textAnchor="middle">Channel (Diagonal Range)</text>
-                  </svg>
-                )}
-
-                {/* 2.3 BREAKOUT VS FAILURE */}
-                {resolvedSvgType === 'breakout_vs_failure' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="20" y1="75" x2="380" y2="75" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 4" />
-                    <text x="200" y="70" fill="#f59e0b" fontSize="10" fontFamily="monospace" textAnchor="middle">Range Resistance</text>
-                    <rect x="70" y="45" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="95" y="20" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <text x="85" y="15" fill="#10b981" fontSize="10" fontFamily="monospace" textAnchor="middle">20% Genuine Breakout</text>
-                    <rect x="280" y="45" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="305" y="55" width="16" height="40" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <text x="295" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace" textAnchor="middle">80% Breakout Trap (FBO)</text>
-                  </svg>
-                )}
-
-                {/* 2.4 MEASURED MOVE */}
-                {resolvedSvgType === 'leg1_leg2_measured_move' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="50" y1="130" x2="120" y2="60" stroke="#3b82f6" strokeWidth="4" />
-                    <text x="70" y="100" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 1</text>
-                    <line x1="120" y1="60" x2="160" y2="90" stroke="#f43f5e" strokeWidth="4" />
-                    <line x1="160" y1="90" x2="230" y2="20" stroke="#3b82f6" strokeWidth="4" />
-                    <text x="200" y="50" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 2</text>
-                    <line x1="160" y1="90" x2="160" y2="20" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
-                    <text x="260" y="25" fill="#f59e0b" fontSize="10" fontFamily="monospace">Leg 1 = Leg 2 Target (PTZ)</text>
-                  </svg>
-                )}
-
-                {/* 3.1 HIGH 1 / HIGH 2 */}
-                {resolvedSvgType === 'high1_high2' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <path d="M 40 120 Q 150 110 360 80" stroke="#38bdf8" strokeWidth="2" strokeDasharray="4 4" />
-                    <text x="365" y="83" fill="#38bdf8" fontSize="9" fontFamily="monospace">20 EMA</text>
-                    <rect x="70" y="50" width="16" height="50" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="110" y="70" width="16" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <text x="118" y="115" fill="#94a3b8" fontSize="9" fontFamily="monospace" textAnchor="middle">H1 Attempt</text>
-                    <rect x="150" y="85" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <rect x="180" y="65" width="18" height="45" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="1" />
-                    <text x="189" y="55" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">H2 Entry Trigger (~60% Win Rate)</text>
-                  </svg>
-                )}
-
-                {/* 3.2 LOW 1 / LOW 2 */}
-                {resolvedSvgType === 'low1_low2' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <path d="M 40 30 Q 150 40 360 70" stroke="#38bdf8" strokeWidth="2" strokeDasharray="4 4" />
-                    <text x="365" y="73" fill="#38bdf8" fontSize="9" fontFamily="monospace">20 EMA</text>
-                    <rect x="70" y="50" width="16" height="50" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    <rect x="110" y="40" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <text x="118" y="30" fill="#94a3b8" fontSize="9" fontFamily="monospace" textAnchor="middle">L1 Bounce</text>
-                    <rect x="150" y="35" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="180" y="50" width="18" height="45" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="1" />
-                    <text x="189" y="115" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">L2 Short Entry Trigger</text>
-                  </svg>
-                )}
-
-                {/* 3.3 20 EMA GAP BAR */}
-                {resolvedSvgType === 'ma_gap_bar' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="30" y1="65" x2="370" y2="65" stroke="#38bdf8" strokeWidth="2" />
-                    <text x="375" y="68" fill="#38bdf8" fontSize="9" fontFamily="monospace">20 EMA</text>
-                    <rect x="80" y="20" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="140" y="25" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                    <rect x="200" y="80" width="18" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" />
-                    <line x1="209" y1="72" x2="209" y2="80" stroke="#f43f5e" strokeWidth="1.5" />
-                    <text x="209" y="130" fill="#f59e0b" fontSize="9" fontFamily="monospace" textAnchor="middle">Gap Bar (Entirely Below 20 EMA)</text>
-                    <path d="M 230 90 Q 280 40 330 20" stroke="#10b981" strokeWidth="2" strokeDasharray="3 3" />
-                    <text x="335" y="18" fill="#10b981" fontSize="9" fontFamily="monospace">~75% Retest of Trend High</text>
-                  </svg>
-                )}
-
-                {/* 3.4 WEDGE PULLBACK */}
-                {resolvedSvgType === 'wedge_pullback' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="60" y1="40" x2="280" y2="105" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <line x1="100" y1="90" x2="290" y2="120" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <text x="110" y="45" fill="#94a3b8" fontSize="9" fontFamily="monospace">Push 1</text>
-                    <text x="180" y="70" fill="#94a3b8" fontSize="9" fontFamily="monospace">Push 2</text>
-                    <text x="250" y="95" fill="#94a3b8" fontSize="9" fontFamily="monospace">Push 3 (Exhaustion)</text>
-                    <rect x="295" y="75" width="18" height="40" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="1" />
-                    <text x="304" y="65" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">Wedge Reversal Trigger</text>
-                  </svg>
-                )}
-
-                {/* 3.5 BARB WIRE */}
-                {resolvedSvgType === 'barb_wire' && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="40" y1="75" x2="360" y2="75" stroke="#38bdf8" strokeWidth="2" />
-                    <text x="365" y="78" fill="#38bdf8" fontSize="9" fontFamily="monospace">Flat 20 EMA</text>
-                    <g transform="translate(100, 0)">
-                      <line x1="20" y1="35" x2="20" y2="115" stroke="#94a3b8" strokeWidth="1.5" />
-                      <rect x="12" y="60" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                      <line x1="50" y1="40" x2="50" y2="110" stroke="#94a3b8" strokeWidth="1.5" />
-                      <rect x="42" y="55" width="16" height="35" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                      <line x1="80" y1="30" x2="80" y2="120" stroke="#94a3b8" strokeWidth="1.5" />
-                      <rect x="72" y="65" width="16" height="25" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                      <line x1="110" y1="45" x2="110" y2="115" stroke="#94a3b8" strokeWidth="1.5" />
-                      <rect x="102" y="58" width="16" height="32" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                    </g>
-                    <text x="200" y="140" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
-                      Barb Wire: Heavy Body Overlap, Flat 20 EMA (Never Buy/Sell with Stops)
-                    </text>
-                  </svg>
-                )}
-
-                {/* 4.1 MAJOR TREND REVERSAL (MTR) */}
-                {(resolvedSvgType === 'mtr_reversal' || resolvedSvgType === 'climax_overshoot' || resolvedSvgType === 'final_flag' || resolvedSvgType === 'double_top_bottom') && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="40" y1="130" x2="180" y2="40" stroke="#3b82f6" strokeWidth="2" strokeDasharray="3 3" />
-                    <line x1="180" y1="40" x2="220" y2="90" stroke="#f43f5e" strokeWidth="2" />
-                    <text x="230" y="95" fill="#f59e0b" fontSize="9" fontFamily="monospace">1. Trendline Break</text>
-                    <line x1="220" y1="90" x2="280" y2="50" stroke="#3b82f6" strokeWidth="2" />
-                    <text x="285" y="45" fill="#f59e0b" fontSize="9" fontFamily="monospace">2. Lower High Test</text>
-                    <rect x="295" y="55" width="18" height="45" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="1" />
-                    <text x="304" y="120" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">MTR Short Signal Bar</text>
-                  </svg>
-                )}
-
-                {/* 5.1 TRADER'S EQUATION */}
-                {(resolvedSvgType === 'traders_equation' || resolvedSvgType === 'actual_vs_initial_risk' || resolvedSvgType === 'scale_in_matrix' || resolvedSvgType === 'stop_discipline') && (
-                  <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                    <line x1="200" y1="30" x2="200" y2="120" stroke="#475569" strokeWidth="3" />
-                    <polygon points="180,120 220,120 200,90" fill="#334155" />
-                    <line x1="70" y1="70" x2="330" y2="70" stroke="#38bdf8" strokeWidth="3" />
-                    <rect x="60" y="40" width="80" height="30" fill="#065f46" stroke="#10b981" strokeWidth="1.5" rx="3" />
-                    <text x="100" y="60" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">P × Reward</text>
-                    <rect x="260" y="40" width="80" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1.5" rx="3" />
-                    <text x="300" y="60" fill="#f43f5e" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">(1-P) × Risk</text>
-                    <text x="200" y="140" fill="#38bdf8" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">Expectancy &gt; 0: Positive Mathematical Edge</text>
-                  </svg>
-                )}
-
+                <LessonChartIllustration selectedModule={selectedModule} />
               </div>
             </div>
 
