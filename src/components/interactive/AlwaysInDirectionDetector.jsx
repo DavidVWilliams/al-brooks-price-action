@@ -1,0 +1,246 @@
+// Version: v1.0 - Tier 2 Always In (AIL / AIS) Directional Compass
+import { useState } from 'react';
+
+const CANDLE_SEQUENCE = [
+  { id: 1, open: 5028.00, high: 5028.50, low: 5022.00, close: 5022.50, state: 'AIS', note: 'Strong Bear Trend Bar closing on low. AIS dominant.' },
+  { id: 2, open: 5022.50, high: 5024.00, low: 5018.50, close: 5019.00, state: 'AIS', note: 'Bear follow-through. Lower high, lower low. Clear AIS.' },
+  { id: 3, open: 5019.00, high: 5021.00, low: 5017.00, close: 5020.25, state: 'AIS', note: 'Doji / small bull bar. Standard pullback in a bear trend. Still AIS.' },
+  { id: 4, open: 5020.25, high: 5020.75, low: 5015.00, close: 5015.50, state: 'AIS', note: 'Bear trend resumption. Sweeps to fresh low. Still AIS.' },
+  { id: 5, open: 5015.50, high: 5024.50, low: 5015.00, close: 5024.00, state: 'AIL_FLIP', note: 'Massive Bull Surprise Bar: Closes near high, wipes out 3 prior bear bars, breaks major bear swing high. Flips to AIL.' },
+  { id: 6, open: 5024.00, high: 5028.00, low: 5023.25, close: 5027.50, state: 'AIL', note: 'Follow-through bull trend bar. AIL confirmed with institutional stop orders.' },
+];
+
+export default function AlwaysInDirectionDetector() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [userSelection, setUserSelection] = useState(null);
+  const [feedback, setFeedback] = useState(null);
+
+  const activeBar = CANDLE_SEQUENCE[currentStep];
+  const trueState = activeBar.state === 'AIL_FLIP' || activeBar.state === 'AIL' ? 'AIL' : 'AIS';
+
+  const handleVote = (choice) => {
+    setUserSelection(choice);
+    if (choice === trueState) {
+      if (activeBar.state === 'AIL_FLIP') {
+        setFeedback({
+          correct: true,
+          title: '🎯 Flawless Institutional Read: Always In Long (AIL) Flip!',
+          text: 'Bar 5 is a decisive Bull Surprise bar. It closes in its top 10% and reclaims the high of the prior 3 bars. Even if this is a trading range or bear rally, the institutional path of least resistance has flipped to LONG.'
+        });
+      } else {
+        setFeedback({
+          correct: true,
+          title: `✓ Correct: Always In ${trueState === 'AIL' ? 'Long' : 'Short'}`,
+          text: activeBar.note
+        });
+      }
+    } else {
+      setFeedback({
+        correct: false,
+        title: `✕ Misread: Market is Currently ${trueState === 'AIL' ? 'Always In Long' : 'Always In Short'}`,
+        text: activeBar.note
+      });
+    }
+  };
+
+  const handleNext = () => {
+    if (currentStep < CANDLE_SEQUENCE.length - 1) {
+      setCurrentStep((prev) => prev + 1);
+      setUserSelection(null);
+      setFeedback(null);
+    }
+  };
+
+  const handleReset = () => {
+    setCurrentStep(0);
+    setUserSelection(null);
+    setFeedback(null);
+  };
+
+  const minP = 5013.00;
+  const maxP = 5030.00;
+  const svgH = 220;
+  const getY = (p) => svgH - 20 - ((p - minP) / (maxP - minP)) * (svgH - 40);
+
+  return (
+    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6 shadow-2xl space-y-6 text-slate-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded bg-blue-950 text-blue-400 font-mono text-xs font-semibold border border-blue-900/60">
+              Interactive Micro-Lab
+            </span>
+            <h3 className="text-base md:text-lg font-bold text-white">
+              Always In (AIL / AIS) Directional Compass
+            </h3>
+          </div>
+          <p className="text-xs text-slate-400 mt-1">
+            Evaluate the chart bar by bar. Pinpoint the exact candle where institutional dominance flips from AIS to AIL.
+          </p>
+        </div>
+        <div className="font-mono text-xs text-slate-400 bg-slate-950 px-3 py-1.5 rounded border border-slate-800 self-start sm:self-auto">
+          Inspecting Bar: <span className="text-blue-400 font-bold">{currentStep + 1}</span> / {CANDLE_SEQUENCE.length}
+        </div>
+      </div>
+
+      <div className="bg-blue-950/20 border border-blue-900/50 rounded-lg p-4 space-y-2">
+        <strong className="text-blue-400 text-sm font-bold flex items-center gap-2 uppercase tracking-wider">
+          <span>🧪</span> Lab Exercise
+        </strong>
+        <ol className="list-decimal pl-5 text-sm text-slate-300 space-y-1">
+          <li>Look at the visible candlestick sequence up to the active bar.</li>
+          <li>Ask yourself: <em>"If I had to enter a market order right now and hold it, would I be Long or Short?"</em></li>
+          <li>Click <strong className="text-emerald-400">Always In Long (AIL)</strong> or <strong className="text-rose-400">Always In Short (AIS)</strong>.</li>
+          <li>Step forward using <strong className="text-blue-400">Step Next Bar ➔</strong> to locate the exact bar that flips the market posture.</li>
+        </ol>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+        <div className="md:col-span-6 bg-slate-950 rounded-xl border border-slate-800/90 p-4 relative flex flex-col items-center justify-center">
+          <span className="absolute top-3 left-3 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+            Structural Price Action Feed
+          </span>
+
+          <svg className="w-full h-56 select-none" viewBox="0 0 280 220">
+            {[5015, 5020, 5025, 5030].map((p) => (
+              <g key={p}>
+                <line x1="15" y1={getY(p)} x2="265" y2={getY(p)} stroke="#1e293b" strokeWidth="1" strokeDasharray="3 3" />
+                <text x="270" y={getY(p) + 3} fill="#475569" fontSize="8" fontFamily="monospace" textAnchor="end">
+                  {p}
+                </text>
+              </g>
+            ))}
+
+            {CANDLE_SEQUENCE.slice(0, currentStep + 1).map((b, i) => {
+              const x = 30 + i * 40;
+              const isBull = b.close >= b.open;
+              const openY = getY(b.open);
+              const closeY = getY(b.close);
+              const highY = getY(b.high);
+              const lowY = getY(b.low);
+              const bodyTop = Math.min(openY, closeY);
+              const bodyH = Math.max(3, Math.abs(openY - closeY));
+              const isLatest = i === currentStep;
+
+              return (
+                <g key={b.id}>
+                  <line
+                    x1={x}
+                    y1={highY}
+                    x2={x}
+                    y2={lowY}
+                    stroke={isBull ? '#10b981' : '#f43f5e'}
+                    strokeWidth={isLatest ? '2.5' : '1.5'}
+                  />
+                  <rect
+                    x={x - 12}
+                    y={bodyTop}
+                    width="24"
+                    height={bodyH}
+                    fill={isBull ? '#065f46' : '#881337'}
+                    stroke={isBull ? '#10b981' : '#f43f5e'}
+                    strokeWidth={isLatest ? '2' : '1'}
+                    rx="1.5"
+                  />
+                  {isLatest && (
+                    <circle cx={x} cy={highY - 8} r="3" fill="#38bdf8" />
+                  )}
+                  <text
+                    x={x}
+                    y={svgH - 5}
+                    fill={isLatest ? '#38bdf8' : '#64748b'}
+                    fontSize="9"
+                    fontFamily="monospace"
+                    fontWeight={isLatest ? 'bold' : 'normal'}
+                    textAnchor="middle"
+                  >
+                    B{b.id}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+
+          <div className="w-full flex justify-between text-[10px] font-mono text-slate-400 mt-2 border-t border-slate-800/80 pt-2">
+            <span>Focus Bar: <strong className="text-white">Bar {activeBar.id}</strong></span>
+            <span>Close: <strong className={activeBar.close >= activeBar.open ? 'text-emerald-400' : 'text-rose-400'}>{activeBar.close.toFixed(2)}</strong></span>
+          </div>
+        </div>
+
+        <div className="md:col-span-6 space-y-4 flex flex-col justify-between">
+          <div className="space-y-3">
+            <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold block">
+                Decision Terminal
+              </span>
+              <h4 className="text-base font-bold text-white">
+                What is the Always In state at the close of Bar {activeBar.id}?
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Examine closing strength, bar overlap, and whether prior key swing highs or lows have been broken with authority.
+              </p>
+
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <button
+                  onClick={() => handleVote('AIL')}
+                  className={`p-3 rounded-lg border font-mono text-xs font-bold transition-all ${
+                    userSelection === 'AIL'
+                      ? 'bg-emerald-950/70 border-emerald-500 text-emerald-300 shadow-md'
+                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-emerald-500 hover:text-emerald-400'
+                  }`}
+                >
+                  ▲ Always In Long (AIL)
+                </button>
+                <button
+                  onClick={() => handleVote('AIS')}
+                  className={`p-3 rounded-lg border font-mono text-xs font-bold transition-all ${
+                    userSelection === 'AIS'
+                      ? 'bg-rose-950/70 border-rose-500 text-rose-300 shadow-md'
+                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-rose-500 hover:text-rose-400'
+                  }`}
+                >
+                  ▼ Always In Short (AIS)
+                </button>
+              </div>
+            </div>
+
+            {feedback && (
+              <div
+                className={`p-4 rounded-xl border animate-fadeIn space-y-1.5 ${
+                  feedback.correct
+                    ? 'bg-emerald-950/40 border-emerald-900 text-emerald-200'
+                    : 'bg-rose-950/40 border-rose-900 text-rose-200'
+                }`}
+              >
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase">
+                  <span>{feedback.correct ? '✅' : '🚨'}</span>
+                  <span>{feedback.title}</span>
+                </div>
+                <p className="text-xs leading-relaxed">{feedback.text}</p>
+              </div>
+            )}
+          </div>
+
+          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <button
+                onClick={handleReset}
+                className="text-xs font-mono text-slate-500 hover:text-slate-300 transition-colors"
+              >
+                ↺ Reset Series
+              </button>
+
+              <button
+                onClick={handleNext}
+                disabled={currentStep >= CANDLE_SEQUENCE.length - 1}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white rounded text-xs font-mono font-semibold transition-colors"
+              >
+                Step Next Bar ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
