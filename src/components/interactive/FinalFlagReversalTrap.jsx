@@ -1,10 +1,9 @@
-// Version: v1.0 - Tier 4.3 Final Flag Reversal Trap Simulator
+// Version: v1.1 - Tier 4.3 Final Flag Lab with Explicit Lab Exercise Guidance
 import { useState, useMemo } from 'react';
 
 export default function FinalFlagReversalTrap() {
-  const [trendBarsCount, setTrendBarsCount] = useState(15); // Trend maturity (bars)
-  const [flagWidthBars, setFlagWidthBars] = useState(4); // Tight flag width
-  const [breakoutQuality, setBreakoutQuality] = useState('exhaustion'); // 'exhaustion' | 'strong_followthrough'
+  const [trendBarsCount, setTrendBarsCount] = useState(16);
+  const [breakoutQuality, setBreakoutQuality] = useState('exhaustion');
 
   const evaluation = useMemo(() => {
     const isLateInTrend = trendBarsCount >= 12;
@@ -32,10 +31,12 @@ export default function FinalFlagReversalTrap() {
       verdict: 'Valid Trend Resumption',
       advice: 'Breakout printed consecutive trend bars with strong follow-through. The trend has successfully re-accelerated.'
     };
-  }, [trendBarsCount, flagWidthBars, breakoutQuality]);
+  }, [trendBarsCount, breakoutQuality]);
 
   return (
     <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-6 shadow-xl text-slate-100">
+      
+      {/* HEADER & GRADE */}
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-800 gap-2">
         <div>
           <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest bg-blue-950/60 px-2.5 py-0.5 rounded border border-blue-900/60">
@@ -54,33 +55,38 @@ export default function FinalFlagReversalTrap() {
         </span>
       </div>
 
+      {/* EXPLICIT LAB EXERCISE INSTRUCTIONS CARD */}
+      <div className="p-4 bg-blue-950/20 border border-blue-900/50 rounded-lg space-y-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
+          <span>🧪</span> Lab Exercise: Recognizing the Exhaustion Flag
+        </div>
+        <ol className="text-xs text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed font-sans">
+          <li><strong>Step 1 (Trend Duration Context):</strong> Compare a trend maturity of 6 bars vs. 18 bars. In early trends, flags are buying opportunities; in late trends (15+ bars), flags become exhaustion structures.</li>
+          <li><strong>Step 2 (The Trap Trigger):</strong> Set breakout behavior to &ldquo;1-Bar Trap &amp; Reversal&rdquo;. Watch how the upside breakout immediately sucks in late breakout buyers before trapping them with a swift bear reversal.</li>
+          <li><strong>Step 3 (The Magnet Retest):</strong> Inspect the red dashed projection arrow. Notice how failed final flags magnetically pull price back to the bottom of the flag within 5 to 10 bars.</li>
+        </ol>
+      </div>
+
       {/* SVG CANVAS */}
       <div className="w-full h-56 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4 relative overflow-hidden">
         <svg className="w-full h-full max-h-48" viewBox="0 0 460 180" fill="none">
-          {/* Main Trend Run */}
           <line x1="30" y1="150" x2="180" y2="70" stroke="#3b82f6" strokeWidth="3" />
           <text x="60" y="110" fill="#94a3b8" fontSize="9" fontFamily="monospace">Extended Trend ({trendBarsCount} Bars)</text>
 
-          {/* Final Flag Boundary Box */}
           <rect x="190" y="55" width="90" height="35" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" rx="2" />
           <text x="235" y="75" fill="#f59e0b" fontSize="9" fontFamily="monospace" textAnchor="middle">Final Flag</text>
 
-          {/* Bars inside Flag */}
           <rect x="200" y="60" width="8" height="20" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
           <rect x="215" y="65" width="8" height="22" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
           <rect x="230" y="62" width="8" height="18" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
           <rect x="245" y="66" width="8" height="20" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
 
-          {/* Breakout Behavior */}
           {breakoutQuality === 'exhaustion' ? (
             <g>
-              {/* Trapping Bull Bar */}
               <rect x="290" y="30" width="12" height="30" fill="#1e3a8a" stroke="#38bdf8" strokeWidth="1.5" />
               <text x="296" y="20" fill="#38bdf8" fontSize="8" fontFamily="monospace" textAnchor="middle">Breakout Trap</text>
-              {/* Immediate Reversal Bar */}
               <rect x="310" y="35" width="14" height="45" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="1" />
               <line x1="317" y1="25" x2="317" y2="85" stroke="#f43f5e" strokeWidth="1.5" />
-              {/* Retest Magnetic Path */}
               <path d="M 330 65 Q 360 85 360 115 L 235 115" stroke="#ef4444" strokeWidth="2" strokeDasharray="3 3" />
               <text x="365" y="118" fill="#ef4444" fontSize="9" fontFamily="monospace">Retest Magnet</text>
             </g>
