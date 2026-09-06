@@ -1,10 +1,10 @@
-// Version: v1.0 - Tier 4.2 Climax TCL Overshoot Sandbox
+// Version: v1.1 - Tier 4.2 Climax Overshoot Lab with Explicit Lab Exercise Guidance
 import { useState, useMemo } from 'react';
 
 export default function ClimaxTCLOvershootLab() {
-  const [consecutiveBars, setConsecutiveBars] = useState(4); // 1 to 5 bars
-  const [overshootTicks, setOvershootTicks] = useState(6); // 0 to 12 ticks
-  const [reversalBarClose, setReversalBarClose] = useState('bottom_20'); // 'bottom_20' | 'midpoint' | 'top_20'
+  const [consecutiveBars, setConsecutiveBars] = useState(4);
+  const [overshootTicks, setOvershootTicks] = useState(6);
+  const [reversalBarClose, setReversalBarClose] = useState('bottom_20');
 
   const evaluation = useMemo(() => {
     const isExhaustion = consecutiveBars >= 3 && overshootTicks >= 4;
@@ -15,7 +15,6 @@ export default function ClimaxTCLOvershootLab() {
         grade: 'A+',
         winRate: 0.65,
         type: 'Exhaustion Climax Reversal',
-        status: 'High Expectancy Short',
         advice: 'TCL overshoot of 4+ ticks followed by a bottom 20% close confirms institutional profit-taking. Place sell stop 1 tick below reversal bar.'
       };
     }
@@ -24,7 +23,6 @@ export default function ClimaxTCLOvershootLab() {
         grade: 'C',
         winRate: 0.35,
         type: 'Channel Containment',
-        status: 'No Overshoot',
         advice: 'Price has not penetrated the trend channel line. Fading without an overshoot climax is low probability.'
       };
     }
@@ -33,7 +31,6 @@ export default function ClimaxTCLOvershootLab() {
         grade: 'B-',
         winRate: 0.45,
         type: 'Incomplete Rejection',
-        status: 'Wait for Confirmation',
         advice: 'TCL overshot, but the bar failed to close in its bottom 20%. Wait for an entry bar or a second reversal attempt.'
       };
     }
@@ -41,13 +38,14 @@ export default function ClimaxTCLOvershootLab() {
       grade: 'B',
       winRate: 0.50,
       type: 'Minor Climax',
-      status: 'Scalp Only',
       advice: 'Moderate climax. Expect at least a 2-legged sideways-to-down correction to the moving average.'
     };
   }, [consecutiveBars, overshootTicks, reversalBarClose]);
 
   return (
     <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-6 shadow-xl text-slate-100">
+      
+      {/* HEADER & GRADE */}
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-800 gap-2">
         <div>
           <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest bg-blue-950/60 px-2.5 py-0.5 rounded border border-blue-900/60">
@@ -66,35 +64,40 @@ export default function ClimaxTCLOvershootLab() {
         </span>
       </div>
 
+      {/* EXPLICIT LAB EXERCISE INSTRUCTIONS CARD */}
+      <div className="p-4 bg-blue-950/20 border border-blue-900/50 rounded-lg space-y-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
+          <span>🧪</span> Lab Exercise: Quantifying Buy Climax Exhaustion
+        </div>
+        <ol className="text-xs text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed font-sans">
+          <li><strong>Step 1 (Accelerate the Trend):</strong> Increase &ldquo;Consecutive Climax Bars&rdquo; to 4 or 5. Notice how expanding bar ranges indicate an unsustainable vacuum move rather than measured buying.</li>
+          <li><strong>Step 2 (The Overshoot):</strong> Slide &ldquo;TCL Overshoot Distance&rdquo; from 0 to 8 ticks. A 4+ tick overshoot signals that buyers are paying desperate market order prices outside the channel boundary.</li>
+          <li><strong>Step 3 (Reversal Bar Verdict):</strong> Change the Reversal Bar Close from &ldquo;Top 20%&rdquo; (blow-off acceleration) to &ldquo;Bottom 20%&rdquo; (climax rejection). Observe how the grade surges to A+ with a 65% expectancy for a 2-legged correction.</li>
+        </ol>
+      </div>
+
       {/* SVG CANVAS */}
       <div className="w-full h-56 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4 relative overflow-hidden">
         <svg className="w-full h-full max-h-48" viewBox="0 0 460 180" fill="none">
-          {/* Trend Line (Support) */}
           <line x1="40" y1="140" x2="380" y2="70" stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3 3" />
           <text x="50" y="155" fill="#3b82f6" fontSize="9" fontFamily="monospace">Trend Line</text>
 
-          {/* Trend Channel Line (Resistance) */}
           <line x1="80" y1="90" x2="420" y2="20" stroke="#f59e0b" strokeWidth="2" />
           <text x="360" y="20" fill="#f59e0b" fontSize="9" fontFamily="monospace">TCL (Resistance)</text>
 
-          {/* Earlier Swing Bars */}
           <rect x="70" y="110" width="10" height="25" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
           <rect x="110" y="85" width="10" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
           <rect x="150" y="95" width="10" height="20" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
           <rect x="190" y="75" width="10" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
 
-          {/* Climax Acceleration Sequence */}
           {consecutiveBars >= 1 && <rect x="230" y="60" width="12" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1.5" />}
           {consecutiveBars >= 2 && <rect x="255" y="45" width="14" height="42" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1.5" />}
           {consecutiveBars >= 3 && <rect x="285" y="28" width="16" height="50" fill="#1e3a8a" stroke="#38bdf8" strokeWidth="2" />}
           {consecutiveBars >= 4 && <rect x="320" y="15" width="18" height="58" fill="#1e3a8a" stroke="#38bdf8" strokeWidth="2" />}
 
-          {/* Climax Overshoot Bar */}
           {overshootTicks > 0 && (
             <g transform={`translate(360, ${15 - overshootTicks * 2.5})`}>
-              {/* Wick */}
               <line x1="10" y1="0" x2="10" y2="70" stroke="#ec4899" strokeWidth="1.5" />
-              {/* Body based on reversal close */}
               {reversalBarClose === 'bottom_20' && (
                 <rect x="2" y="45" width="16" height="20" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="1" />
               )}
@@ -104,7 +107,6 @@ export default function ClimaxTCLOvershootLab() {
               {reversalBarClose === 'top_20' && (
                 <rect x="2" y="5" width="16" height="20" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
               )}
-              {/* Overshoot Marker */}
               <line x1="-15" y1="20" x2="35" y2="20" stroke="#f43f5e" strokeWidth="1" strokeDasharray="2 2" />
               <text x="38" y="23" fill="#f43f5e" fontSize="8" fontFamily="monospace">+{overshootTicks}t Overshoot</text>
             </g>
