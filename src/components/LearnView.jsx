@@ -1,5 +1,4 @@
-// Version: v4.0 - Integrated Tier 0 & Tier 1 Interactive Micro-Labs
-// Aggregated data imported from modular curriculumData.js
+// Version: v4.1 - Interactive Micro-Labs moved to the bottom of lessons
 
 import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
@@ -89,11 +88,9 @@ export default function LearnView() {
 
   const [activeTierAccordion, setActiveTierAccordion] = useState(getTierForModule(modules[0]?.id));
 
-  // Flashcard state
+  // Flashcard & Quiz state
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-
-  // Quiz state
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -265,20 +262,7 @@ export default function LearnView() {
           {selectedModule.type === 'comprehensive_lesson' && selectedModule.sections && (
             <div className="space-y-8">
               
-              {/* DYNAMIC INTERACTIVE LAB: TIER 0 DOM ORDER BOOK SIMULATOR */}
-              {selectedModule.id === 'tier0-mod-0.1' && (
-                <section className="mb-6">
-                  <DOMOrderBookSimulator />
-                </section>
-              )}
-
-              {/* DYNAMIC INTERACTIVE LAB: TIER 1 BAR LIFECYCLE SCRUBBER */}
-              {selectedModule.id === 'tier1-mod-1.1' && (
-                <section className="mb-6">
-                  <BarLifecycleScrubber />
-                </section>
-              )}
-
+              {/* 1. THEORY (READING SECTIONS FIRST) */}
               {selectedModule.sections.map((sec, idx) => (
                 <article 
                   key={idx} 
@@ -320,7 +304,20 @@ export default function LearnView() {
                 </article>
               ))}
 
-              {/* DYNAMIC SVG CHART ILLUSTRATION FALLBACK RENDERER */}
+              {/* 2. PRACTICE (INTERACTIVE MICRO-LABS MOUNTED AT THE BOTTOM) */}
+              {selectedModule.id === 'tier0-mod-0.1' && (
+                <section className="mt-8 animate-fadeIn">
+                  <DOMOrderBookSimulator />
+                </section>
+              )}
+
+              {selectedModule.id === 'tier1-mod-1.1' && (
+                <section className="mt-8 animate-fadeIn">
+                  <BarLifecycleScrubber />
+                </section>
+              )}
+
+              {/* 3. STATIC SVG FALLBACKS */}
               {selectedModule.chartIllustration && (
                 <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-4 shadow-xl">
                   <div>
@@ -334,7 +331,6 @@ export default function LearnView() {
                   
                   <div className="w-full h-56 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4">
                     
-                    {/* TIER 0 SVGS */}
                     {selectedModule.chartIllustration.svgType === 'double_auction_microstructure' && (
                       <svg className="w-full h-full max-h-48 text-slate-700 select-none" viewBox="0 0 500 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="20" y="20" width="160" height="140" fill="#0f172a" stroke="#334155" strokeWidth="1" rx="4" />
@@ -384,7 +380,6 @@ export default function LearnView() {
                       </svg>
                     )}
 
-                    {/* TIER 1 SVGS */}
                     {selectedModule.chartIllustration.svgType === 'bull_vs_bear' && (
                       <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
@@ -471,7 +466,6 @@ export default function LearnView() {
                       </svg>
                     )}
 
-                    {/* TIER 2 SVGS */}
                     {selectedModule.chartIllustration.svgType === 'always_in_flip' && (
                       <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="50" y1="50" x2="150" y2="150" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
