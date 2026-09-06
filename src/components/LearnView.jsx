@@ -476,7 +476,10 @@ export default function LearnView({ activePhase, onSelectPhase }) {
     }
   };
 
-  const ActiveLabComponent = selectedModule?.id ? getInteractiveLab(selectedModule.id) : null;
+  // To this (passes both id and title for fallback):
+const ActiveLabComponent = selectedModule 
+  ? getInteractiveLab(selectedModule.id, selectedModule.title) 
+  : null;
 
   return (
     <div className="w-full h-full flex-1 flex flex-col md:flex-row bg-slate-950 text-slate-100 overflow-hidden">
