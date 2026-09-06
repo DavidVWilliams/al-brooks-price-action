@@ -1,4 +1,4 @@
-// Version: v4.1 - Interactive Micro-Labs moved to the bottom of lessons
+// Version: v4.3 - Moved Static SVG Illustrations to the top of lessons for visual context
 
 import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
@@ -262,75 +262,8 @@ export default function LearnView() {
           {/* COMPREHENSIVE LESSON RENDERER */}
           {selectedModule.type === 'comprehensive_lesson' && selectedModule.sections && (
             <div className="space-y-8">
-              
-              {/* 1. THEORY (READING SECTIONS FIRST) */}
-              {selectedModule.sections.map((sec, idx) => (
-                <article 
-                  key={idx} 
-                  className="p-6 md:p-8 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-4 transition-all"
-                >
-                  <h2 className="text-lg md:text-xl font-bold text-blue-300 flex items-center gap-2.5 border-b border-slate-800/60 pb-3">
-                    <span className="text-xs font-mono text-blue-400 bg-blue-950 px-2 py-0.5 rounded border border-blue-900/50">
-                      0{idx + 1}
-                    </span>
-                    {sec.heading}
-                  </h2>
 
-                  <FormattedSectionContent content={sec.content} />
-
-                  {sec.keyRule && (
-                    <div className="p-4 bg-blue-950/40 border-l-4 border-blue-500 rounded-r-lg space-y-1 mt-4">
-                      <span className="text-xs font-mono uppercase tracking-wider text-blue-400 font-bold block">
-                        Core Brooks Rule
-                      </span>
-                      <p className="text-xs md:text-sm text-slate-100 font-medium leading-relaxed">
-                        {sec.keyRule}
-                      </p>
-                    </div>
-                  )}
-
-                  {sec.barBreakdownExample && (
-                    <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-lg space-y-2 mt-4">
-                      <span className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold block">
-                        🧠 Institutional Psychology Breakdown
-                      </span>
-                      <p className="text-xs font-mono text-slate-400">
-                        <strong className="text-slate-300">Scenario:</strong> {sec.barBreakdownExample.scenario}
-                      </p>
-                      <p className="text-xs md:text-sm text-slate-200 leading-relaxed">
-                        <strong className="text-slate-300">Mechanics:</strong> {sec.barBreakdownExample.psychology}
-                      </p>
-                    </div>
-                  )}
-                </article>
-              ))}
-
-              {/* 2. PRACTICE (INTERACTIVE MICRO-LABS MOUNTED AT THE BOTTOM) */}
-              {selectedModule.id === 'tier0-mod-0.1' && (
-                <section className="mt-8 animate-fadeIn">
-                  <DOMOrderBookSimulator />
-                </section>
-              )}
-
-              {selectedModule.id === 'tier0-mod-0.2' && (
-                <section className="mt-8 animate-fadeIn">
-                  <DualEngineArchitectureDiagram />
-                </section>
-              )}
-
-              {selectedModule.id === 'tier1-mod-1.1' && (
-                <section className="mt-8 animate-fadeIn">
-                  <BarLifecycleScrubber />
-                </section>
-              )}
-
-              {selectedModule.id === 'tier1-mod-1.1' && (
-                <section className="mt-8 animate-fadeIn">
-                  <BarLifecycleScrubber />
-                </section>
-              )}
-
-              {/* 3. STATIC SVG FALLBACKS */}
+              {/* 1. VISUAL CONTEXT (STATIC SVGS AT THE TOP) */}
               {selectedModule.chartIllustration && (
                 <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-4 shadow-xl">
                   <div>
@@ -344,6 +277,7 @@ export default function LearnView() {
                   
                   <div className="w-full h-56 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4">
                     
+                    {/* SVG Renderers Map */}
                     {selectedModule.chartIllustration.svgType === 'double_auction_microstructure' && (
                       <svg className="w-full h-full max-h-48 text-slate-700 select-none" viewBox="0 0 500 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="20" y="20" width="160" height="140" fill="#0f172a" stroke="#334155" strokeWidth="1" rx="4" />
@@ -542,6 +476,68 @@ export default function LearnView() {
                   </div>
                 </div>
               )}
+
+              {/* 2. THEORY (READING SECTIONS) */}
+              {selectedModule.sections.map((sec, idx) => (
+                <article 
+                  key={idx} 
+                  className="p-6 md:p-8 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-4 transition-all"
+                >
+                  <h2 className="text-lg md:text-xl font-bold text-blue-300 flex items-center gap-2.5 border-b border-slate-800/60 pb-3">
+                    <span className="text-xs font-mono text-blue-400 bg-blue-950 px-2 py-0.5 rounded border border-blue-900/50">
+                      0{idx + 1}
+                    </span>
+                    {sec.heading}
+                  </h2>
+
+                  <FormattedSectionContent content={sec.content} />
+
+                  {sec.keyRule && (
+                    <div className="p-4 bg-blue-950/40 border-l-4 border-blue-500 rounded-r-lg space-y-1 mt-4">
+                      <span className="text-xs font-mono uppercase tracking-wider text-blue-400 font-bold block">
+                        Core Brooks Rule
+                      </span>
+                      <p className="text-xs md:text-sm text-slate-100 font-medium leading-relaxed">
+                        {sec.keyRule}
+                      </p>
+                    </div>
+                  )}
+
+                  {sec.barBreakdownExample && (
+                    <div className="p-4 bg-slate-950/80 border border-slate-800 rounded-lg space-y-2 mt-4">
+                      <span className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold block">
+                        🧠 Institutional Psychology Breakdown
+                      </span>
+                      <p className="text-xs font-mono text-slate-400">
+                        <strong className="text-slate-300">Scenario:</strong> {sec.barBreakdownExample.scenario}
+                      </p>
+                      <p className="text-xs md:text-sm text-slate-200 leading-relaxed">
+                        <strong className="text-slate-300">Mechanics:</strong> {sec.barBreakdownExample.psychology}
+                      </p>
+                    </div>
+                  )}
+                </article>
+              ))}
+
+              {/* 3. PRACTICE (INTERACTIVE MICRO-LABS MOUNTED AT THE BOTTOM) */}
+              {selectedModule.id === 'tier0-mod-0.1' && (
+                <section className="mt-8 animate-fadeIn">
+                  <DOMOrderBookSimulator />
+                </section>
+              )}
+
+              {selectedModule.id === 'tier0-mod-0.2' && (
+                <section className="mt-8 animate-fadeIn">
+                  <DualEngineArchitectureDiagram />
+                </section>
+              )}
+
+              {selectedModule.id === 'tier1-mod-1.1' && (
+                <section className="mt-8 animate-fadeIn">
+                  <BarLifecycleScrubber />
+                </section>
+              )}
+
             </div>
           )}
 
