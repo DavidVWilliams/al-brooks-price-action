@@ -1,8 +1,7 @@
-// Version: v3.0 - Hybrid Segmented Rail + Smart Accordion Navigation (Zero Gating)
+// Version: v3.1 - Defensive Hybrid Segmented Rail + Accordion (Crash-Proof)
 import { useState, useMemo } from 'react';
 import data from '../data/curriculumData.json';
 
-// Tier metadata registry
 const TIER_METADATA = {
   tier1: { id: 'tier1', label: 'T1', title: 'Tier 1: Foundations', badge: 'Foundations' },
   tier2: { id: 'tier2', label: 'T2', title: 'Tier 2: Core Dynamics', badge: 'Core Dynamics' },
@@ -12,33 +11,42 @@ const TIER_METADATA = {
 };
 
 export default function LearnView() {
-  const modules = data.modules;
-  const [selectedModule, setSelectedModule] = useState(modules[0]);
+  const modules = Array.isArray(data?.modules) ? data.modules : [];
+  const [selectedModule, setSelectedModule] = useState(modules[0] || null);
 
-  // Group modules dynamically by tier prefix (tier1, tier2, tier3, etc.)
+  // Safely extract tier key (e.g. 'tier1-mod-1.1' -> 'tier1')
+  const getTierKey = (mod) => {
+    if (!mod?.id) return 'tier1';
+    const match = mod.id.match(/^(tier\d+)/i);
+    return match ? match[1].toLowerCase() : 'tier1';
+  };
+
+  // Group modules defensively
   const groupedTiers = useMemo(() => {
     const map = {};
     modules.forEach((mod) => {
-      const prefix = mod.id.split('-')[0] || 'tier1';
-      if (!map[prefix]) {
-        map[prefix] = {
-          ...(TIER_METADATA[prefix] || { id: prefix, label: prefix.toUpperCase(), title: prefix, badge: prefix }),
-          items: []
+      const key = getTierKey(mod);
+      if (!map[key]) {
+        const meta = TIER_METADATA[key] || {
+          id: key,
+          label: key.toUpperCase(),
+          title: key.toUpperCase(),
+          badge: key.toUpperCase()
         };
+        map[key] = { ...meta, items: [] };
       }
-      map[prefix].items.push(mod);
+      map[key].items.push(mod);
     });
     return map;
   }, [modules]);
 
   const tierKeys = useMemo(() => Object.keys(groupedTiers), [groupedTiers]);
 
-  // Determine current active tier from selected module
   const currentTierKey = useMemo(() => {
-    return selectedModule.id.split('-')[0] || 'tier1';
-  }, [selectedModule]);
+    return selectedModule ? getTierKey(selectedModule) : (tierKeys[0] || 'tier1');
+  }, [selectedModule, tierKeys]);
 
-  // Accordion state: Set of open tier keys. Defaults to expanding the active tier.
+  // Accordion state (set of active tier keys)
   const [openTiers, setOpenTiers] = useState(() => new Set([currentTierKey]));
 
   // Flashcard state
@@ -52,17 +60,24 @@ export default function LearnView() {
   const [quizScore, setQuizScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
-  // Handlers
+  // Guard against completely empty data
+  if (!modules.length || !selectedModule) {
+    return (
+      <div className="h-full w-full flex items-center justify-center bg-slate-950 text-slate-500 font-mono text-sm">
+        No curriculum modules available.
+      </div>
+    );
+  }
+
   const handleSelectModule = (mod) => {
+    if (!mod) return;
     setSelectedModule(mod);
-    const tier = mod.id.split('-')[0] || 'tier1';
-    // Ensure active tier is visible in accordion
+    const tier = getTierKey(mod);
     setOpenTiers((prev) => {
       const next = new Set(prev);
       next.add(tier);
       return next;
     });
-    // Reset lesson/quiz states
     setCurrentCardIndex(0);
     setIsFlipped(false);
     setCurrentQuestionIndex(0);
@@ -73,14 +88,13 @@ export default function LearnView() {
   };
 
   const handleSelectTierRail = (tierKey) => {
-    // Open the tier in accordion and select its first module
     setOpenTiers((prev) => {
       const next = new Set(prev);
       next.add(tierKey);
       return next;
     });
     const targetTier = groupedTiers[tierKey];
-    if (targetTier && targetTier.items.length > 0) {
+    if (targetTier?.items?.length) {
       handleSelectModule(targetTier.items[0]);
     }
   };
@@ -126,13 +140,15 @@ export default function LearnView() {
     }
   };
 
+  const currentTierBadge = groupedTiers[currentTierKey]?.badge || 'Mastery Curriculum';
+
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 overflow-hidden">
       
-      {/* Sidebar Navigation: Segmented Rail + Smart Accordion */}
+      {/* Sidebar Navigation: Segmented Rail + Defensive Accordion */}
       <aside className="w-full md:w-84 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/60 flex flex-col shrink-0 h-64 md:h-full">
         
-        {/* Top Header & Option B: Segmented Tier Rail */}
+        {/* Top Header & Segmented Tier Rail */}
         <div className="p-3 border-b border-slate-800 bg-slate-900/90 space-y-2 shrink-0">
           <div className="flex items-center justify-between">
             <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-mono">
@@ -152,24 +168,26 @@ export default function LearnView() {
                 <button
                   key={key}
                   onClick={() => handleSelectTierRail(key)}
-                  className={`flex-1 min-w-[70px] py-1 px-2 rounded text-xs font-mono font-bold transition-all text-center truncate ${
+                  className={`flex-1 min-w-[65px] py-1 px-2 rounded text-xs font-mono font-bold transition-all text-center truncate ${
                     isActiveTier
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
                   }`}
-                  title={tier.title}
+                  title={tier?.title || key}
                 >
-                  {tier.label}
+                  {tier?.label || key.toUpperCase()}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Option A: Accordion List with Unrestricted Browsing */}
+        {/* Accordion List with Unrestricted Browsing */}
         <div className="flex-1 overflow-y-auto p-2 space-y-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
           {tierKeys.map((key) => {
             const tier = groupedTiers[key];
+            if (!tier) return null;
+
             const isOpen = openTiers.has(key);
             const isCurrentTier = currentTierKey === key;
 
@@ -182,7 +200,7 @@ export default function LearnView() {
                     : 'border-slate-800/80 bg-slate-950/40 hover:border-slate-700'
                 }`}
               >
-                {/* Accordion Tier Header Card */}
+                {/* Accordion Tier Header */}
                 <button
                   onClick={() => toggleTierAccordion(key)}
                   className="w-full px-3 py-2.5 flex items-center justify-between text-left transition-colors bg-slate-900/50 hover:bg-slate-900/80 select-none"
@@ -201,15 +219,15 @@ export default function LearnView() {
                   </div>
 
                   <span className="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-0.5 rounded border border-slate-800/80 shrink-0 ml-2">
-                    {tier.items.length} lessons
+                    {tier.items?.length || 0} lessons
                   </span>
                 </button>
 
-                {/* Collapsible Module Sub-List (Zero Gating) */}
+                {/* Collapsible Module Sub-List */}
                 {isOpen && (
-                  <div className="p-1.5 space-y-1 bg-slate-950/60 border-t border-slate-800/60 animate-fadeIn">
-                    {tier.items.map((mod) => {
-                      const isSelected = selectedModule.id === mod.id;
+                  <div className="p-1.5 space-y-1 bg-slate-950/60 border-t border-slate-800/60">
+                    {tier.items?.map((mod) => {
+                      const isSelected = selectedModule?.id === mod.id;
                       return (
                         <button
                           key={mod.id}
@@ -248,7 +266,7 @@ export default function LearnView() {
             <div>
               <div className="flex items-center gap-2 text-xs font-mono">
                 <span className="text-blue-400 uppercase tracking-widest bg-blue-950/50 px-2.5 py-1 rounded border border-blue-900/50">
-                  {groupedTiers[currentTierKey]?.badge || 'Mastery Curriculum'}
+                  {currentTierBadge}
                 </span>
                 <span className="text-slate-600">/</span>
                 <span className="text-slate-400 truncate">{selectedModule.id}</span>
@@ -265,7 +283,7 @@ export default function LearnView() {
           </div>
 
           {/* COMPREHENSIVE LESSON RENDERER */}
-          {selectedModule.type === 'comprehensive_lesson' && selectedModule.sections && (
+          {selectedModule.type === 'comprehensive_lesson' && Array.isArray(selectedModule.sections) && (
             <div className="space-y-8 text-left">
               {selectedModule.sections.map((sec, idx) => (
                 <div
@@ -492,7 +510,7 @@ export default function LearnView() {
           )}
 
           {/* FLASHCARD RENDERER */}
-          {selectedModule.type === 'flashcard' && selectedModule.flashcards && (
+          {selectedModule.type === 'flashcard' && Array.isArray(selectedModule.flashcards) && (
             <div className="w-full max-w-md mx-auto space-y-4 pt-10">
               <div className="flex justify-between text-xs text-slate-400 font-mono">
                 <span>Flashcard {currentCardIndex + 1} of {selectedModule.flashcards.length}</span>
@@ -507,14 +525,14 @@ export default function LearnView() {
                   <div className="space-y-2">
                     <span className="text-xs uppercase font-mono text-blue-400">Question</span>
                     <h3 className="text-lg font-semibold text-slate-100">
-                      {selectedModule.flashcards[currentCardIndex].question}
+                      {selectedModule.flashcards[currentCardIndex]?.question}
                     </h3>
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <span className="text-xs uppercase font-mono text-emerald-400">Answer</span>
                     <p className="text-base text-slate-200 font-medium">
-                      {selectedModule.flashcards[currentCardIndex].answer}
+                      {selectedModule.flashcards[currentCardIndex]?.answer}
                     </p>
                   </div>
                 )}
@@ -538,7 +556,7 @@ export default function LearnView() {
           )}
 
           {/* INTERACTIVE QUIZ RENDERER */}
-          {selectedModule.type === 'quiz' && selectedModule.questions && (
+          {selectedModule.type === 'quiz' && Array.isArray(selectedModule.questions) && (
             <div className="w-full max-w-xl mx-auto space-y-6 pt-4">
               {!quizCompleted ? (
                 <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-6 shadow-xl">
@@ -548,11 +566,11 @@ export default function LearnView() {
                   </div>
 
                   <p className="text-base font-semibold text-slate-100 leading-relaxed">
-                    {selectedModule.questions[currentQuestionIndex].prompt}
+                    {selectedModule.questions[currentQuestionIndex]?.prompt}
                   </p>
 
                   <div className="space-y-3">
-                    {selectedModule.questions[currentQuestionIndex].options.map((option, idx) => {
+                    {selectedModule.questions[currentQuestionIndex]?.options?.map((option, idx) => {
                       let btnStyle = "bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700";
                       
                       if (showExplanation) {
@@ -582,12 +600,12 @@ export default function LearnView() {
                   {showExplanation && (
                     <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3 animate-fadeIn">
                       <div className="flex items-center justify-between">
-                        <span className={`text-xs font-mono font-bold uppercase tracking-wider ${selectedOption === selectedModule.questions[currentQuestionIndex].correctIndex ? 'text-emerald-400' : 'text-rose-400'}`}>
-                          {selectedOption === selectedModule.questions[currentQuestionIndex].correctIndex ? '✓ Correct!' : '✕ Incorrect'}
+                        <span className={`text-xs font-mono font-bold uppercase tracking-wider ${selectedOption === selectedModule.questions[currentQuestionIndex]?.correctIndex ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          {selectedOption === selectedModule.questions[currentQuestionIndex]?.correctIndex ? '✓ Correct!' : '✕ Incorrect'}
                         </span>
                       </div>
                       <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-                        {selectedModule.questions[currentQuestionIndex].explanation}
+                        {selectedModule.questions[currentQuestionIndex]?.explanation}
                       </p>
                       
                       <button
@@ -600,7 +618,7 @@ export default function LearnView() {
                   )}
                 </div>
               ) : (
-                <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-center space-y-6 shadow-2xl">
+                <div className="bg-slate-900 border border-slate-800 p-8 rounded-xl text-center space-y-6 shadow-2xl">
                   <span className="text-4xl">🎉</span>
                   <div className="space-y-2">
                     <h3 className="text-xl font-bold text-slate-100">Quiz Completed!</h3>
