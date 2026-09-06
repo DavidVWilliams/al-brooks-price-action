@@ -1,4 +1,4 @@
-// Version: v3.1 - Defensive Hybrid Segmented Rail + Accordion (Crash-Proof)
+// Version: v3.2 - Fixed Sidebar Width (md:w-80) & Rail Key Sanitation
 import { useState, useMemo } from 'react';
 import data from '../data/curriculumData.json';
 
@@ -17,7 +17,7 @@ export default function LearnView() {
   // Safely extract tier key (e.g. 'tier1-mod-1.1' -> 'tier1')
   const getTierKey = (mod) => {
     if (!mod?.id) return 'tier1';
-    const match = mod.id.match(/^(tier\d+)/i);
+    const match = String(mod.id).match(/^(tier\d+)/i);
     return match ? match[1].toLowerCase() : 'tier1';
   };
 
@@ -40,7 +40,10 @@ export default function LearnView() {
     return map;
   }, [modules]);
 
-  const tierKeys = useMemo(() => Object.keys(groupedTiers), [groupedTiers]);
+  // Sanitize tier keys to ensure no empty/blank buttons render
+  const tierKeys = useMemo(() => {
+    return Object.keys(groupedTiers).filter((k) => k && k.trim() !== '' && groupedTiers[k]?.items?.length > 0);
+  }, [groupedTiers]);
 
   const currentTierKey = useMemo(() => {
     return selectedModule ? getTierKey(selectedModule) : (tierKeys[0] || 'tier1');
@@ -145,8 +148,8 @@ export default function LearnView() {
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 overflow-hidden">
       
-      {/* Sidebar Navigation: Segmented Rail + Defensive Accordion */}
-      <aside className="w-full md:w-84 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/60 flex flex-col shrink-0 h-64 md:h-full">
+      {/* Sidebar Navigation: Standard md:w-80 to prevent full-width overflow */}
+      <aside className="w-full md:w-80 md:min-w-[20rem] md:max-w-[20rem] border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/60 flex flex-col shrink-0 h-72 md:h-full">
         
         {/* Top Header & Segmented Tier Rail */}
         <div className="p-3 border-b border-slate-800 bg-slate-900/90 space-y-2 shrink-0">
@@ -155,7 +158,7 @@ export default function LearnView() {
               Curriculum Roadmap
             </h3>
             <span className="text-[10px] font-mono text-blue-400 bg-blue-950/60 border border-blue-900 px-2 py-0.5 rounded">
-              {modules.length} Modules Active
+              {modules.length} Modules
             </span>
           </div>
 
@@ -168,7 +171,7 @@ export default function LearnView() {
                 <button
                   key={key}
                   onClick={() => handleSelectTierRail(key)}
-                  className={`flex-1 min-w-[65px] py-1 px-2 rounded text-xs font-mono font-bold transition-all text-center truncate ${
+                  className={`flex-1 min-w-[60px] py-1 px-2 rounded text-xs font-mono font-bold transition-all text-center truncate ${
                     isActiveTier
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
@@ -182,7 +185,7 @@ export default function LearnView() {
           </div>
         </div>
 
-        {/* Accordion List with Unrestricted Browsing */}
+        {/* Accordion List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
           {tierKeys.map((key) => {
             const tier = groupedTiers[key];
@@ -219,7 +222,7 @@ export default function LearnView() {
                   </div>
 
                   <span className="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-0.5 rounded border border-slate-800/80 shrink-0 ml-2">
-                    {tier.items?.length || 0} lessons
+                    {tier.items?.length || 0}
                   </span>
                 </button>
 
@@ -257,7 +260,7 @@ export default function LearnView() {
         </div>
       </aside>
 
-      {/* Main Full-Width Scrolling Area */}
+      {/* Main Full-Width Scrolling Content Area */}
       <div className="flex-1 overflow-y-auto bg-slate-950 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700">
         
         <section className="p-6 md:p-12 flex flex-col max-w-4xl mx-auto w-full">
