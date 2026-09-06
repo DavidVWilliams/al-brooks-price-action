@@ -1,5 +1,7 @@
-// Version: v1.0 - Tier 1 Outside Bar Expansion & Double Trap Simulator
-// Simulates false upside breakout sweep followed by full downside stop flush.
+// Version: v1.1 - Tier 1 Outside Bar Expansion & Double Trap Simulator
+// Changelog:
+// - v1.0: Initial interactive outside bar expansion logic and order flow telemetry.
+// - v1.1: Standardized versioning header and explicit lab exercise instructions.
 
 import { useState } from 'react';
 
@@ -24,9 +26,6 @@ export default function OutsideBarTrapLab() {
     setPhase(0);
     setTrappedOrders({ longs: 0, shorts: 0 });
   };
-
-  // Dimensions & geometries
-  const svgH = 220;
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6 shadow-2xl space-y-6 text-slate-100">
@@ -94,9 +93,7 @@ export default function OutsideBarTrapLab() {
 
             {phase === 1 && (
               <g className="animate-fadeIn">
-                {/* Wick poked above */}
                 <line x1="160" y1="35" x2="160" y2="110" stroke="#10b981" strokeWidth="2" />
-                {/* Temporary green body */}
                 <rect x="145" y="50" width="30" height="60" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
                 <polygon points="160,25 155,32 165,32" fill="#10b981" />
                 <text x="160" y="20" fill="#34d399" fontSize="8" fontFamily="monospace" textAnchor="middle">+1 Tick Breakout Trap</text>
@@ -106,9 +103,7 @@ export default function OutsideBarTrapLab() {
 
             {phase === 2 && (
               <g className="animate-fadeIn">
-                {/* Full expanding outside wick */}
                 <line x1="160" y1="35" x2="160" y2="190" stroke="#f43f5e" strokeWidth="2" />
-                {/* Deep red body closing near bottom */}
                 <rect x="145" y="80" width="30" height="95" fill="#881337" stroke="#f43f5e" strokeWidth="2" rx="2" />
                 <polygon points="160,200 155,193 165,193" fill="#f43f5e" />
                 <text x="160" y="212" fill="#fb7185" fontSize="8" fontFamily="monospace" textAnchor="middle">Stop Sweep Low</text>
