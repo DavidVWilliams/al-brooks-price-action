@@ -1,4 +1,4 @@
-// Version: v5.8 - Added Tier 0 Microstructure SVGs & Resilient Visualizer
+// Version: v6.0 - Canonical LearnView with Flow Layout (Preserving App.jsx Header), Full-Spectrum SVGs (Tiers 0-5), & Dynamic Micro-Labs
 import { useState, useMemo } from 'react';
 import rawData from '../data/curriculumData.js';
 import { getInteractiveLab } from './interactive/LabRegistry.jsx';
@@ -104,10 +104,13 @@ export default function LearnView() {
   const ActiveLabComponent = selectedModule?.id ? getInteractiveLab(selectedModule.id) : null;
 
   return (
-    <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 text-slate-100 overflow-hidden">
+    /* CRITICAL: Use w-full h-full (NOT absolute inset-0) so App.jsx's header is never covered */
+    <div className="w-full h-full flex-1 flex flex-col md:flex-row bg-slate-950 text-slate-100 overflow-hidden">
       
-      {/* SIDEBAR ACCORDION */}
+      {/* SIDEBAR ACCORDION NAVIGATION */}
       <aside className="w-full md:w-80 border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/50 flex flex-col shrink-0 h-56 md:h-full select-none">
+        
+        {/* Sidebar Header */}
         <div className="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
           <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
             Course Syllabus
@@ -117,6 +120,7 @@ export default function LearnView() {
           </span>
         </div>
 
+        {/* Accordion Panels */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
           {TIERS.map((tier) => {
             const tierList = modulesByTier[tier.id] || [];
@@ -210,29 +214,27 @@ export default function LearnView() {
                 
                 <div className="w-full h-48 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4">
                   
-                  {/* TIER 0 SVGS (ORIENTATION & MICROSTRUCTURE) */}
+                  {/* TIER 0 SVGS */}
                   {(selectedModule.chartIllustration.svgType === 'order_book_dom' ||
                     selectedModule.chartIllustration.svgType === 'dom_order_book' ||
-                    selectedModule.chartIllustration.svgType === 'auction_microstructure') && (
+                    selectedModule.chartIllustration.svgType === 'auction_microstructure' ||
+                    selectedModule.chartIllustration.svgType === 'order_book') && (
                     <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                      {/* Sell Orders (Asks) */}
                       <rect x="50" y="15" width="120" height="18" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" rx="2" />
                       <text x="60" y="28" fill="#f43f5e" fontSize="9" fontFamily="monospace">ASK 5022.50 [140]</text>
                       <rect x="50" y="37" width="100" height="18" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" rx="2" />
                       <text x="60" y="50" fill="#f43f5e" fontSize="9" fontFamily="monospace">ASK 5022.25 [95]</text>
 
-                      {/* Spread / Inside Market */}
                       <line x1="40" y1="65" x2="190" y2="65" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 3" />
                       <text x="115" y="75" fill="#f59e0b" fontSize="8" fontFamily="monospace" textAnchor="middle">1-Tick Spread (Inside Market)</text>
 
-                      {/* Buy Orders (Bids) */}
                       <rect x="50" y="83" width="110" height="18" fill="#065f46" stroke="#10b981" strokeWidth="1" rx="2" />
                       <text x="60" y="96" fill="#10b981" fontSize="9" fontFamily="monospace">BID 5021.75 [110]</text>
                       <rect x="50" y="105" width="130" height="18" fill="#065f46" stroke="#10b981" strokeWidth="1" rx="2" />
                       <text x="60" y="118" fill="#10b981" fontSize="9" fontFamily="monospace">BID 5021.50 [185]</text>
 
-                      {/* Market Order Sweep Arrow */}
-                      <path d="M 230 115 L 230 40" stroke="#38bdf8" strokeWidth="2.5" markerEnd="url(#arrow)" />
+                      <path d="M 230 115 L 230 40" stroke="#38bdf8" strokeWidth="2.5" />
+                      <polygon points="225,45 235,45 230,35" fill="#38bdf8" />
                       <text x="245" y="70" fill="#38bdf8" fontSize="10" fontFamily="monospace" fontWeight="bold">Market Buy Sweep</text>
                       <text x="245" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace">Consumes Resting Limit Asks</text>
                     </svg>
@@ -242,28 +244,22 @@ export default function LearnView() {
                     selectedModule.chartIllustration.svgType === 'dual_engine_diagram' ||
                     selectedModule.chartIllustration.svgType === 'learning_methodology') && (
                     <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none">
-                      {/* Node 1: Learn Mode */}
                       <rect x="30" y="45" width="95" height="55" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.5" rx="4" />
                       <text x="77" y="70" fill="#3b82f6" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">1. Learn Mode</text>
                       <text x="77" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Brooks Syllabus</text>
 
-                      {/* Arrow 1 -> 2 */}
                       <line x1="125" y1="72" x2="155" y2="72" stroke="#38bdf8" strokeWidth="2" />
 
-                      {/* Node 2: Simulator */}
                       <rect x="155" y="45" width="105" height="55" fill="#0f172a" stroke="#10b981" strokeWidth="1.5" rx="4" />
                       <text x="207" y="70" fill="#10b981" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">2. Simulator</text>
                       <text x="207" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Live Execution</text>
 
-                      {/* Arrow 2 -> 3 */}
                       <line x1="260" y1="72" x2="290" y2="72" stroke="#38bdf8" strokeWidth="2" />
 
-                      {/* Node 3: AI Mentor */}
                       <rect x="290" y="45" width="95" height="55" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
                       <text x="337" y="70" fill="#f59e0b" fontSize="10" fontFamily="monospace" fontWeight="bold" textAnchor="middle">3. AI Mentor</text>
                       <text x="337" y="85" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Trader's Eq Audit</text>
 
-                      {/* Return loop line */}
                       <path d="M 337 100 L 337 125 L 77 125 L 77 100" stroke="#475569" strokeWidth="1.5" strokeDasharray="3 3" />
                       <text x="207" y="138" fill="#475569" fontSize="8" fontFamily="monospace" textAnchor="middle">Continuous Expectancy Feedback Loop</text>
                     </svg>
@@ -501,9 +497,9 @@ export default function LearnView() {
                     </svg>
                   )}
 
-                  {/* FAILSAFE FALLBACK: Never leave a blank container */}
+                  {/* RESILIENT FALLBACK: Ensures no container is ever blank */}
                   {![
-                    'order_book_dom', 'dom_order_book', 'auction_microstructure',
+                    'order_book_dom', 'dom_order_book', 'auction_microstructure', 'order_book',
                     'dual_engine_loop', 'dual_engine_diagram', 'learning_methodology',
                     'bull_vs_bear', 'doji_equilibrium', 'inside_bar', 'outside_bar',
                     'signal_vs_entry', 'reversal_bar', 'micro_channel', 'market_states',
@@ -541,13 +537,6 @@ export default function LearnView() {
                       <div className="p-3.5 bg-blue-950/30 border-l-4 border-blue-500 rounded-r-lg space-y-1">
                         <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-400">Core Brooks Rule:</span>
                         <p className="text-xs md:text-sm text-slate-200 font-medium">{sec.keyRule}</p>
-                      </div>
-                    )}
-                    {sec.barBreakdownExample && (
-                      <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-lg space-y-1.5">
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-400">🧠 Institutional Psychology:</span>
-                        <p className="text-xs text-slate-400 font-mono"><strong>Scenario:</strong> {sec.barBreakdownExample.scenario}</p>
-                        <p className="text-xs text-slate-300 leading-relaxed"><strong>Mechanics:</strong> {sec.barBreakdownExample.psychology}</p>
                       </div>
                     )}
                   </div>
