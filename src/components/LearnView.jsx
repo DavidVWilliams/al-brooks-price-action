@@ -1,9 +1,10 @@
-// Version: v3.9 - Integrated Interactive Micro-Labs & Tier 0 SVGs
+// Version: v4.0 - Integrated Tier 0 & Tier 1 Interactive Micro-Labs
 // Aggregated data imported from modular curriculumData.js
 
 import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
 import BarLifecycleScrubber from './interactive/BarLifecycleScrubber.jsx';
+import DOMOrderBookSimulator from './interactive/DOMOrderBookSimulator.jsx';
 
 // High-contrast markdown text and bullet parser
 function FormattedSectionContent({ content }) {
@@ -264,6 +265,13 @@ export default function LearnView() {
           {selectedModule.type === 'comprehensive_lesson' && selectedModule.sections && (
             <div className="space-y-8">
               
+              {/* DYNAMIC INTERACTIVE LAB: TIER 0 DOM ORDER BOOK SIMULATOR */}
+              {selectedModule.id === 'tier0-mod-0.1' && (
+                <section className="mb-6">
+                  <DOMOrderBookSimulator />
+                </section>
+              )}
+
               {/* DYNAMIC INTERACTIVE LAB: TIER 1 BAR LIFECYCLE SCRUBBER */}
               {selectedModule.id === 'tier1-mod-1.1' && (
                 <section className="mb-6">
@@ -312,7 +320,7 @@ export default function LearnView() {
                 </article>
               ))}
 
-              {/* DYNAMIC SVG CHART ILLUSTRATION RENDERER */}
+              {/* DYNAMIC SVG CHART ILLUSTRATION FALLBACK RENDERER */}
               {selectedModule.chartIllustration && (
                 <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-4 shadow-xl">
                   <div>
