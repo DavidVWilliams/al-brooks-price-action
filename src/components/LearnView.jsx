@@ -1,8 +1,9 @@
-// Version: v3.8 - Tier 0 Interactive SVG Diagrams & Macro Navigation
+// Version: v3.9 - Integrated Interactive Micro-Labs & Tier 0 SVGs
 // Aggregated data imported from modular curriculumData.js
 
 import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
+import BarLifecycleScrubber from './interactive/BarLifecycleScrubber.jsx';
 
 // High-contrast markdown text and bullet parser
 function FormattedSectionContent({ content }) {
@@ -262,6 +263,14 @@ export default function LearnView() {
           {/* COMPREHENSIVE LESSON RENDERER */}
           {selectedModule.type === 'comprehensive_lesson' && selectedModule.sections && (
             <div className="space-y-8">
+              
+              {/* DYNAMIC INTERACTIVE LAB: TIER 1 BAR LIFECYCLE SCRUBBER */}
+              {selectedModule.id === 'tier1-mod-1.1' && (
+                <section className="mb-6">
+                  <BarLifecycleScrubber />
+                </section>
+              )}
+
               {selectedModule.sections.map((sec, idx) => (
                 <article 
                   key={idx} 
@@ -320,38 +329,25 @@ export default function LearnView() {
                     {/* TIER 0 SVGS */}
                     {selectedModule.chartIllustration.svgType === 'double_auction_microstructure' && (
                       <svg className="w-full h-full max-h-48 text-slate-700 select-none" viewBox="0 0 500 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        {/* DOM Ladder */}
                         <rect x="20" y="20" width="160" height="140" fill="#0f172a" stroke="#334155" strokeWidth="1" rx="4" />
                         <text x="100" y="36" fill="#94a3b8" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">LIMIT ORDER BOOK (DOM)</text>
-                        
-                        {/* Ask Depth */}
                         <rect x="25" y="44" width="70" height="12" fill="#4c0519" opacity="0.6" />
                         <text x="100" y="53" fill="#f43f5e" fontSize="9" fontFamily="monospace" textAnchor="middle">5020.50 (290 Ask)</text>
                         <rect x="25" y="58" width="55" height="12" fill="#4c0519" opacity="0.8" />
                         <text x="100" y="67" fill="#f43f5e" fontSize="9" fontFamily="monospace" textAnchor="middle">5020.25 (185 Ask)</text>
-
-                        {/* Best Bid / Spread */}
                         <rect x="25" y="74" width="150" height="14" fill="#1e293b" stroke="#3b82f6" strokeWidth="1" rx="2" />
                         <text x="100" y="84" fill="#60a5fa" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">SPREAD: 5020.00 x 5020.25</text>
-
-                        {/* Bid Depth */}
                         <rect x="25" y="92" width="65" height="12" fill="#064e3b" opacity="0.8" />
                         <text x="100" y="101" fill="#34d399" fontSize="9" fontFamily="monospace" textAnchor="middle">5020.00 (142 Bid)</text>
                         <rect x="25" y="106" width="95" height="12" fill="#064e3b" opacity="0.6" />
                         <text x="100" y="115" fill="#34d399" fontSize="9" fontFamily="monospace" textAnchor="middle">5019.75 (310 Bid)</text>
-
-                        {/* Aggressive Sweep Arrow */}
-                        <path d="M 185 80 L 235 80" stroke="#38bdf8" strokeWidth="2" strokeDasharray="3 3" markerEnd="url(#arrow)" />
+                        <path d="M 185 80 L 235 80" stroke="#38bdf8" strokeWidth="2" strokeDasharray="3 3" />
                         <text x="210" y="72" fill="#38bdf8" fontSize="8" fontFamily="monospace" textAnchor="middle">Sweep</text>
-
-                        {/* Real-time 5-min Candle */}
                         <rect x="245" y="20" width="110" height="140" fill="#0f172a" stroke="#334155" strokeWidth="1" rx="4" />
                         <text x="300" y="36" fill="#94a3b8" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">5-MIN ES CANDLE</text>
                         <line x1="300" y1="45" x2="300" y2="145" stroke="#10b981" strokeWidth="2" />
                         <rect x="285" y="60" width="30" height="70" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
                         <text x="300" y="160" fill="#34d399" fontSize="8" fontFamily="monospace" textAnchor="middle">C: 5020.25 (Top 20%)</text>
-
-                        {/* Stale Oscillator Curve */}
                         <rect x="365" y="20" width="115" height="140" fill="#0f172a" stroke="#334155" strokeWidth="1" rx="4" />
                         <text x="422" y="36" fill="#f59e0b" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">OSCILLATOR (STALE)</text>
                         <path d="M 375 120 Q 400 125, 425 110 T 470 95" stroke="#f59e0b" strokeWidth="2" fill="none" />
@@ -362,30 +358,19 @@ export default function LearnView() {
 
                     {selectedModule.chartIllustration.svgType === 'master_feedback_loop' && (
                       <svg className="w-full h-full max-h-48 text-slate-700 select-none" viewBox="0 0 500 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        {/* Node 1: Learn Mode */}
                         <rect x="30" y="55" width="120" height="70" fill="#0f172a" stroke="#3b82f6" strokeWidth="2" rx="6" />
                         <text x="90" y="85" fill="#60a5fa" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">1. LEARN MODE</text>
                         <text x="90" y="102" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Theory & Microstructure</text>
-
-                        {/* Arrow 1 -> 2 */}
                         <path d="M 155 90 L 195 90" stroke="#38bdf8" strokeWidth="2" strokeDasharray="4 4" />
                         <text x="175" y="82" fill="#38bdf8" fontSize="8" fontFamily="monospace" textAnchor="middle">Apply</text>
-
-                        {/* Node 2: Simulator */}
                         <rect x="200" y="55" width="120" height="70" fill="#0f172a" stroke="#10b981" strokeWidth="2" rx="6" />
                         <text x="260" y="85" fill="#34d399" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">2. SIMULATOR</text>
                         <text x="260" y="102" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Execution & Sizing</text>
-
-                        {/* Arrow 2 -> 3 */}
                         <path d="M 325 90 L 365 90" stroke="#38bdf8" strokeWidth="2" strokeDasharray="4 4" />
                         <text x="345" y="82" fill="#38bdf8" fontSize="8" fontFamily="monospace" textAnchor="middle">Audit</text>
-
-                        {/* Node 3: AI Mentor */}
                         <rect x="370" y="55" width="115" height="70" fill="#0f172a" stroke="#f59e0b" strokeWidth="2" rx="6" />
                         <text x="427" y="85" fill="#fbbf24" fontSize="11" fontFamily="monospace" fontWeight="bold" textAnchor="middle">3. AI MENTOR</text>
                         <text x="427" y="102" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Trader's Equation</text>
-
-                        {/* Bottom Feedback Loop Ray */}
                         <path d="M 427 130 C 427 165, 90 165, 90 130" stroke="#64748b" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
                         <text x="260" y="165" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">Continuous Feedback & Calibration</text>
                       </svg>
@@ -397,7 +382,6 @@ export default function LearnView() {
                         <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
                         <rect x="105" y="40" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
                         <text x="90" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Bull Trend Bar</text>
-                        
                         <line x1="280" y1="20" x2="280" y2="130" stroke="#f43f5e" strokeWidth="2" />
                         <rect x="265" y="35" width="30" height="75" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="2" />
                         <text x="255" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace">Bear Trend Bar</text>
@@ -409,7 +393,6 @@ export default function LearnView() {
                         <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
                         <rect x="105" y="40" width="30" height="70" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
                         <text x="95" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Strong Trend</text>
-                        
                         <line x1="280" y1="20" x2="280" y2="130" stroke="#94a3b8" strokeWidth="2" />
                         <rect x="265" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
                         <text x="250" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Indecision)</text>
@@ -421,7 +404,6 @@ export default function LearnView() {
                         <line x1="140" y1="10" x2="140" y2="140" stroke="#3b82f6" strokeWidth="2" />
                         <rect x="120" y="30" width="40" height="90" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
                         <text x="110" y="145" fill="#3b82f6" fontSize="9" fontFamily="monospace">Mother Bar (1)</text>
-
                         <line x1="260" y1="45" x2="260" y2="105" stroke="#f59e0b" strokeWidth="2" />
                         <rect x="245" y="55" width="30" height="40" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
                         <text x="235" y="145" fill="#f59e0b" fontSize="9" fontFamily="monospace">Inside Bar (2)</text>
@@ -433,7 +415,6 @@ export default function LearnView() {
                         <line x1="140" y1="50" x2="140" y2="100" stroke="#94a3b8" strokeWidth="2" />
                         <rect x="125" y="60" width="30" height="30" fill="#334155" stroke="#94a3b8" strokeWidth="2" rx="2" />
                         <text x="120" y="145" fill="#94a3b8" fontSize="9" fontFamily="monospace">Prior Bar</text>
-
                         <line x1="260" y1="15" x2="260" y2="135" stroke="#10b981" strokeWidth="2" />
                         <rect x="240" y="25" width="40" height="100" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
                         <text x="230" y="145" fill="#10b981" fontSize="9" fontFamily="monospace">Outside Bar (OB)</text>
@@ -445,7 +426,6 @@ export default function LearnView() {
                         <line x1="130" y1="30" x2="130" y2="120" stroke="#f59e0b" strokeWidth="2" />
                         <rect x="115" y="45" width="30" height="60" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
                         <text x="110" y="140" fill="#f59e0b" fontSize="9" fontFamily="monospace">Signal Bar (Setup)</text>
-
                         <line x1="270" y1="15" x2="270" y2="110" stroke="#3b82f6" strokeWidth="2" />
                         <rect x="255" y="25" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
                         <text x="245" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Entry Bar (Trigger)</text>
