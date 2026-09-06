@@ -1,4 +1,4 @@
-// Version: v3.2 - Fixed Sidebar Width (md:w-80) & Rail Key Sanitation
+// Version: v3.3 - Exclusive Single-Open Focus Accordion & Fixed Width
 import { useState, useMemo } from 'react';
 import data from '../data/curriculumData.json';
 
@@ -40,7 +40,7 @@ export default function LearnView() {
     return map;
   }, [modules]);
 
-  // Sanitize tier keys to ensure no empty/blank buttons render
+  // Sanitize tier keys to prevent empty rail buttons
   const tierKeys = useMemo(() => {
     return Object.keys(groupedTiers).filter((k) => k && k.trim() !== '' && groupedTiers[k]?.items?.length > 0);
   }, [groupedTiers]);
@@ -49,8 +49,8 @@ export default function LearnView() {
     return selectedModule ? getTierKey(selectedModule) : (tierKeys[0] || 'tier1');
   }, [selectedModule, tierKeys]);
 
-  // Accordion state (set of active tier keys)
-  const [openTiers, setOpenTiers] = useState(() => new Set([currentTierKey]));
+  // Exclusive single-open accordion state: stores only ONE open tier key (or null)
+  const [openTierKey, setOpenTierKey] = useState(currentTierKey);
 
   // Flashcard state
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -63,7 +63,7 @@ export default function LearnView() {
   const [quizScore, setQuizScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
-  // Guard against completely empty data
+  // Guard against missing data
   if (!modules.length || !selectedModule) {
     return (
       <div className="h-full w-full flex items-center justify-center bg-slate-950 text-slate-500 font-mono text-sm">
@@ -76,11 +76,7 @@ export default function LearnView() {
     if (!mod) return;
     setSelectedModule(mod);
     const tier = getTierKey(mod);
-    setOpenTiers((prev) => {
-      const next = new Set(prev);
-      next.add(tier);
-      return next;
-    });
+    setOpenTierKey(tier); // Auto-focus and collapse others
     setCurrentCardIndex(0);
     setIsFlipped(false);
     setCurrentQuestionIndex(0);
@@ -91,11 +87,7 @@ export default function LearnView() {
   };
 
   const handleSelectTierRail = (tierKey) => {
-    setOpenTiers((prev) => {
-      const next = new Set(prev);
-      next.add(tierKey);
-      return next;
-    });
+    setOpenTierKey(tierKey); // Exclusively open target tier
     const targetTier = groupedTiers[tierKey];
     if (targetTier?.items?.length) {
       handleSelectModule(targetTier.items[0]);
@@ -103,15 +95,8 @@ export default function LearnView() {
   };
 
   const toggleTierAccordion = (tierKey) => {
-    setOpenTiers((prev) => {
-      const next = new Set(prev);
-      if (next.has(tierKey)) {
-        next.delete(tierKey);
-      } else {
-        next.add(tierKey);
-      }
-      return next;
-    });
+    // If currently open, close it; otherwise open exclusively
+    setOpenTierKey((prev) => (prev === tierKey ? null : tierKey));
   };
 
   const handleNextCard = (total) => {
@@ -148,7 +133,7 @@ export default function LearnView() {
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 overflow-hidden">
       
-      {/* Sidebar Navigation: Standard md:w-80 to prevent full-width overflow */}
+      {/* Sidebar Navigation: Locked to md:w-80 with min/max constraints */}
       <aside className="w-full md:w-80 md:min-w-[20rem] md:max-w-[20rem] border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/60 flex flex-col shrink-0 h-72 md:h-full">
         
         {/* Top Header & Segmented Tier Rail */}
@@ -185,13 +170,13 @@ export default function LearnView() {
           </div>
         </div>
 
-        {/* Accordion List */}
+        {/* Exclusive Accordion List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
           {tierKeys.map((key) => {
             const tier = groupedTiers[key];
             if (!tier) return null;
 
-            const isOpen = openTiers.has(key);
+            const isOpen = openTierKey === key;
             const isCurrentTier = currentTierKey === key;
 
             return (
@@ -226,7 +211,7 @@ export default function LearnView() {
                   </span>
                 </button>
 
-                {/* Collapsible Module Sub-List */}
+                {/* Collapsible Module Sub-List (Renders only if exclusively open) */}
                 {isOpen && (
                   <div className="p-1.5 space-y-1 bg-slate-950/60 border-t border-slate-800/60">
                     {tier.items?.map((mod) => {
