@@ -4,65 +4,70 @@
   "modules": [
     {
       "id": "tier0-mod-0.1",
-      "title": "0.1 Welcome & The Price Action Paradigm",
+      "title": "0.1 The Price Action Paradigm: Auction Theory & Market Microstructure",
       "type": "comprehensive_lesson",
       "estimatedReadTime": "20 mins",
       "sections": [
         {
-          "heading": "1. What is Price Action? The Continuous Double Auction",
-          "content": "Price action is the study of how human beings and institutional computer algorithms make financial decisions under conditions of uncertainty. At any single second of the trading day, the financial market is an ongoing, continuous double auction. Buyers are trying to pay as little as possible, and sellers are trying to charge as much as possible.\n\nEvery price bar you see on a chart is a chronological record of where transactions actually took place. Price moves for one reason only: an imbalance between aggressive market orders and resting limit orders. If aggressive institutions want to buy more contracts than sellers are offering at the current price, price must tick up to find sellers willing to take the other side. Everything on the chart—from a tiny 1-point wick to a 30-point trend—is the physical footprint of institutional money moving in real time.",
-          "keyRule": "The market is never 'wrong' and it is never random. Price goes wherever it needs to go to find transactions and facilitate trade between willing buyers and sellers."
+          "heading": "1. First-Principles Auction Theory: The Continuous Double Auction",
+          "content": "Every financial market—whether the 5-minute E-mini S&P 500 (ES), Treasury bonds, or foreign exchange—is fundamentally a continuous double auction designed to facilitate trade. At any given millisecond, price does not move because of news headlines or arbitrary indicator crossovers. Price moves because aggressive market orders consume all available resting limit orders at the current best bid or offer.\n\n- Aggressive vs. Passive Orders: Passive institutional participants place limit orders on the book, providing liquidity at wholesale levels. Aggressive participants execute market orders, paying the spread to transact immediately.\n- Price Discovery: When aggressive buyers exhaust all resting ask contracts at 5020.25, the market matching engine must tick up to 5020.50 to seek fresh sellers. This single tick shift is the fundamental atom of price action.",
+          "keyRule": "Price action is the footprints of institutional capital. Price moves solely because aggressive market orders consume resting limit order liquidity."
         },
         {
-          "heading": "2. Why Lagging Indicators Fail and Raw Price Bars Dominate",
-          "content": "Most beginning traders clutter their screens with indicators: Moving Average Convergence Divergence (MACD), Relative Strength Index (RSI), Stochastics, and Bollinger Bands. In Al Brooks methodology, these are considered distractions.\n\nEvery indicator is merely a mathematical derivative of price and time. They take old closes, run them through an arithmetic formula, and smooth them out. This creates a built-in delay—a lag. By the time an RSI indicator shows 'oversold' or a MACD line crosses, institutional algorithms have already completed their buying, trapped counter-trend traders, and are preparing to take profits.\n\nThe only indicators that institutional price action traders rely on are the raw price bars themselves and a single baseline: the 20-period Exponential Moving Average (20 EMA). The 20 EMA represents fair institutional value. Price bars tell you what is happening this second; indicators tell you what already happened.",
-          "keyRule": "Never let an indicator contradict what the price bars are telling you. If an indicator says 'oversold' but you see consecutive bear trend bars closing on their lows, the market is in a strong bear trend. You sell, you do not buy."
+          "heading": "2. Why Lagging Indicators Fail: Mathematical Derivative Fallacy",
+          "content": "Novice traders routinely clutter their charts with oscillators, Bollinger Bands, and complex multi-timeframe indicators, hoping a mathematical formula will predict the future. Al Brooks discarded all indicators after spending thousands of hours testing systems because every indicator is merely a mathematical derivative of raw price.\n\n- The Mathematical Distortion: An RSI, MACD, or Stochastics formula simply averages historical closing prices over past bars. By definition, it can only tell you what already happened.\n- The Operational Delay: While an oscillator waits for 14 bars of closes to confirm an 'oversold' condition, institutional algorithms have already identified the structural extreme, absorbed the trapped sellers, and reversed the market 10 points higher.",
+          "keyRule": "Indicators obfuscate rather than elucidate. Raw price bars and the 20-period Exponential Moving Average (20 EMA) tell you everything you need to know in real time."
         },
         {
-          "heading": "3. The Dominance of Institutional Algorithms and Trapped Order Flow",
-          "content": "Over 80% of all trading volume in modern markets is executed by institutional computer programs and high-frequency trading (HFT) algorithms. These algorithms do not care about news headlines, feelings, or hopes. They operate on cold mathematical probability, liquidity pools, and risk-reward equations.\n\nBecause institutions move massive position sizes, they cannot simply click a button and buy 5,000 contracts of the E-mini S&P without driving the price wildly against themselves. To get filled at favorable prices, they need liquidity. Where do they find that liquidity? In trapped retail traders.\n\nInstitutions understand where retail traders place their stop-loss orders. When a setup looks tempting but lacks higher-level context, retail traders jump in. Institutions aggressively push the market just far enough to hit those retail stops. When those stops trigger, retail traders are forced to liquidate, providing the exact pool of contracts the institutions needed to build their own positions.",
+          "heading": "3. The 20-Period Exponential Moving Average (20 EMA) as Institutional Baseline",
+          "content": "Why does Al Brooks rely exclusively on a single 20-period Exponential Moving Average on the 5-minute chart?\n\n- Consensus Fair Value: The 20 EMA represents the running dynamic consensus of institutional fair value over the trailing 100 minutes of trading.\n- Algorithmic Magnetism: High-frequency institutional algorithms use the 20 EMA as a benchmark for value. In a strong bull trend, institutions eagerly buy pullbacks at or near the 20 EMA because it represents a wholesale discount relative to the prevailing trend.\n- The Invariant: Markets cannot remain disconnected from the 20 EMA indefinitely. When price extends 15 or 20 bars without touching the moving average (2HM - Two Hours from Moving Average), the probability of a test of the 20 EMA approaches 99.5%.",
+          "keyRule": "The 20 EMA is not a magic line; it is institutional fair value. In trends, look to join the market near the 20 EMA. In trading ranges, price oscillates repeatedly through it."
+        },
+        {
+          "heading": "4. The Benchmark Instrument: Why the 5-Minute E-mini S&P (ES) Matters",
+          "content": "This masterclass uses the 5-minute E-mini S&P 500 futures (ES) as the standard training laboratory:\n\n- Optimal Microstructure: The 5-minute timeframe filters out the erratic noise of 5-second tick charts while providing clear, readable bar anatomy that does not lag like 60-minute or daily bars.\n- Total Institutional Participation: The ES is one of the most heavily capitalized, liquid derivatives on Earth. Because billions of dollars in algorithmic capital compete directly on every tick, its price action patterns conform with surgical precision to canonical Brooksian rules.",
           "barBreakdownExample": {
-            "scenario": "A market breaks 1 tick above a previous swing high, enticing breakout buyers, but the very next bar is a bear trend bar closing near its low.",
-            "psychology": "Retail traders bought the breakout on a market order. Institutions used that surge of retail buying to fill massive short limit orders. The sudden lack of further buying caused price to collapse. The breakout buyers are now trapped, holding losing positions. When their stops hit below the signal bar, their forced selling will accelerate the market downward."
+            "scenario": "A 5-minute ES bar drops 4 points below the 20 EMA on heavy volume, but rallies to close on its high, leaving a long lower tail (Bar 12). A lagging oscillator (Stochastics) remains pointed downward.",
+            "psychology": "The oscillator only sees lower closes from the prior 3 bars. The price action trader sees that institutional limit orders absorbed all selling below the 20 EMA and trapped breakout bears, setting up an immediate High 1 or High 2 buy entry."
           }
-        },
-        {
-          "heading": "4. Why the 5-Minute E-mini S&P (ES) is the Benchmark Training Ground",
-          "content": "Throughout this masterclass and inside the interactive Simulator, our standard training ground is the 5-minute chart of the E-mini S&P 500 (ES) futures.\n\nWhy the 5-minute ES?\n- First, it is the most liquid and mathematically fair financial auction in the world. No single hedge fund or rogue trader can manipulate it for more than a few seconds.\n- Second, 5 minutes is the sweet spot of human cognition and institutional execution. 1-minute charts are dominated by microsecond HFT noise and high commission drag; daily charts move too slowly to give you the repetition required to develop professional pattern recognition.\n- Third, everything you learn on the 5-minute ES applies directly to any other liquid market: Micro E-minis (MES), Nasdaq futures (NQ), Crude Oil (CL), Gold (GC), and major ETFs like SPY and QQQ.",
-          "keyRule": "Master the 5-minute ES chart first. If you can read the continuous auction on the 5-minute ES, you can trade any liquid market in the world."
         }
-      ]
+      ],
+      "chartIllustration": {
+        "svgType": "double_auction_microstructure",
+        "title": "Visual Breakdown: Continuous Double Auction & Book Depth vs. Lagging Indicators",
+        "description": "Schematic of the Central Limit Order Book (DOM) showing aggressive market orders clearing resting limit depth, contrasting real-time candle formation with delayed oscillator curves."
+      }
     },
     {
       "id": "tier0-mod-0.2",
-      "title": "0.2 How to Master This Platform & The Trader's Mindset",
+      "title": "0.2 The Master Learning Methodology: The Dual-Engine Loop",
       "type": "comprehensive_lesson",
-      "estimatedReadTime": "22 mins",
+      "estimatedReadTime": "18 mins",
       "sections": [
         {
-          "heading": "1. The 5-Tier Learning Progression: From Physics to Execution",
-          "content": "This platform is built as a self-contained, institutional-grade academy. You do not need external books or cheat sheets. The curriculum is engineered in five logical phases:\n\n- Tier 1: Foundations — The micro-physics of individual bars (Bar Anatomy, Trend Bars, Dojis, Inside/Outside Bars, and the two fundamental market states: Trends vs. Trading Ranges).\n- Tier 2: Market Dynamics — How the market moves across time (Always In direction, Spike and Channel progressions, the 80% Rule of trading ranges, and Leg 1 = Leg 2 measured moves).\n- Tier 3: Setup Engines — High-probability mechanical setups (Pullbacks, High 1 / High 2 and Low 1 / Low 2 bar counting, 20 EMA Gap Bars, and Wedge flags).\n- Tier 4: Advanced Structures — Complex reversals and institutional traps (Major Trend Reversals, Climaxes, and Final Flags).\n- Tier 5: Institutional Math & Management — The mathematical foundation of long-term profitability (The Trader’s Equation, position sizing, scaling, and capital preservation).",
-          "keyRule": "Do not skip ahead to complex setups before you have thoroughly mastered bar anatomy and market states. A great setup in the wrong market state is a guaranteed loss."
+          "heading": "1. The 5-Tier Pedagogical Architecture",
+          "content": "To master price action, you cannot learn setups in isolation. You must build your knowledge systematically from foundational bar geometry up to institutional execution:\n\n- Tier 1: Foundations — Bar Anatomy, Trend Bars vs. Dojis, Inside/Outside Bars, Signal vs. Entry Bars, Micro Channels, and the Two Market States.\n- Tier 2: Core Dynamics — Always In Direction (AIL/AIS), Spike & Channel Lifecycle, Breakouts & The 80% Rule, and Measured Move Target Projections.\n- Tier 3: Setup Engines — High 1/2 and Low 1/2 Bar Counting, 20 EMA Gap Bars, Wedges, and Trading Range BLSHS Tactics.\n- Tier 4: Advanced Structures — Major Trend Reversals (MTR), Exhaustion Climaxes, Trend Channel Line (TCL) Overshoots, and Final Flags.\n- Tier 5: Institutional Math & Management — The Trader's Equation, Actual vs. Initial Risk, Scaling Protocols, and Professional Order Discipline.",
+          "keyRule": "Never skip ahead to trade setups before mastering the two market states and bar counting. Context always dictates setup validity."
         },
         {
-          "heading": "2. The Dual-Engine Learning Loop: Learn, Simulate, Review",
-          "content": "Reading about trading produces intellectual understanding, but price action mastery requires muscle memory and emotional discipline under real-time conditions. This application solves that problem with a Dual-Engine Loop:\n\n1. Study the Concept in 'Learn': Read the auction theory, examine the institutional psychology breakdown, and inspect the custom SVG chart illustrations.\n2. Cement the Theory with Certification Quizzes: Complete the interactive quizzes at the end of each phase to prove you can spot trapped participants and identify signal bars.\n3. Battle-Test in the 'Simulator': Jump over to the Simulator tab. Step through historical price bars one by one. Identify the signal bar, place your Stop or Limit entry orders, set your protective stop, and let the mathematical engine calculate your Trader's Equation ($E$) live.\n4. Consult the 'AI Mentor': If you ever get stuck or see a bar you don't understand, slide open the AI Mentor on the right for instant Brooksian guidance.",
+          "heading": "2. The Dual-Engine Feedback Loop: Learn Mode + Simulator",
+          "content": "Reading price action theory creates intellectual understanding; executing in the simulator builds synaptic reflexes:\n\n- Learn Mode (Theory Engine): Teaches the exact auction mechanics, institutional psychology traps, and quantitative rules behind each pattern.\n- Simulator Mode (Execution Engine): Tests your ability to spot setups bar-by-bar in real time, place structural stops, calculate the Trader's Equation, and manage drawdowns without emotional tilt.\n- The AI Mentor: Serves as your on-demand institutional risk manager, auditing your trade rationale and checking your execution against canonical Brooks axioms.",
+          "keyRule": "A trader who only reads books never learns to execute under pressure. A trader who only gambles in a simulator without theory never develops an edge. Master the feedback loop."
+        },
+        {
+          "heading": "3. The 'Gray Fog' Mindset: Thinking in Probabilities",
+          "content": "Al Brooks repeatedly emphasizes that chart reading takes place in 'shades of gray':\n\n- No Certainty: Anything can happen on the very next tick. Even the cleanest High 2 pullback in a pristine bull trend only has roughly a 60% probability of success.\n- Close Is Close Enough: Real-time charts rarely print textbook pictures. If a pattern looks reasonably similar to a wedge, it will almost certainly behave like a wedge.\n- The Expectancy Mindset: Your objective is never to be right on every trade. Your objective is to take trades where the combination of Probability, Risk, and Reward produces a net positive expectancy ($E > 0$) over 100 executions.",
           "barBreakdownExample": {
-            "scenario": "A student reads about High 2 pullbacks in Tier 3, then steps into the Simulator to trade an active bull trend.",
-            "psychology": "The student identifies the first leg down (High 1), waits patiently without chasing, spots the second leg down testing the 20 EMA, and enters on a buy stop 1 tick above the High 2 bull signal bar. By practicing in the Simulator, the theory transforms into an instinctive habit."
+            "scenario": "A trader takes a textbook High 2 buy setup, but the trade fails and hits the protective stop for a 2-point loss.",
+            "psychology": "A novice blames the strategy or revenge-trades. An institutional trader recognizes that a 60% win-rate setup loses 40 out of 100 times. As long as the setup satisfied the Trader's Equation, the trade was structurally correct."
           }
-        },
-        {
-          "heading": "3. The Trader's Equation: The Universal Mathematical Law",
-          "content": "Every single trade you will ever execute—both in this course and in your trading career—is governed by one mathematical formula called The Trader's Equation:\n\n$$Expectancy = (Probability \\times Reward) - ((1 - Probability) \\times Risk)$$\n\nMost beginners focus solely on being 'right' (seeking a 90% win rate). Professional institutions do the opposite: they know that even the cleanest Brooks price action setups rarely have a win rate above 60%.\n\nProfitability comes from positive mathematical expectancy ($E > 0$). If you risk 2 points to make 4 points (a 2:1 Reward-to-Risk ratio), you only need to win 40% of your trades to make money. Inside this platform's Simulator, the HUD automatically calculates your break-even win rate and net expectancy before you place a trade.",
-          "keyRule": "Never take a trade where the Trader's Equation is negative. If your probability of success is 40%, your reward must be at least twice your risk. If probability is 60%, a 1:1 reward-to-risk ratio is an institutional money-maker."
-        },
-        {
-          "heading": "4. Cognitive Traps and the Failure Modes of Developing Traders",
-          "content": "Before you begin Tier 1, you must be aware of the four psychological failure modes that destroy developing traders:\n\n1. Fading Relentless Momentum: When you see 5 consecutive bull trend bars (a tight micro channel), your brain will scream, 'This has gone too far, it has to pull back!' You short it, and the market crushes you. Core Rule: Never pick tops or bottoms in a tight channel.\n2. Chasing Late Breakouts: Seeing a huge trend bar after a market has already moved 20 points, getting FOMO (fear of missing out), and buying at the very high. That large bar is often an exhaustion climax, not a beginning.\n3. Moving Protective Stops: Entering a trade with a defined stop, watching price move against you, and widening your stop because you can't accept being wrong. This turns small, controlled losses into catastrophic drawdowns.\n4. Over-Trading in Barb Wire: Trying to scalp in a tight trading range where bars have tiny bodies, long wicks, and heavy overlap. In tight ranges, the best trade is often no trade at all.",
-          "keyRule": "Accept that losses are the normal operating expense of a trading business. Trade small, follow the rules, and focus entirely on executing valid setups with positive expectancy."
         }
-      ]
+      ],
+      "chartIllustration": {
+        "svgType": "master_feedback_loop",
+        "title": "Visual Breakdown: The Dual-Engine Interactive Learning Loop",
+        "description": "Architectural flowchart demonstrating how Learn Mode feeds forward into the Simulator Engine, while post-trade analytics and the AI Mentor audit execution back into theory."
+      }
     }
   ]
 }
