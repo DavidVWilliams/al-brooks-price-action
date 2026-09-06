@@ -1,4 +1,4 @@
-// Version: v3.5 - Clean Macro Phase Rail in Main Canvas (Zero Sidebar Cutoff)
+// Version: v3.6 - High-Contrast Institutional Typography & Structured Content Parser
 import { useState, useMemo, useRef } from 'react';
 import data from '../data/curriculumData.json';
 
@@ -47,24 +47,76 @@ const TIER_METADATA = {
   }
 };
 
+// Helper component to render high-contrast, structured paragraphs and bullet lists
+function FormattedSectionContent({ content }) {
+  if (!content) return null;
+
+  // Split content by double newlines into blocks
+  const blocks = content.split(/\n\n+/);
+
+  return (
+    <div className="space-y-4">
+      {blocks.map((block, bIdx) => {
+        const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+
+        // Detect if this block is a bullet list
+        const isBulletList = lines.every((l) => l.startsWith('- ') || l.startsWith('* '));
+
+        if (isBulletList) {
+          return (
+            <ul key={bIdx} className="space-y-2.5 my-3 pl-2">
+              {lines.map((line, lIdx) => {
+                const cleaned = line.replace(/^[-*]\s+/, '');
+                // Check if line has a bold prefix like "Tier 1: Foundations — ..."
+                const parts = cleaned.split(/—|:/);
+                if (parts.length > 1 && cleaned.includes('—')) {
+                  const [prefix, ...rest] = cleaned.split('—');
+                  return (
+                    <li key={lIdx} className="flex items-start gap-3 text-slate-200 text-sm md:text-base leading-relaxed">
+                      <span className="text-blue-400 font-bold mt-1 shrink-0 text-xs">◆</span>
+                      <span>
+                        <strong className="text-white font-semibold">{prefix.trim()}</strong> — {rest.join('—').trim()}
+                      </span>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={lIdx} className="flex items-start gap-3 text-slate-200 text-sm md:text-base leading-relaxed">
+                    <span className="text-blue-400 font-bold mt-1 shrink-0 text-xs">◆</span>
+                    <span>{cleaned}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          );
+        }
+
+        // Standard high-contrast readable paragraph
+        return (
+          <p key={bIdx} className="text-slate-200 text-sm md:text-base leading-relaxed tracking-normal font-normal">
+            {block}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function LearnView() {
   const modules = Array.isArray(data?.modules) ? data.modules : [];
   const [selectedModule, setSelectedModule] = useState(modules[0] || null);
 
   const mainScrollRef = useRef(null);
 
-  // Milestone interstitial state (shown when finishing the final module of a tier)
   const [showMilestoneCard, setShowMilestoneCard] = useState(false);
   const [pendingNextModule, setPendingNextModule] = useState(null);
 
-  // Safely extract tier key (e.g. 'tier1-mod-1.1' -> 'tier1')
   const getTierKey = (mod) => {
-    if (!mod?.id) return 'tier1';
+    if (!mod?.id) return 'tier0';
     const match = String(mod.id).match(/^(tier\d+)/i);
-    return match ? match[1].toLowerCase() : 'tier1';
+    return match ? match[1].toLowerCase() : 'tier0';
   };
 
-  // Group modules defensively
   const groupedTiers = useMemo(() => {
     const map = {};
     modules.forEach((mod) => {
@@ -84,30 +136,25 @@ export default function LearnView() {
     return map;
   }, [modules]);
 
-  // Sanitize tier keys to prevent empty or broken buttons
   const tierKeys = useMemo(() => {
     return Object.keys(groupedTiers).filter((k) => k && k.trim() !== '' && groupedTiers[k]?.items?.length > 0);
   }, [groupedTiers]);
 
   const currentTierKey = useMemo(() => {
-    return selectedModule ? getTierKey(selectedModule) : (tierKeys[0] || 'tier1');
+    return selectedModule ? getTierKey(selectedModule) : (tierKeys[0] || 'tier0');
   }, [selectedModule, tierKeys]);
 
-  // Single-open exclusive accordion state
   const [openTierKey, setOpenTierKey] = useState(currentTierKey);
 
-  // Flashcard state
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Quiz state
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [quizScore, setQuizScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
-  // Calculate current module index and previous/next targets
   const currentIndex = useMemo(() => {
     return modules.findIndex((m) => m.id === selectedModule?.id);
   }, [modules, selectedModule]);
@@ -209,7 +256,7 @@ export default function LearnView() {
 
   if (!modules.length || !selectedModule) {
     return (
-      <div className="h-full w-full flex items-center justify-center bg-slate-950 text-slate-500 font-mono text-sm">
+      <div className="h-full w-full flex items-center justify-center bg-slate-950 text-slate-400 font-mono text-sm">
         Curriculum modules loading or unavailable.
       </div>
     );
@@ -218,26 +265,26 @@ export default function LearnView() {
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 overflow-hidden">
       
-      {/* Sidebar Navigation: Clean, Uncluttered 320px List */}
-      <aside className="w-full md:w-80 md:min-w-[20rem] md:max-w-[20rem] border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/60 flex flex-col shrink-0 h-72 md:h-full">
+      {/* Sidebar Navigation: Locked to 320px with explicit syllabus styling */}
+      <aside className="w-full md:w-80 md:min-w-[20rem] md:max-w-[20rem] border-b md:border-b-0 md:border-r border-slate-800 bg-slate-900/70 flex flex-col shrink-0 h-72 md:h-full">
         
         {/* Sidebar Header */}
-        <div className="p-3.5 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between shrink-0">
+        <div className="p-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between shrink-0">
           <div>
-            <h3 className="text-[11px] font-bold text-slate-300 uppercase tracking-wider font-mono">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
               Course Syllabus
             </h3>
-            <span className="text-[10px] text-slate-500 font-mono">
+            <span className="text-[11px] text-slate-400">
               Al Brooks Price Action Mastery
             </span>
           </div>
-          <span className="text-[10px] font-mono font-semibold text-blue-400 bg-blue-950/60 border border-blue-900 px-2 py-0.5 rounded">
+          <span className="text-[11px] font-mono font-semibold text-blue-400 bg-blue-950/80 border border-blue-800 px-2 py-0.5 rounded">
             {modules.length} Lessons
           </span>
         </div>
 
         {/* Exclusive Single-Open Accordion List */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
+        <div className="flex-1 overflow-y-auto p-2.5 space-y-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700 transition-colors">
           {tierKeys.map((key) => {
             const tier = groupedTiers[key];
             if (!tier) return null;
@@ -250,50 +297,50 @@ export default function LearnView() {
                 key={key}
                 className={`rounded-xl border transition-colors overflow-hidden ${
                   isCurrentTier
-                    ? 'border-blue-900/60 bg-slate-900/40'
-                    : 'border-slate-800/80 bg-slate-950/40 hover:border-slate-700'
+                    ? 'border-blue-500/50 bg-slate-900/60 shadow-sm'
+                    : 'border-slate-800 bg-slate-950/40 hover:border-slate-700'
                 }`}
               >
                 {/* Accordion Tier Header */}
                 <button
                   onClick={() => toggleTierAccordion(key)}
-                  className="w-full px-3 py-2.5 flex items-center justify-between text-left transition-colors bg-slate-900/50 hover:bg-slate-900/80 select-none"
+                  className="w-full px-3.5 py-3 flex items-center justify-between text-left transition-colors bg-slate-900/60 hover:bg-slate-900 select-none"
                 >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-slate-500 font-mono text-xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="text-slate-400 font-mono text-xs">
                       {isOpen ? '▾' : '▸'}
                     </span>
                     <span
                       className={`text-xs font-bold truncate ${
-                        isCurrentTier ? 'text-blue-400' : 'text-slate-300'
+                        isCurrentTier ? 'text-blue-300' : 'text-slate-200'
                       }`}
                     >
                       {tier.title}
                     </span>
                   </div>
 
-                  <span className="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-0.5 rounded border border-slate-800/80 shrink-0 ml-2">
+                  <span className="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 shrink-0 ml-2">
                     {tier.items?.length || 0}
                   </span>
                 </button>
 
                 {/* Collapsible Module Sub-List */}
                 {isOpen && (
-                  <div className="p-1.5 space-y-1 bg-slate-950/60 border-t border-slate-800/60">
+                  <div className="p-1.5 space-y-1 bg-slate-950/70 border-t border-slate-800/80">
                     {tier.items?.map((mod) => {
                       const isSelected = selectedModule?.id === mod.id && !showMilestoneCard;
                       return (
                         <button
                           key={mod.id}
                           onClick={() => handleSelectModule(mod)}
-                          className={`w-full px-2.5 py-2 rounded-lg text-xs md:text-sm text-left transition-all flex items-center justify-between gap-2 ${
+                          className={`w-full px-3 py-2.5 rounded-lg text-xs md:text-sm text-left transition-all flex items-center justify-between gap-2.5 ${
                             isSelected
-                              ? 'bg-blue-600/20 text-blue-300 border border-blue-500/40 font-semibold shadow-sm'
-                              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/80'
+                              ? 'bg-blue-600 text-white font-semibold shadow-md'
+                              : 'text-slate-300 hover:text-white hover:bg-slate-900'
                           }`}
                         >
                           <span className="truncate">{mod.title}</span>
-                          <span className="text-xs text-slate-500 font-mono shrink-0">
+                          <span className="text-xs text-slate-400 font-mono shrink-0">
                             {mod.type === 'comprehensive_lesson'
                               ? '📖'
                               : mod.type === 'flashcard'
@@ -311,15 +358,15 @@ export default function LearnView() {
         </div>
       </aside>
 
-      {/* Main Full-Width Scrolling Area */}
+      {/* Main Full-Width Scrolling Content Area */}
       <div 
         ref={mainScrollRef}
         className="flex-1 overflow-y-auto bg-slate-950 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-700"
       >
         {/* Generous Macro Phase Rail Across Full Content Header */}
-        <div className="border-b border-slate-800/80 bg-slate-900/40 px-6 py-3 sticky top-0 z-10 backdrop-blur-md">
-          <div className="max-w-4xl mx-auto flex items-center gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-            <span className="text-[10px] font-mono uppercase text-slate-500 font-bold tracking-wider shrink-0 mr-1">
+        <div className="border-b border-slate-800 bg-slate-900/60 px-6 py-3.5 sticky top-0 z-10 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto flex items-center gap-2.5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            <span className="text-xs font-mono uppercase text-slate-400 font-bold tracking-wider shrink-0 mr-1">
               Phases:
             </span>
             {tierKeys.map((key) => {
@@ -329,10 +376,10 @@ export default function LearnView() {
                 <button
                   key={key}
                   onClick={() => handleSelectTierRail(key)}
-                  className={`py-1.5 px-3 rounded-lg text-xs font-semibold transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+                  className={`py-1.5 px-3.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
                     isActiveTier
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800/60'
                   }`}
                   title={tier?.title || key}
                 >
@@ -343,12 +390,12 @@ export default function LearnView() {
           </div>
         </div>
 
-        <section className="p-6 md:p-12 flex flex-col max-w-4xl mx-auto w-full min-h-[calc(100%-49px)] justify-between">
+        <section className="p-6 md:p-12 flex flex-col max-w-4xl mx-auto w-full min-h-[calc(100%-57px)] justify-between">
           
           {/* OPTION B: MILESTONE INTERSTITIAL CARD */}
           {showMilestoneCard ? (
-            <div className="my-auto py-12 px-6 max-w-2xl mx-auto text-center space-y-6 bg-slate-900/70 border border-slate-800 rounded-3xl shadow-2xl animate-fadeIn">
-              <div className="inline-flex p-4 bg-blue-950/60 border border-blue-800 rounded-2xl text-4xl shadow-inner">
+            <div className="my-auto py-12 px-6 max-w-2xl mx-auto text-center space-y-6 bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl animate-fadeIn">
+              <div className="inline-flex p-4 bg-blue-950 border border-blue-700 rounded-2xl text-4xl shadow-inner">
                 🎓
               </div>
               
@@ -356,23 +403,23 @@ export default function LearnView() {
                 <span className="text-xs uppercase font-mono tracking-widest text-emerald-400 font-bold">
                   Curriculum Milestone Achieved
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-slate-100">
+                <h2 className="text-2xl md:text-3xl font-bold text-white">
                   {activeTierObj.title} Complete!
                 </h2>
-                <p className="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+                <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
                   You have successfully completed all core lectures and certification questions for this phase.
                 </p>
               </div>
 
               {pendingNextModule && (
                 <div className="p-5 bg-slate-950 border border-slate-800 rounded-2xl text-left space-y-2 max-w-lg mx-auto">
-                  <span className="text-[11px] font-mono text-blue-400 uppercase font-semibold">
+                  <span className="text-xs font-mono text-blue-400 uppercase font-semibold">
                     Next Phase Unlocked:
                   </span>
-                  <h4 className="text-base font-bold text-slate-100">
+                  <h4 className="text-base font-bold text-white">
                     {TIER_METADATA[getTierKey(pendingNextModule)]?.title || 'Next Phase'}
                   </h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-300 leading-relaxed">
                     {TIER_METADATA[getTierKey(pendingNextModule)]?.description || ''}
                   </p>
                 </div>
@@ -381,13 +428,13 @@ export default function LearnView() {
               <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
                 <button
                   onClick={() => setShowMilestoneCard(false)}
-                  className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-semibold transition-colors"
+                  className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-sm font-semibold transition-colors"
                 >
                   Review Prior Lesson ↺
                 </button>
                 <button
                   onClick={handleConfirmMilestoneAdvance}
-                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2"
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2"
                 >
                   <span>Begin Next Phase</span>
                   <span>➔</span>
@@ -396,72 +443,72 @@ export default function LearnView() {
             </div>
           ) : (
             <>
-              {/* NORMAL LESSON/QUIZ CONTENT */}
+              {/* HIGH-CONTRAST LESSON AND QUIZ CONTENT */}
               <div className="space-y-8">
                 
-                {/* Breadcrumb & Institutional Orientation Header */}
-                <div className="pb-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                {/* Header & Orientation Breadcrumbs */}
+                <div className="pb-5 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2 text-xs font-mono">
-                      <span className="text-blue-400 uppercase tracking-widest bg-blue-950/50 px-2.5 py-1 rounded border border-blue-900/50 font-bold">
+                      <span className="text-blue-300 uppercase tracking-widest bg-blue-950 border border-blue-800/80 px-2.5 py-1 rounded font-bold">
                         {activeTierObj.badge || 'Mastery Curriculum'}
                       </span>
-                      <span className="text-slate-600">/</span>
-                      <span className="text-slate-400 font-semibold">
+                      <span className="text-slate-500">/</span>
+                      <span className="text-slate-300 font-semibold">
                         Lesson {currentStepInTier} of {currentTierItems.length}
                       </span>
                     </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-100 mt-2 tracking-tight">
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mt-2.5 tracking-tight">
                       {selectedModule.title}
                     </h2>
                   </div>
                   {selectedModule.estimatedReadTime && (
-                    <span className="text-xs text-slate-400 font-mono bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800 shadow-sm">
+                    <span className="text-xs text-slate-300 font-mono bg-slate-900 px-3.5 py-1.5 rounded-lg border border-slate-800 shadow-sm font-medium">
                       ⏱ {selectedModule.estimatedReadTime} read
                     </span>
                   )}
                 </div>
 
-                {/* COMPREHENSIVE LESSON RENDERER */}
+                {/* COMPREHENSIVE LESSON RENDERER WITH HIGH-CONTRAST CARDS */}
                 {selectedModule.type === 'comprehensive_lesson' && Array.isArray(selectedModule.sections) && (
                   <div className="space-y-8 text-left">
                     {selectedModule.sections.map((sec, idx) => (
                       <div
                         key={idx}
-                        className="space-y-4 bg-slate-900/30 border border-slate-800/80 p-6 rounded-2xl shadow-lg"
+                        className="space-y-5 bg-slate-900/90 border border-slate-800/90 p-6 md:p-8 rounded-2xl shadow-xl backdrop-blur-sm"
                       >
-                        <h3 className="text-lg font-bold text-blue-300 flex items-center gap-2">
-                          <span className="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-0.5 rounded">
+                        <h3 className="text-lg md:text-xl font-bold text-blue-300 flex items-center gap-2.5">
+                          <span className="text-xs font-mono text-slate-300 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
                             0{idx + 1}
                           </span>
-                          {sec.heading}
+                          <span>{sec.heading}</span>
                         </h3>
                         
-                        <p className="text-slate-300 text-sm md:text-base leading-relaxed whitespace-pre-line">
-                          {sec.content}
-                        </p>
+                        {/* High-Contrast Structured Paragraph & Bullet Parser */}
+                        <FormattedSectionContent content={sec.content} />
 
                         {sec.keyRule && (
-                          <div className="p-4 bg-blue-950/30 border-l-4 border-blue-500 rounded-r-xl space-y-1">
-                            <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
+                          <div className="p-4 md:p-5 bg-blue-950/50 border-l-4 border-blue-500 rounded-r-xl space-y-1.5 shadow-inner">
+                            <span className="text-xs font-bold uppercase tracking-wider text-blue-300 font-mono">
                               Core Brooks Rule:
                             </span>
-                            <p className="text-xs md:text-sm text-slate-200 font-medium">
+                            <p className="text-sm md:text-base text-white font-medium leading-relaxed">
                               {sec.keyRule}
                             </p>
                           </div>
                         )}
 
                         {sec.barBreakdownExample && (
-                          <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl space-y-2">
-                            <span className="text-xs font-semibold uppercase tracking-wider text-amber-400">
-                              🧠 Institutional Psychology Breakdown:
+                          <div className="p-4 md:p-5 bg-slate-950 border border-slate-800/90 rounded-xl space-y-2.5 shadow-inner">
+                            <span className="text-xs font-bold uppercase tracking-wider text-amber-300 font-mono flex items-center gap-1.5">
+                              <span>🧠</span>
+                              <span>Institutional Psychology Breakdown:</span>
                             </span>
-                            <p className="text-xs text-slate-400 font-mono">
-                              <strong>Scenario:</strong> {sec.barBreakdownExample.scenario}
+                            <p className="text-xs md:text-sm text-slate-300 font-mono">
+                              <strong className="text-slate-100">Scenario:</strong> {sec.barBreakdownExample.scenario}
                             </p>
-                            <p className="text-xs text-slate-300 leading-relaxed">
-                              <strong>Mechanics:</strong> {sec.barBreakdownExample.psychology}
+                            <p className="text-xs md:text-sm text-slate-200 leading-relaxed">
+                              <strong className="text-slate-100">Mechanics:</strong> {sec.barBreakdownExample.psychology}
                             </p>
                           </div>
                         )}
@@ -470,79 +517,79 @@ export default function LearnView() {
 
                     {/* DYNAMIC SVG CHART ILLUSTRATION RENDERER */}
                     {selectedModule.chartIllustration && (
-                      <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-xl">
-                        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
-                          <h4 className="text-sm font-bold text-slate-200">
+                      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 md:p-8 space-y-4 shadow-xl">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                          <h4 className="text-sm md:text-base font-bold text-white">
                             📊 {selectedModule.chartIllustration.title}
                           </h4>
-                          <span className="text-[10px] font-mono uppercase text-blue-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                          <span className="text-[11px] font-mono uppercase text-blue-300 bg-slate-950 px-2.5 py-1 rounded border border-slate-800 font-bold">
                             Visual Reference
                           </span>
                         </div>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
                           {selectedModule.chartIllustration.description}
                         </p>
                         
-                        <div className="w-full h-52 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-center p-4">
+                        <div className="w-full h-56 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-center p-4">
                           {selectedModule.chartIllustration.svgType === 'bull_vs_bear' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
                               <rect x="105" y="40" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                              <text x="90" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Bull Trend Bar</text>
+                              <text x="90" y="15" fill="#60a5fa" fontSize="11" fontFamily="monospace" fontWeight="bold">Bull Trend Bar</text>
                               <line x1="280" y1="20" x2="280" y2="130" stroke="#f43f5e" strokeWidth="2" />
                               <rect x="265" y="35" width="30" height="75" fill="#4c0519" stroke="#f43f5e" strokeWidth="2" rx="2" />
-                              <text x="255" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace">Bear Trend Bar</text>
+                              <text x="250" y="15" fill="#fb7185" fontSize="11" fontFamily="monospace" fontWeight="bold">Bear Trend Bar</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'doji_equilibrium' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="120" y1="20" x2="120" y2="130" stroke="#3b82f6" strokeWidth="2" />
                               <rect x="105" y="40" width="30" height="70" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                              <text x="95" y="15" fill="#3b82f6" fontSize="10" fontFamily="monospace">Strong Trend</text>
+                              <text x="95" y="15" fill="#60a5fa" fontSize="11" fontFamily="monospace" fontWeight="bold">Strong Trend</text>
                               <line x1="280" y1="20" x2="280" y2="130" stroke="#94a3b8" strokeWidth="2" />
                               <rect x="265" y="73" width="30" height="4" fill="#64748b" stroke="#94a3b8" strokeWidth="2" />
-                              <text x="250" y="15" fill="#94a3b8" fontSize="10" fontFamily="monospace">Doji (Indecision)</text>
+                              <text x="245" y="15" fill="#cbd5e1" fontSize="11" fontFamily="monospace" fontWeight="bold">Doji (Indecision)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'inside_bar' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="140" y1="10" x2="140" y2="140" stroke="#3b82f6" strokeWidth="2" />
                               <rect x="120" y="30" width="40" height="90" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                              <text x="110" y="145" fill="#3b82f6" fontSize="9" fontFamily="monospace">Mother Bar (1)</text>
+                              <text x="105" y="145" fill="#60a5fa" fontSize="10" fontFamily="monospace" fontWeight="bold">Mother Bar (1)</text>
                               <line x1="260" y1="45" x2="260" y2="105" stroke="#f59e0b" strokeWidth="2" />
                               <rect x="245" y="55" width="30" height="40" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
-                              <text x="235" y="145" fill="#f59e0b" fontSize="9" fontFamily="monospace">Inside Bar (2)</text>
+                              <text x="235" y="145" fill="#fbbf24" fontSize="10" fontFamily="monospace" fontWeight="bold">Inside Bar (2)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'outside_bar' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="140" y1="50" x2="140" y2="100" stroke="#94a3b8" strokeWidth="2" />
                               <rect x="125" y="60" width="30" height="30" fill="#334155" stroke="#94a3b8" strokeWidth="2" rx="2" />
-                              <text x="120" y="145" fill="#94a3b8" fontSize="9" fontFamily="monospace">Prior Bar</text>
+                              <text x="115" y="145" fill="#cbd5e1" fontSize="10" fontFamily="monospace">Prior Bar</text>
                               <line x1="260" y1="15" x2="260" y2="135" stroke="#10b981" strokeWidth="2" />
                               <rect x="240" y="25" width="40" height="100" fill="#065f46" stroke="#10b981" strokeWidth="2" rx="2" />
-                              <text x="230" y="145" fill="#10b981" fontSize="9" fontFamily="monospace">Outside Bar (OB)</text>
+                              <text x="225" y="145" fill="#34d399" fontSize="10" fontFamily="monospace" fontWeight="bold">Outside Bar (OB)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'signal_vs_entry' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="130" y1="30" x2="130" y2="120" stroke="#f59e0b" strokeWidth="2" />
                               <rect x="115" y="45" width="30" height="60" fill="#78350f" stroke="#f59e0b" strokeWidth="2" rx="2" />
-                              <text x="110" y="140" fill="#f59e0b" fontSize="9" fontFamily="monospace">Signal Bar (Setup)</text>
+                              <text x="100" y="140" fill="#fbbf24" fontSize="10" fontFamily="monospace" fontWeight="bold">Signal Bar (Setup)</text>
                               <line x1="270" y1="15" x2="270" y2="110" stroke="#3b82f6" strokeWidth="2" />
                               <rect x="255" y="25" width="30" height="75" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="2" />
-                              <text x="245" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Entry Bar (Trigger)</text>
+                              <text x="240" y="140" fill="#60a5fa" fontSize="10" fontFamily="monospace" fontWeight="bold">Entry Bar (Trigger)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'reversal_bar' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="200" y1="10" x2="200" y2="140" stroke="#ec4899" strokeWidth="2" />
                               <rect x="180" y="20" width="40" height="90" fill="#831843" stroke="#ec4899" strokeWidth="2" rx="2" />
-                              <text x="160" y="145" fill="#ec4899" fontSize="9" fontFamily="monospace">Reversal Bar (Climax Close)</text>
+                              <text x="145" y="145" fill="#f472b6" fontSize="10" fontFamily="monospace" fontWeight="bold">Reversal Bar (Climax Close)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'micro_channel' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="100" y1="80" x2="100" y2="130" stroke="#3b82f6" strokeWidth="2" />
                               <rect x="90" y="90" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
                               <line x1="160" y1="60" x2="160" y2="110" stroke="#3b82f6" strokeWidth="2" />
@@ -551,19 +598,19 @@ export default function LearnView() {
                               <rect x="210" y="50" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
                               <line x1="280" y1="20" x2="280" y2="70" stroke="#3b82f6" strokeWidth="2" />
                               <rect x="270" y="30" width="20" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" rx="1" />
-                              <text x="160" y="140" fill="#3b82f6" fontSize="9" fontFamily="monospace">Tight Bull Micro Channel</text>
+                              <text x="145" y="140" fill="#60a5fa" fontSize="10" fontFamily="monospace" fontWeight="bold">Tight Bull Micro Channel</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'market_states' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <rect x="30" y="30" width="140" height="90" fill="#0f172a" stroke="#3b82f6" strokeWidth="1.5" rx="4" />
-                              <text x="60" y="80" fill="#3b82f6" fontSize="11" fontFamily="monospace" fontWeight="bold">Trend State (30-40%)</text>
+                              <text x="50" y="80" fill="#60a5fa" fontSize="11" fontFamily="monospace" fontWeight="bold">Trend State (30-40%)</text>
                               <rect x="230" y="30" width="140" height="90" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" rx="4" />
-                              <text x="245" y="80" fill="#f59e0b" fontSize="11" fontFamily="monospace" fontWeight="bold">Trading Range (60-70%)</text>
+                              <text x="235" y="80" fill="#fbbf24" fontSize="11" fontFamily="monospace" fontWeight="bold">Trading Range (60-70%)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'always_in_flip' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="50" y1="50" x2="150" y2="150" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
                               <rect x="70" y="70" width="16" height="30" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
                               <line x1="78" y1="60" x2="78" y2="110" stroke="#f43f5e" strokeWidth="2" />
@@ -573,11 +620,11 @@ export default function LearnView() {
                               <line x1="138" y1="100" x2="138" y2="155" stroke="#f43f5e" strokeWidth="2" />
                               <rect x="180" y="40" width="24" height="110" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <line x1="192" y1="30" x2="192" y2="160" stroke="#3b82f6" strokeWidth="2" />
-                              <text x="192" y="20" fill="#94a3b8" fontSize="10" fontFamily="monospace" textAnchor="middle">AIL Flip</text>
+                              <text x="192" y="20" fill="#cbd5e1" fontSize="11" fontFamily="monospace" textAnchor="middle" fontWeight="bold">AIL Flip</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'spike_and_channel' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <rect x="50" y="90" width="16" height="50" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <rect x="75" y="40" width="16" height="55" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <rect x="100" y="10" width="16" height="40" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
@@ -591,22 +638,22 @@ export default function LearnView() {
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'breakout_vs_failure' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="20" y1="80" x2="380" y2="80" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 4" />
-                              <text x="200" y="75" fill="#f59e0b" fontSize="10" fontFamily="monospace" textAnchor="middle">Resistance</text>
+                              <text x="200" y="75" fill="#fbbf24" fontSize="11" fontFamily="monospace" textAnchor="middle">Resistance</text>
                               <rect x="60" y="90" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <rect x="85" y="50" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <rect x="110" y="20" width="16" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
-                              <text x="85" y="15" fill="#10b981" fontSize="10" fontFamily="monospace" textAnchor="middle">20% Success</text>
+                              <text x="85" y="15" fill="#34d399" fontSize="10" fontFamily="monospace" textAnchor="middle" fontWeight="bold">20% Success</text>
                               <rect x="260" y="90" width="16" height="30" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <rect x="285" y="50" width="16" height="45" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
                               <rect x="310" y="55" width="12" height="15" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
                               <rect x="330" y="75" width="16" height="40" fill="#4c0519" stroke="#f43f5e" strokeWidth="1" />
-                              <text x="295" y="15" fill="#f43f5e" fontSize="10" fontFamily="monospace" textAnchor="middle">80% Failure (Trap)</text>
+                              <text x="295" y="15" fill="#fb7185" fontSize="10" fontFamily="monospace" textAnchor="middle" fontWeight="bold">80% Failure (Trap)</text>
                             </svg>
                           )}
                           {selectedModule.chartIllustration.svgType === 'leg1_leg2_measured_move' && (
-                            <svg className="w-full h-full max-h-36 text-slate-700" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className="w-full h-full max-h-40" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <line x1="50" y1="130" x2="120" y2="60" stroke="#3b82f6" strokeWidth="4" />
                               <text x="70" y="100" fill="#94a3b8" fontSize="10" fontFamily="monospace">Leg 1</text>
                               <line x1="120" y1="60" x2="160" y2="90" stroke="#f43f5e" strokeWidth="4" />
@@ -615,7 +662,7 @@ export default function LearnView() {
                               <line x1="50" y1="130" x2="50" y2="60" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
                               <line x1="160" y1="90" x2="160" y2="20" stroke="#475569" strokeWidth="2" strokeDasharray="4 4" />
                               <line x1="50" y1="60" x2="160" y2="20" stroke="#f59e0b" strokeWidth="1" strokeDasharray="2 2" />
-                              <text x="240" y="25" fill="#f59e0b" fontSize="10" fontFamily="monospace">Target (PTZ)</text>
+                              <text x="240" y="25" fill="#fbbf24" fontSize="10" fontFamily="monospace" fontWeight="bold">Target (PTZ)</text>
                             </svg>
                           )}
                         </div>
@@ -627,7 +674,7 @@ export default function LearnView() {
                 {/* FLASHCARD RENDERER */}
                 {selectedModule.type === 'flashcard' && Array.isArray(selectedModule.flashcards) && (
                   <div className="w-full max-w-md mx-auto space-y-4 pt-6">
-                    <div className="flex justify-between text-xs text-slate-400 font-mono">
+                    <div className="flex justify-between text-xs text-slate-300 font-mono">
                       <span>Card {currentCardIndex + 1} of {selectedModule.flashcards.length}</span>
                       <span>Click to flip</span>
                     </div>
@@ -639,14 +686,14 @@ export default function LearnView() {
                       {!isFlipped ? (
                         <div className="space-y-2">
                           <span className="text-xs uppercase font-mono text-blue-400 font-bold">Question</span>
-                          <h3 className="text-lg font-semibold text-slate-100">
+                          <h3 className="text-lg font-semibold text-white">
                             {selectedModule.flashcards[currentCardIndex]?.question}
                           </h3>
                         </div>
                       ) : (
                         <div className="space-y-2">
                           <span className="text-xs uppercase font-mono text-emerald-400 font-bold">Answer</span>
-                          <p className="text-base text-slate-200 font-medium leading-relaxed">
+                          <p className="text-base text-slate-100 font-medium leading-relaxed">
                             {selectedModule.flashcards[currentCardIndex]?.answer}
                           </p>
                         </div>
@@ -674,25 +721,25 @@ export default function LearnView() {
                 {selectedModule.type === 'quiz' && Array.isArray(selectedModule.questions) && (
                   <div className="w-full max-w-xl mx-auto space-y-6 pt-4">
                     {!quizCompleted ? (
-                      <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-6 shadow-xl">
-                        <div className="flex justify-between items-center text-xs font-mono text-slate-400 border-b border-slate-800 pb-3">
+                      <div className="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-2xl space-y-6 shadow-xl">
+                        <div className="flex justify-between items-center text-xs font-mono text-slate-300 border-b border-slate-800 pb-3">
                           <span>Question {currentQuestionIndex + 1} of {selectedModule.questions.length}</span>
                           <span className="font-bold text-blue-400">Score: {quizScore}</span>
                         </div>
 
-                        <p className="text-base font-semibold text-slate-100 leading-relaxed">
+                        <p className="text-base md:text-lg font-semibold text-white leading-relaxed">
                           {selectedModule.questions[currentQuestionIndex]?.prompt}
                         </p>
 
                         <div className="space-y-3">
                           {selectedModule.questions[currentQuestionIndex]?.options?.map((option, idx) => {
-                            let btnStyle = "bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700";
+                            let btnStyle = "bg-slate-950 border-slate-800 text-slate-200 hover:border-slate-700";
                             
                             if (showExplanation) {
                               if (idx === selectedModule.questions[currentQuestionIndex].correctIndex) {
-                                btnStyle = "bg-emerald-950/40 border-emerald-500 text-emerald-200 font-medium";
+                                btnStyle = "bg-emerald-950/60 border-emerald-500 text-emerald-200 font-semibold";
                               } else if (idx === selectedOption) {
-                                btnStyle = "bg-rose-950/40 border-rose-500 text-rose-200";
+                                btnStyle = "bg-rose-950/60 border-rose-500 text-rose-200";
                               } else {
                                 btnStyle = "bg-slate-950/50 border-slate-900 text-slate-600 opacity-50";
                               }
@@ -703,9 +750,9 @@ export default function LearnView() {
                                 key={idx}
                                 onClick={() => handleSelectQuizOption(idx, selectedModule.questions[currentQuestionIndex].correctIndex)}
                                 disabled={showExplanation}
-                                className={`w-full p-4 rounded-xl border text-sm text-left transition-all flex items-start gap-3 ${btnStyle}`}
+                                className={`w-full p-4 rounded-xl border text-sm md:text-base text-left transition-all flex items-start gap-3 ${btnStyle}`}
                               >
-                                <span className="font-mono text-xs opacity-60 mt-0.5">0{idx + 1}</span>
+                                <span className="font-mono text-xs opacity-70 mt-0.5">0{idx + 1}</span>
                                 <span className="flex-1">{option}</span>
                               </button>
                             );
@@ -713,11 +760,11 @@ export default function LearnView() {
                         </div>
 
                         {showExplanation && (
-                          <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3 animate-fadeIn">
+                          <div className="p-4 md:p-5 bg-slate-950 border border-slate-800 rounded-xl space-y-3 animate-fadeIn">
                             <span className={`text-xs font-mono font-bold uppercase tracking-wider ${selectedOption === selectedModule.questions[currentQuestionIndex]?.correctIndex ? 'text-emerald-400' : 'text-rose-400'}`}>
                               {selectedOption === selectedModule.questions[currentQuestionIndex]?.correctIndex ? '✓ Correct Decision' : '✕ Trapped / Incorrect'}
                             </span>
-                            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
+                            <p className="text-xs md:text-sm text-slate-200 leading-relaxed">
                               {selectedModule.questions[currentQuestionIndex]?.explanation}
                             </p>
                             
@@ -734,9 +781,9 @@ export default function LearnView() {
                       <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl text-center space-y-6 shadow-2xl">
                         <span className="text-4xl">🎉</span>
                         <div className="space-y-2">
-                          <h3 className="text-xl font-bold text-slate-100">Quiz Completed!</h3>
-                          <p className="text-sm text-slate-400 font-mono">
-                            You scored <strong className="text-emerald-400">{quizScore}</strong> out of <strong className="text-slate-200">{selectedModule.questions.length}</strong>
+                          <h3 className="text-xl font-bold text-white">Quiz Completed!</h3>
+                          <p className="text-sm text-slate-300 font-mono">
+                            You scored <strong className="text-emerald-400">{quizScore}</strong> out of <strong className="text-white">{selectedModule.questions.length}</strong>
                           </p>
                         </div>
 
@@ -752,8 +799,8 @@ export default function LearnView() {
                 )}
               </div>
 
-              {/* PERSISTENT GUIDED CONTINUATION FOOTER ("DON'T MAKE ME THINK") */}
-              <footer className="mt-16 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+              {/* PERSISTENT GUIDED CONTINUATION FOOTER */}
+              <footer className="mt-16 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                 
                 {/* Previous Module Button */}
                 <button
@@ -761,7 +808,7 @@ export default function LearnView() {
                   disabled={!prevModule}
                   className={`w-full sm:w-auto px-4 py-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
                     prevModule
-                      ? 'border-slate-800 bg-slate-900/60 text-slate-300 hover:bg-slate-800 hover:border-slate-700'
+                      ? 'border-slate-800 bg-slate-900 text-slate-200 hover:bg-slate-800 hover:border-slate-700'
                       : 'border-slate-900 bg-slate-950 text-slate-700 opacity-40 cursor-not-allowed'
                   }`}
                 >
@@ -771,17 +818,17 @@ export default function LearnView() {
                   </span>
                 </button>
 
-                {/* Plain-English Progress Breadcrumb */}
+                {/* Progress Breadcrumb */}
                 <div className="text-center">
-                  <div className="text-[11px] font-mono text-slate-400">
-                    Step <strong className="text-blue-400">{currentIndex + 1}</strong> of <strong className="text-slate-200">{modules.length}</strong>
+                  <div className="text-xs font-mono text-slate-300">
+                    Step <strong className="text-blue-400">{currentIndex + 1}</strong> of <strong className="text-white">{modules.length}</strong>
                   </div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-mono">
+                  <div className="text-[10px] text-slate-400 uppercase tracking-wider font-mono">
                     {activeTierObj.label}
                   </div>
                 </div>
 
-                {/* Primary Action: Advance to Next Module */}
+                {/* Primary Action Button */}
                 {nextModule ? (
                   <button
                     onClick={handleAdvanceToNext}
@@ -794,7 +841,7 @@ export default function LearnView() {
                     </span>
                   </button>
                 ) : (
-                  <div className="px-4 py-2 rounded-xl bg-emerald-950/40 border border-emerald-800/50 text-emerald-300 text-xs font-mono">
+                  <div className="px-4 py-2 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs font-mono font-semibold">
                     ✓ Complete Mastery Reached
                   </div>
                 )}
