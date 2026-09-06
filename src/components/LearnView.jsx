@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
 import BarLifecycleScrubber from './interactive/BarLifecycleScrubber.jsx';
 import DOMOrderBookSimulator from './interactive/DOMOrderBookSimulator.jsx';
+import DualEngineArchitectureDiagram from './interactive/DualEngineArchitectureDiagram.jsx';
 
 // High-contrast markdown text and bullet parser
 function FormattedSectionContent({ content }) {
@@ -308,6 +309,18 @@ export default function LearnView() {
               {selectedModule.id === 'tier0-mod-0.1' && (
                 <section className="mt-8 animate-fadeIn">
                   <DOMOrderBookSimulator />
+                </section>
+              )}
+
+              {selectedModule.id === 'tier0-mod-0.2' && (
+                <section className="mt-8 animate-fadeIn">
+                  <DualEngineArchitectureDiagram />
+                </section>
+              )}
+
+              {selectedModule.id === 'tier1-mod-1.1' && (
+                <section className="mt-8 animate-fadeIn">
+                  <BarLifecycleScrubber />
                 </section>
               )}
 
