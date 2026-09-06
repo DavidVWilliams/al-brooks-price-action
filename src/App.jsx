@@ -1,6 +1,7 @@
-// Version: v1.1 - Root Container with Learn, Simulator, and AI Mentor Integration
+// Version: v1.2 - Full Integration of LearnView, SimulatorView, and AIMentorDrawer
 import { useState } from 'react';
 import LearnView from './components/LearnView';
+import SimulatorView from './components/SimulatorView';
 import AIMentorDrawer from './components/AIMentorDrawer';
 
 export default function App() {
@@ -53,11 +54,7 @@ export default function App() {
       {/* Primary Workspace View Area */}
       <main className="flex-1 relative overflow-hidden">
         {activeTab === 'learn' && <LearnView />}
-        {activeTab === 'simulator' && (
-          <div className="h-full flex items-center justify-center bg-slate-950 text-slate-500 font-mono text-sm">
-            Simulator Engine shell ready for Phase 2, Issues #13 & #14.
-          </div>
-        )}
+        {activeTab === 'simulator' && <SimulatorView />}
       </main>
 
       {/* Slide-out AI Mentor Drawer Overlay */}
