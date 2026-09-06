@@ -1,6 +1,6 @@
-// Version: v3.6 - High-Contrast Institutional Typography & Structured Content Parser
+// Version: v3.7 - Modular Aggregator Import & High-Contrast Institutional Typography
 import { useState, useMemo, useRef } from 'react';
-import data from '../data/curriculumData.json';
+import { curriculumData as data } from '../data/curriculumData.js';
 
 const TIER_METADATA = {
   tier0: { 
