@@ -1,13 +1,13 @@
-// Version: v1.0 - Tier 4.1 Major Trend Reversal (MTR) Interactive Sandbox
+// Version: v1.1 - Tier 4.1 MTR Mapper with Explicit Lab Exercise Guidance
 import { useState, useMemo } from 'react';
 import { evaluateMTRStructure } from '../../utils/mtrEvaluator.js';
 
 export default function MTRStructureMapper() {
-  const [priorTrendStrength, setPriorTrendStrength] = useState('channel'); // 'micro_channel' | 'channel' | 'range'
+  const [priorTrendStrength, setPriorTrendStrength] = useState('channel');
   const [trendlineBroken, setTrendlineBroken] = useState(true);
   const [breakoutMomentumBars, setBreakoutMomentumBars] = useState(2);
-  const [retestType, setRetestType] = useState('lower_high'); // 'lower_high' | 'higher_high' | 'double_top'
-  const [signalBarQuality, setSignalBarQuality] = useState('strong_bear'); // 'strong_bear' | 'weak_doji' | 'bull_body'
+  const [retestType, setRetestType] = useState('lower_high');
+  const [signalBarQuality, setSignalBarQuality] = useState('strong_bear');
 
   const evaluation = useMemo(() => {
     return evaluateMTRStructure({
@@ -21,6 +21,8 @@ export default function MTRStructureMapper() {
 
   return (
     <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-6 shadow-xl text-slate-100">
+      
+      {/* HEADER & GRADE */}
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-800 gap-2">
         <div>
           <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest bg-blue-950/60 px-2.5 py-0.5 rounded border border-blue-900/60">
@@ -44,10 +46,21 @@ export default function MTRStructureMapper() {
         </div>
       </div>
 
-      {/* SVG PREVIEW CANVAS */}
+      {/* EXPLICIT LAB EXERCISE INSTRUCTIONS CARD */}
+      <div className="p-4 bg-blue-950/20 border border-blue-900/50 rounded-lg space-y-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
+          <span>🧪</span> Lab Exercise: Mastering the 3-Step MTR Sequence
+        </div>
+        <ol className="text-xs text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed font-sans">
+          <li><strong>Step 1 (Trendline Break):</strong> Set the Trendline Break toggle to &ldquo;Broken&rdquo; and adjust displacement to at least 2 bars. Observe how a weak or 0-bar break invalidates the setup.</li>
+          <li><strong>Step 2 (The Retest):</strong> Switch between &ldquo;Lower High&rdquo; (most common MTR) and &ldquo;Higher High&rdquo; (false breakout sweep trap) to examine the difference in institutional psychology.</li>
+          <li><strong>Step 3 (Signal Bar Confirmation):</strong> Toggle between &ldquo;Strong Bear Body&rdquo; and &ldquo;Doji / Neutral&rdquo;. Note how entering on an indecisive bar downgrades win rate to 40% and mandates waiting for a Low 2.</li>
+        </ol>
+      </div>
+
+      {/* SVG CANVAS */}
       <div className="w-full h-52 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center p-4 relative overflow-hidden">
         <svg className="w-full h-full max-h-44" viewBox="0 0 460 160" fill="none">
-          {/* Prior Trend Line */}
           <line
             x1="30"
             y1="130"
@@ -61,7 +74,6 @@ export default function MTRStructureMapper() {
             Dominant Bull Trendline
           </text>
 
-          {/* Leg 1: Bull Trend Bars */}
           <rect x="50" y="95" width="12" height="35" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
           <rect x="80" y="70" width="12" height="40" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
           <rect x="110" y="50" width="12" height="38" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="1" />
@@ -70,7 +82,6 @@ export default function MTRStructureMapper() {
             Trend High
           </text>
 
-          {/* Step 1: Trendline Break Swing */}
           {trendlineBroken ? (
             <g>
               <line x1="154" y1="50" x2="220" y2="105" stroke="#f43f5e" strokeWidth="2" />
@@ -88,7 +99,6 @@ export default function MTRStructureMapper() {
             </text>
           )}
 
-          {/* Step 2: Retest Leg */}
           {trendlineBroken && (
             <g>
               {retestType === 'lower_high' && (
@@ -121,7 +131,6 @@ export default function MTRStructureMapper() {
                 </g>
               )}
 
-              {/* Step 3: Signal Bar */}
               <g transform="translate(320, 30)">
                 {signalBarQuality === 'strong_bear' && (
                   <g>
@@ -162,7 +171,6 @@ export default function MTRStructureMapper() {
 
       {/* CONTROLS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-mono">
-        {/* Prior Trend Strength */}
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-2">
           <label className="text-slate-400 font-semibold block">Prior Trend Regime:</label>
           <div className="flex gap-1.5">
@@ -185,7 +193,6 @@ export default function MTRStructureMapper() {
           </div>
         </div>
 
-        {/* Trendline Break & Momentum */}
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-2">
           <div className="flex justify-between items-center">
             <label className="text-slate-400 font-semibold">1. Trendline Break:</label>
@@ -215,7 +222,6 @@ export default function MTRStructureMapper() {
           </div>
         </div>
 
-        {/* Retest Leg Type */}
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-2">
           <label className="text-slate-400 font-semibold block">2. Retest Geometry:</label>
           <select
@@ -230,7 +236,6 @@ export default function MTRStructureMapper() {
           </select>
         </div>
 
-        {/* Signal Bar Quality */}
         <div className="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-2 md:col-span-2 lg:col-span-3">
           <label className="text-slate-400 font-semibold block">3. Signal Bar Anatomy:</label>
           <div className="grid grid-cols-3 gap-2">
@@ -257,15 +262,13 @@ export default function MTRStructureMapper() {
         </div>
       </div>
 
-      {/* EVALUATION FEEDBACK CARD */}
+      {/* FEEDBACK */}
       <div className="p-4 bg-slate-950 border border-slate-800 rounded-lg space-y-2">
         <div className="flex items-center gap-2">
           <span className="text-xs uppercase font-mono font-bold text-amber-400">
             Brooksian Execution Directive:
           </span>
-          <span className="text-xs text-slate-400 font-mono">
-            {evaluation.reason}
-          </span>
+          <span className="text-xs text-slate-400 font-mono">{evaluation.reason}</span>
         </div>
         <p className="text-xs md:text-sm text-slate-300 font-mono leading-relaxed bg-slate-900/60 p-3 rounded border border-slate-800/60">
           👉 {evaluation.actionableAdvice}
