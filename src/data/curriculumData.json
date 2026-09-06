@@ -509,6 +509,516 @@
           "explanation": "Algorithms project the exact length of the first trend leg (20 points) upward starting from the bottom of the pullback, creating a self-fulfilling Leg 1 = Leg 2 Profit Taking Zone."
         }
       ]
+    },
+    {
+  "version": "v3.3-tier1-tier2-tier3-complete",
+  "modules": [
+    {
+      "id": "tier1-mod-1.1",
+      "title": "1.1 Anatomy of a Price Bar & Tick-by-Tick Mechanics",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "25 mins",
+      "sections": [
+        {
+          "heading": "1. The Tick-by-Tick Lifecycle of a 5-Minute Bar",
+          "content": "On the default 5-minute E-mini S&P (ES) futures chart, a price bar is not a static drawing; it is a 300-second auction. At the exact second the bar opens, high-frequency institutional trading algorithms (HFTs) test liquidity. The open price represents the initial equilibrium of overnight or inter-bar inventory. As the clock runs, aggressive market orders clash with resting limit orders. The high and low represent the absolute limits of price discovery where one side temporarily exhausted its capital before counter-party limit orders absorbed the remaining volume.",
+          "keyRule": "Never evaluate a bar based solely on its final appearance. You must understand the chronological narrative of how it reached its high, low, and close."
+        },
+        {
+          "heading": "2. The Absolute Dominance of the Close",
+          "content": "Al Brooks emphasizes that the Close is the single most important data point on any chart because it represents the final verdict of institutional intent before the auction closes and a new one begins.\n\n- Top 20% Close (Bull Trend Bar): Proves that buyers were willing to pay higher prices right up to the final second of the 5-minute window.\n- Bottom 20% Close (Bear Trend Bar): Proves that sellers aggressively hammered prices down into the close, leaving bulls trapped.\n- Middle 50% Close (Doji / Neutral Bar): Represents complete stalemate and equilibrium.",
+          "keyRule": "A bar that spends 4 minutes as a massive bear trend bar but rallies in the final 30 seconds to close near its high is a bull bar, not a bear bar. The close overrides everything that happened in the middle."
+        },
+        {
+          "heading": "3. Tail and Wick Mechanics: Rejection vs. Exhaustion",
+          "content": "Tails (wicks) are the footprints of failed attempts. When a bar reaches a high and leaves a long upper tail, it reveals that bulls attempted a breakout above resistance, but institutional limit orders filled massive short positions, forcing price down.\n\n- Long Lower Tail at Support: Indicates that bears drove price down to trap longs, but institutional buyers stepped in with heavy limit orders, creating an immediate absorption footprint.\n- Wickless Bars (Marubozu): A bar with no tails indicates relentless, unresisted momentum.",
+          "barBreakdownExample": {
+            "scenario": "A 5-minute ES bar opens at 5000, drops to 4994 (leaving a 6-point lower tail), rallies straight up to 5015, and closes on its high at 5014.",
+            "psychology": "The drop to 4994 triggered breakout-short stops below the prior bar. Smart money used those sell stops to fill large buy orders (absorption). Once those shorts were trapped, bulls took full control, driving a 20-point reversal."
+          }
+        },
+        {
+          "heading": "4. Contextual Dependencies: Why Bar Quality Varies",
+          "content": "A bear bar in a strong bull trend has a completely different meaning than an identical bear bar in a bear trend or a trading range.\n\n- In a Strong Bull Trend: A bear bar is usually just a minor pullback (a High 1 setup). Smart bulls view it as a discount to buy.\n- In a Tight Trading Range: A bear bar is just noise. Selling it is a trap because the market is in equilibrium.\n- At Resistance: A bear bar closing on its low can act as a high-probability Major Trend Reversal (MTR) signal bar.",
+          "keyRule": "Context always supersedes bar appearance. Never trade a bar in isolation without evaluating the preceding 10 to 20 bars and the current market state."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "bull_vs_bear",
+        "title": "Visual Breakdown: Tick-by-Tick Structural Anatomy",
+        "description": "Detailed view of body-to-wick ratios, closing locations, and institutional absorption zones."
+      }
+    },
+    {
+      "id": "tier1-mod-1.2",
+      "title": "1.2 Trend Bars vs. Dojis: Momentum, Sizing, and Market Equilibrium",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. Body-to-Range Ratios and Institutional Conviction",
+          "content": "In Al Brooks price action, every bar's behavior is dictated by its body-to-range ratio—the physical size of the real body relative to the total height of the bar. A trend bar possesses a wide body consuming 70% to 100% of the bar's total vertical span, closing near its extreme.",
+          "keyRule": "The wider the body relative to the total bar range, the higher the mathematical probability that the following bar will continue in the same direction."
+        },
+        {
+          "heading": "2. Tight Channels (TC) vs. Broad Channels",
+          "content": "When consecutive trend bars form with overlapping bodies and minimal counter-trend wicks, they form a Tight Channel (TC). In a tight channel, limit-order shorts attempting to pick tops are systematically squeezed.",
+          "keyRule": "Never short a tight channel on the first test. Wait for a major trend reversal structure (MTR) or a severe break of channel geometry."
+        },
+        {
+          "heading": "3. The Anatomy of Equilibrium: Dojis and Stalemate",
+          "content": "A doji is defined as a bar where the open and close are virtually identical, resulting in a microscopic body. This reflects absolute market equilibrium—an equal balance of capital and conviction between buyers and sellers.",
+          "keyRule": "A doji is a warning sign of indecision. Never trade a breakout of a doji bar unless it is backed by strong overarching trend context."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "doji_equilibrium",
+        "title": "Visual Breakdown: Trend Momentum vs. Equilibrium Stalemate",
+        "description": "Contrasting a wide-body institutional trend bar against a center-locked doji."
+      }
+    },
+    {
+      "id": "tier1-mod-1.3",
+      "title": "1.3 Inside Bars & Volatility Compression (IB, II, III)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "20 mins",
+      "sections": [
+        {
+          "heading": "1. Microstructure of Volatility Compression",
+          "content": "An inside bar occurs when its high is at or below the prior bar's high and its low is at or above the prior bar's low. Sequences like 'ii' (consecutive inside bars) or 'iii' represent severe volatility compression.",
+          "keyRule": "Inside bars are breakout modes. Entering on a stop above or below an inside bar requires verifying the higher timeframe trend."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "inside_bar",
+        "title": "Visual Breakdown: Inside Bar Volatility Coiling",
+        "description": "Mother bar containing subsequent inside bars prior to breakout expansion."
+      }
+    },
+    {
+      "id": "tier1-mod-1.4",
+      "title": "1.4 Outside Bars & Liquidity Expansion (OB, OO)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "20 mins",
+      "sections": [
+        {
+          "heading": "1. Trapping Both Sides with Outside Bars",
+          "content": "An outside bar has a high above the prior bar's high and a low below the prior bar's low. It is an expansion bar that often triggers stop orders on both sides before closing.",
+          "keyRule": "In a trading range, an outside bar is an expanding triangle on a smaller timeframe and usually results in continued chop."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "outside_bar",
+        "title": "Visual Breakdown: Outside Bar Liquidity Sweep",
+        "description": "Price expanding beyond both extremes of the previous bar."
+      }
+    },
+    {
+      "id": "tier1-mod-1.5",
+      "title": "1.5 Signal Bars vs. Entry Bars: The Golden Rule",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. The Setup vs. The Execution",
+          "content": "A Signal Bar establishes the trade idea (the setup), but you never enter on the signal bar itself. You place a stop order 1 tick beyond its extreme to enter on the next bar, known as the Entry Bar.",
+          "keyRule": "Never anticipate the close of a signal bar. Premature entry before the bar closes invites traps and immediate losses."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "signal_vs_entry",
+        "title": "Visual Breakdown: Signal Bar vs. Entry Bar Mechanics",
+        "description": "Stop-order placement 1 tick beyond the signal bar's high or low."
+      }
+    },
+    {
+      "id": "tier1-mod-1.6",
+      "title": "1.6 Reversal Bars & Exhaustion Signatures",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. Identifying True Reversal Bars",
+          "content": "An ideal reversal bar opens in the direction of the trend, pushes to a new extreme, and then reverses violently to close near its opposite extreme.",
+          "keyRule": "A reversal bar without a prior trendline break is usually just a pullback flag that will fail."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "reversal_bar",
+        "title": "Visual Breakdown: Reversal Bar Anatomy",
+        "description": "Rejection tail indicating institutional absorption and trapped traders."
+      }
+    },
+    {
+      "id": "tier1-mod-1.7",
+      "title": "1.7 Micro Channels: Relentless Momentum",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. Defining Micro Channels",
+          "content": "A micro channel consists of 3 or more consecutive bars where price extremes do not overlap opposing bars. In a bull micro channel, every bar's low stays at or above the previous bar's low.",
+          "keyRule": "Never bet against a tight micro channel on first test. Institutional algorithms are driving price with absolute conviction."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "micro_channel",
+        "title": "Visual Breakdown: Tight Micro Channel",
+        "description": "Consecutive bars with non-overlapping extremes showing institutional urgency."
+      }
+    },
+    {
+      "id": "tier1-mod-1.8",
+      "title": "1.8 The Two Market States: Trends vs. Trading Ranges",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. The 60–70% Rule and Market Equilibrium",
+          "content": "Markets spend approximately 60% to 70% of their time trapped inside sideways trading ranges and only 30% to 40% of their time in directional trends.",
+          "keyRule": "In trends, you trade pullbacks and breakouts. In trading ranges, you buy low, sell short high, and scalp in between."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "market_states",
+        "title": "Visual Breakdown: Trend State vs. Trading Range State",
+        "description": "Directional momentum versus two-sided sideways chop."
+      }
+    },
+    {
+      "id": "tier1-mod-1.9",
+      "title": "1.9 Milestone Gate 1: Tier 1 Certification Quiz",
+      "type": "quiz",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "What is universally considered the single most important data point on any price bar in Al Brooks methodology?",
+          "options": [
+            "The Open, because it sets the day's initial volume baseline.",
+            "The Close, because it reveals who won the battle for institutional control during that time period.",
+            "The High, because it marks the absolute breakout limit."
+          ],
+          "correctIndex": 1,
+          "explanation": "The Close tells you precisely where the market settled and who held institutional control when the auction timer expired."
+        },
+        {
+          "id": "q2",
+          "prompt": "What does a sequence of Inside Bars (II or III) typically indicate about market microstructure?",
+          "options": [
+            "An explosive market crash driven by aggressive panic selling.",
+            "Volatility compression and coiling as market participants pause activity before an impending breakout.",
+            "Absolute market equilibrium with no future directional bias."
+          ],
+          "correctIndex": 1,
+          "explanation": "Inside bars represent volatility compression where range shrinks as institutions pause to reassess value."
+        },
+        {
+          "id": "q3",
+          "prompt": "Why does Al Brooks strictly prohibit entering a trade directly on the Signal Bar?",
+          "options": [
+            "Because signal bars are illegal to trade on futures exchanges.",
+            "Because a signal bar can look promising mid-stream but close poorly, leading to premature execution and trapped capital; waiting for the Entry Bar ensures confirmation.",
+            "Because entry bars always have a better risk-to-reward ratio."
+          ],
+          "correctIndex": 1,
+          "explanation": "Waiting for the entry bar ensures confirmation. If a signal bar closes poorly at the end of its lifespan, entering prematurely exposes you to unnecessary losses."
+        },
+        {
+          "id": "q4",
+          "prompt": "Approximately what percentage of time do financial markets spend in trading ranges versus directional trends?",
+          "options": [
+            "20% trading ranges, 80% trends",
+            "50% trading ranges, 50% trends",
+            "60% to 70% trading ranges, 30% to 40% trends"
+          ],
+          "correctIndex": 2,
+          "explanation": "Markets spend 60% to 70% of their time trapped in sideways trading ranges and only 30% to 40% in directional trends."
+        }
+      ]
+    },
+    {
+      "id": "tier2-mod-2.1",
+      "title": "2.1 The 'Always In' Direction (AIL / AIS)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "24 mins",
+      "sections": [
+        {
+          "heading": "1. Defining the 'Always In' Concept",
+          "content": "Al Brooks uses the 'Always In' concept to force traders to identify the path of least resistance. At any given moment, if you were forced to enter a trade at the market price and could not exit until the end of the day, would you buy or sell? If buy, the market is 'Always In Long' (AIL). If sell, 'Always In Short' (AIS).",
+          "keyRule": "Never take a trade that opposes the current Always In direction unless you are trading a highly probable Major Trend Reversal at a major structural level."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "always_in_flip",
+        "title": "Visual Breakdown: The Always In Flip",
+        "description": "Grinding bear trend reversed by an institutional bull breakout bar, shifting bias to AIL."
+      }
+    },
+    {
+      "id": "tier2-mod-2.2",
+      "title": "2.2 The Spike and Channel Pattern",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "28 mins",
+      "sections": [
+        {
+          "heading": "1. Anatomy of the Spike and Channel",
+          "content": "Most strong trends begin with a Spike (urgent repricing by institutional algorithms) followed by a Channel (two-sided accumulation with pullbacks).",
+          "keyRule": "Roughly 75% of breakouts from a channel fail. The ultimate target for a broken channel is the extreme of the first pullback where the channel began."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "spike_and_channel",
+        "title": "Visual Breakdown: Spike and Channel Evolution",
+        "description": "Violent vertical Spike phase followed by a grinding, overlapping Channel phase."
+      }
+    },
+    {
+      "id": "tier2-mod-2.3",
+      "title": "2.3 Breakouts & The 80% Rule",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "26 mins",
+      "sections": [
+        {
+          "heading": "1. The 80% Rule (Failed Breakouts)",
+          "content": "Because markets spend 60% to 70% of their time in trading ranges, roughly 80% of all breakout attempts from a trading range fail. Smart money fades breakout extremes with limit orders.",
+          "keyRule": "If you miss the initial 20% successful breakout, do not chase. Wait for a Breakout Pullback to hold before entering."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "breakout_vs_failure",
+        "title": "Visual Breakdown: Successful Breakout vs. Failed Breakout (FBO)",
+        "description": "Breakout with follow-through compared against an immediate counter-trend trap."
+      }
+    },
+    {
+      "id": "tier2-mod-2.4",
+      "title": "2.4 Measuring Gaps and Target Projections",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "22 mins",
+      "sections": [
+        {
+          "heading": "1. Leg 1 = Leg 2 Projections",
+          "content": "Markets move in two-legged structures. The length of Leg 2 is very frequently identical to Leg 1. Institutional algorithms use this calculation to trigger profit-taking zones.",
+          "keyRule": "Price acts as a magnet to measured move targets. Once hit, expect a two-legged pullback or reversal."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "leg1_leg2_measured_move",
+        "title": "Visual Breakdown: Leg 1 = Leg 2 Projection",
+        "description": "Geometric projection of the first trend leg mapped onto the second leg."
+      }
+    },
+    {
+      "id": "tier2-mod-2.5",
+      "title": "2.5 Milestone Gate 2: Tier 2 Certification Quiz",
+      "type": "quiz",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "If a market has been grinding downward in a bear channel and suddenly prints a massive bull trend bar that engulfs the last three bear bars and closes on its high, what has likely occurred?",
+          "options": [
+            "A temporary short-covering rally that should be faded.",
+            "A major institutional shift flipping the market to 'Always In Long' (AIL).",
+            "An exhaustion gap that signifies the absolute bottom of the market."
+          ],
+          "correctIndex": 1,
+          "explanation": "A massive counter-trend bar closing on its extreme indicates sudden, aggressive institutional participation, flipping the market to Always In Long (AIL)."
+        },
+        {
+          "id": "q2",
+          "prompt": "According to the Al Brooks 80% Rule, what is the most likely outcome of a breakout attempt from a prolonged trading range?",
+          "options": [
+            "The breakout will fail and price will reverse back into the trading range as institutions buy low and sell high.",
+            "The breakout will succeed and immediately transition into a Spike and Channel trend.",
+            "The breakout will result in an immediate Leg 1 = Leg 2 measured move."
+          ],
+          "correctIndex": 0,
+          "explanation": "Statistically, 80% of all breakout attempts from trading ranges fail because institutional market makers fade the extremes."
+        },
+        {
+          "id": "q3",
+          "prompt": "In a Spike and Channel trend pattern, when a legitimate breakout finally occurs in the opposite direction (breaking the channel), what is the highest probability price target?",
+          "options": [
+            "A 50% Fibonacci retracement of the entire move.",
+            "The absolute extreme (highest high or lowest low) of the Spike phase.",
+            "The exact price level where the Channel phase began (the extreme of the first pullback)."
+          ],
+          "correctIndex": 2,
+          "explanation": "The start of the channel acts as a magnetic support/resistance zone. When the trend line breaks, price typically gravitates back to the channel origin."
+        },
+        {
+          "id": "q4",
+          "prompt": "If a strong bull trend leg (Leg 1) moves 20 points from the bottom before pausing for a 6-point pullback, where will institutional algorithms likely place their limit sell orders to take profit?",
+          "options": [
+            "20 points above the absolute bottom of the trend.",
+            "20 points above the highest point of Leg 1.",
+            "20 points above the lowest point of the pullback (Leg 1 = Leg 2)."
+          ],
+          "correctIndex": 2,
+          "explanation": "Algorithms project the exact length of the first trend leg (20 points) upward starting from the bottom of the pullback (Leg 1 = Leg 2)."
+        }
+      ]
+    },
+    {
+      "id": "tier3-mod-3.1",
+      "title": "3.1 Pullback Anatomy & First Pullback Sequences (EMA Tests & Gap Bars)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "26 mins",
+      "sections": [
+        {
+          "heading": "1. The Microstructure of a Pullback",
+          "content": "In Al Brooks methodology, a pullback is any pause or countertrend move that lasts from one tick to dozens of bars. Pullbacks are not reversals; they are areas where strong institutions take partial profits and reload positions at better prices (value). In a bull trend, every bar whose low is at or below the prior bar's low is part of a pullback.",
+          "keyRule": "In a strong trend, the first pullback is almost always bought by institutions. Never short the first pullback in a bull trend, even if it looks like a sharp drop."
+        },
+        {
+          "heading": "2. The 20-Period Exponential Moving Average (EMA) as a Dynamic Magnet",
+          "content": "On the 5-minute chart, the 20-period EMA serves as the institutional baseline. When a strong trend pushes far away from the EMA, price becomes overextended. Eventually, profit-taking pulls price back to test the moving average.\n\n- EMA Touch: The first test of the 20 EMA after a trend has been underway for 20 or more bars is one of the highest-probability with-trend setups in trading.\n- Institutional Behavior: Smart money places limit orders to buy at or just below the EMA, expecting the trend to resume.",
+          "keyRule": "When price has stayed above the 20 EMA for 20 consecutive bars without touching it, it is a 20-Gap-Bar setup. The first touch of the EMA will almost certainly lead to a test of the trend extreme."
+        },
+        {
+          "heading": "3. Moving Average Gap Bars (20 Gap Bars)",
+          "content": "A Moving Average Gap Bar occurs when a bar's entire range (including both high and low) is completely on the opposite side of the 20 EMA from where the trend was located. In a bull trend, an EMA Gap Bar occurs when a bar's high remains below the 20 EMA. This reveals that the bears have demonstrated enough strength to keep price under the average, signaling that the trend is transitioning into a trading range or a Major Trend Reversal.",
+          "barBreakdownExample": {
+            "scenario": "ES rallies for 30 bars above the 20 EMA. At 11:30 AM, price drops sharply, and Bar 35 has a high that is 1 point below the 20 EMA.",
+            "psychology": "Bulls who have been holding swing longs since the open see that price failed to get above the EMA. They begin liquidating remaining positions. The gap bar warns traders that the market is no longer in a runaway trend."
+          }
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "market_states",
+        "title": "Visual Breakdown: 20-Period EMA Pullback and Gap Bar",
+        "description": "Price testing the dynamic 20 EMA baseline followed by a gap bar transition."
+      }
+    },
+    {
+      "id": "tier3-mod-3.2",
+      "title": "3.2 Bar Counting Mechanics: High 1 / Low 1 & High 2 / Low 2 Setups",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "28 mins",
+      "sections": [
+        {
+          "heading": "1. The Universal Rules of Bar Counting",
+          "content": "Al Brooks developed bar counting to quantify the two-legged corrections that occur in every liquid market. The market moves in pairs of attempts. A single attempt to resume a trend is easily faded by countertrend traders; the second attempt is where countertrend traders give up, triggering aggressive institutional resumption.",
+          "keyRule": "Every two-legged correction in a bull trend sets up a High 2 buy. Every two-legged correction in a bear trend sets up a Low 2 sell."
+        },
+        {
+          "heading": "2. Step-by-Step Counting in a Bull Trend (High 1 vs. High 2)",
+          "content": "- High 1: In a bull trend or pullback, the first bar whose high is above the high of the prior bar is labeled a High 1. If the trend is exceptionally strong, buying the High 1 on a stop is profitable.\n- High 2: If the High 1 fails to resume the trend and price resumes pulling back (creating a bar with a lower high or lower low), the next bar whose high exceeds the prior bar's high is the High 2.\n- Why High 2 Works: The High 2 represents the conclusion of an ABC two-legged correction. Countertrend bears who shorted the High 1 now have their protective stops clustered 1 tick above the High 2 signal bar. When triggered, their stop runs fuel the new bull leg.",
+          "keyRule": "In a bull trend or near the bottom of a trading range, the High 2 is the premier swing buy setup. It carries a 60% probability of reaching a 2:1 reward-to-risk target."
+        },
+        {
+          "heading": "3. Step-by-Step Counting in a Bear Trend (Low 1 vs. Low 2)",
+          "content": "- Low 1: In a bear trend, the first bar whose low is below the low of the prior bar during a rally is a Low 1.\n- Low 2: If price pushes higher again and then forms a second bar whose low breaks below the prior bar's low, it is a Low 2.\n- Tactical Execution: Place a sell stop 1 tick below the Low 2 signal bar. Your stop loss is placed 1 tick above the signal bar high.",
+          "barBreakdownExample": {
+            "scenario": "NQ drops 100 points, rallies for 3 bars to the 20 EMA, ticks below prior bar (Low 1), rallies 1 more bar, and then ticks below that bar with a bear close (Low 2).",
+            "psychology": "Bulls tried twice to push price above the 20 EMA and failed both times. Trapped longs dump their contracts as sell stops trigger below the Low 2, driving the market down."
+          }
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "signal_vs_entry",
+        "title": "Visual Breakdown: High 2 / Low 2 Counting Structure",
+        "description": "The anatomy of two-legged corrections and the exact trigger of the second entry."
+      }
+    },
+    {
+      "id": "tier3-mod-3.3",
+      "title": "3.3 Complex Corrections: High 3 / Low 3 (Wedges) & High 4 / Low 4 Structures",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "24 mins",
+      "sections": [
+        {
+          "heading": "1. When Two Legs Are Not Enough: High 3 / Low 3 (Wedges)",
+          "content": "Sometimes a correction does not stop at two legs. If the market forms a High 1, then a High 2, and the High 2 fails to gain traction and pulls back again, the third attempt is labeled a High 3.\n\n- The Geometry of a Wedge: A High 3 pullback is almost always a 3-push wedge bull flag. A Low 3 is a 3-push wedge bear flag.\n- Institutional Exhaustion: Three pushes represent exhaustion of the countertrend force. Once the third push fails to break market structure, countertrend traders are fully tapped out.",
+          "keyRule": "A High 3 is a wedge flag. If it has good shape and touches support (like a trendline or EMA), it is a reliable setup."
+        },
+        {
+          "heading": "2. High 4 / Low 4 Patterns: The Edge of Trading Ranges",
+          "content": "If a pullback extends into four attempts (High 4 or Low 4), the market has almost certainly transitioned out of a trend and into a Trading Range. A High 4 is often a double High 2, while a Low 4 is a double Low 2.",
+          "keyRule": "Never trade a High 4 or Low 4 expecting a runaway trend. Treat it as a trading range boundary and scalp for modest profits."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "leg1_leg2_measured_move",
+        "title": "Visual Breakdown: 3-Push Wedge Correction (High 3 / Low 3)",
+        "description": "Three convergent pushes creating a wedge pullback into major support."
+      }
+    },
+    {
+      "id": "tier3-mod-3.4",
+      "title": "3.4 Trading Range Dynamics & The 80% Rule (Fading Extremes, Barb Wire & TTRs)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "26 mins",
+      "sections": [
+        {
+          "heading": "1. The BLSHS Principle: Buy Low, Sell High, Scalp",
+          "content": "In a trading range, momentum is an illusion. Trend-following techniques that work in trends will destroy an account in a trading range.\n\n- BLSHS: Buy Low, Sell High, Scalp.\n- Limit Orders: Professional traders use limit orders to buy below the lows of prior bars near the bottom third of the range and sell with limit orders above the highs of bars in the upper third.",
+          "keyRule": "In a trading range, never buy at the top or sell at the bottom with stop orders. Fade the extremes and take quick scalps."
+        },
+        {
+          "heading": "2. The Danger Zone: Barb Wire & Tight Trading Ranges (TTR)",
+          "content": "Barb Wire is a tight trading range consisting of 3 or more bars that overlap heavily, have small bodies with prominent upper and lower tails, and have at least one doji bar. When Barb Wire forms near the moving average, the market is in complete paralysis.",
+          "keyRule": "The best trade in Barb Wire is NO trade. Sidelined capital is protected capital. Wait for a decisive breakout with clean follow-through."
+        }
+      ],
+      "chartIllustration": {
+        "svgType": "market_states",
+        "title": "Visual Breakdown: Trading Range Fades vs. Barb Wire Chop",
+        "description": "Contrasting profitable edge fades against the toxic chop of Barb Wire."
+      }
+    },
+    {
+      "id": "tier3-mod-3.5",
+      "title": "3.5 Milestone Gate 3: Tier 3 Certification Quiz",
+      "type": "quiz",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "In a strong bull trend, price has stayed entirely above the 20-period EMA for 25 consecutive bars. Price finally pulls back and touches the 20 EMA. What is the most probable institutional behavior?",
+          "options": [
+            "Institutions will panic sell, triggering a major market crash.",
+            "Institutions will buy the EMA touch aggressively, expecting the trend extreme to be tested (20-Gap-Bar setup).",
+            "Institutions will wait for price to drop 20 points below the EMA before evaluating."
+          ],
+          "correctIndex": 1,
+          "explanation": "In a strong trend, the first test of the 20 EMA after 20+ bars is a high-probability buy setup where smart money reloads positions."
+        },
+        {
+          "id": "q2",
+          "prompt": "What does a High 2 setup represent in market auction theory?",
+          "options": [
+            "A second push down completing a two-legged ABC pullback where countertrend sellers are exhausted and trapped.",
+            "A double top reversal pattern that requires an immediate short entry.",
+            "A failed breakout that will collapse to the day's low."
+          ],
+          "correctIndex": 0,
+          "explanation": "A High 2 marks the completion of a two-legged pullback. The failure of the second leg down traps bears and invites bulls to resume the trend."
+        },
+        {
+          "id": "q3",
+          "prompt": "If a pullback in a bull trend extends into 3 distinct downward pushes (High 3), what classic price action pattern has formed?",
+          "options": [
+            "A Spike and Channel bear trend.",
+            "A 3-push Wedge Bull Flag.",
+            "A Barb Wire consolidation."
+          ],
+          "correctIndex": 1,
+          "explanation": "A High 3 is structurally a 3-push wedge correction (wedge bull flag) testing support."
+        },
+        {
+          "id": "q4",
+          "prompt": "What is the primary trading rule when the market is trapped inside a 'Barb Wire' tight trading range?",
+          "options": [
+            "Buy every breakout above a bar with large market orders.",
+            "Stand aside and do not trade until there is a clear breakout with follow-through.",
+            "Scale into countertrend shorts with 50% of your account capital."
+          ],
+          "correctIndex": 1,
+          "explanation": "Barb Wire features heavy overlap, alternating dojis, and random whipsaws. The only disciplined action is to wait for a confirmed breakout."
+        }
+      ]
     }
+  ]
+}
   ]
 }
