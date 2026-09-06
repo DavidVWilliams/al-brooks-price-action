@@ -458,6 +458,57 @@
         "title": "Visual Breakdown: Leg 1 = Leg 2 Projection",
         "description": "Chart showing the exact geometric projection of the first trend leg mapped onto the second leg, highlighting the profit-taking zone."
       }
+    },
+    {
+      "id": "tier2-mod-2.5",
+      "title": "2.5 Milestone Gate 2: Tier 2 Certification Quiz",
+      "type": "quiz",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "If a market has been grinding downward in a bear channel and suddenly prints a massive bull trend bar that engulfs the last three bear bars and closes on its high, what has likely occurred?",
+          "options": [
+            "A temporary short-covering rally that should be faded.",
+            "A major institutional shift flipping the market to 'Always In Long' (AIL).",
+            "An exhaustion gap that signifies the absolute bottom of the market."
+          ],
+          "correctIndex": 1,
+          "explanation": "A massive counter-trend bar closing on its extreme indicates sudden, aggressive institutional participation, flipping the market to Always In Long (AIL) and trapping bears."
+        },
+        {
+          "id": "q2",
+          "prompt": "According to the Al Brooks 80% Rule, what is the most likely outcome of a breakout attempt from a prolonged trading range?",
+          "options": [
+            "The breakout will fail and price will reverse back into the trading range as institutions buy low and sell high.",
+            "The breakout will succeed and immediately transition into a Spike and Channel trend.",
+            "The breakout will result in an immediate Leg 1 = Leg 2 measured move."
+          ],
+          "correctIndex": 0,
+          "explanation": "Statistically, 80% of all breakout attempts from trading ranges fail because institutional market makers fade the extremes, absorbing the retail stop orders."
+        },
+        {
+          "id": "q3",
+          "prompt": "In a Spike and Channel trend pattern, when a legitimate breakout finally occurs in the opposite direction (breaking the channel), what is the highest probability price target?",
+          "options": [
+            "A 50% Fibonacci retracement of the entire move.",
+            "The absolute extreme (highest high or lowest low) of the Spike phase.",
+            "The exact price level where the Channel phase began (the extreme of the first pullback)."
+          ],
+          "correctIndex": 2,
+          "explanation": "The start of the channel acts as a magnetic support/resistance zone. When the trend line breaks, price typically gravitates back to the exact origin of the channel phase."
+        },
+        {
+          "id": "q4",
+          "prompt": "If a strong bull trend leg (Leg 1) moves 20 points from the bottom before pausing for a 6-point pullback, where will institutional algorithms likely place their limit sell orders to take profit?",
+          "options": [
+            "20 points above the absolute bottom of the trend.",
+            "20 points above the highest point of Leg 1.",
+            "20 points above the lowest point of the pullback (Leg 1 = Leg 2)."
+          ],
+          "correctIndex": 2,
+          "explanation": "Algorithms project the exact length of the first trend leg (20 points) upward starting from the bottom of the pullback, creating a self-fulfilling Leg 1 = Leg 2 Profit Taking Zone."
+        }
+      ]
     }
   ]
 }
