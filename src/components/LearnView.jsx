@@ -1,10 +1,11 @@
-// Version: v4.3 - Moved Static SVG Illustrations to the top of lessons for visual context
+// Version: v4.4 - Mounted BodyRangeRatioLab for Module 1.2
 
 import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
 import BarLifecycleScrubber from './interactive/BarLifecycleScrubber.jsx';
 import DOMOrderBookSimulator from './interactive/DOMOrderBookSimulator.jsx';
 import DualEngineArchitectureDiagram from './interactive/DualEngineArchitectureDiagram.jsx';
+import BodyRangeRatioLab from './interactive/BodyRangeRatioLab.jsx';
 
 // High-contrast markdown text and bullet parser
 function FormattedSectionContent({ content }) {
@@ -535,6 +536,13 @@ export default function LearnView() {
               {selectedModule.id === 'tier1-mod-1.1' && (
                 <section className="mt-8 animate-fadeIn">
                   <BarLifecycleScrubber />
+                </section>
+              )}
+
+              {/* NEW: Module 1.2 Interactive Lab */}
+              {selectedModule.id === 'tier1-mod-1.2' && (
+                <section className="mt-8 animate-fadeIn">
+                  <BodyRangeRatioLab />
                 </section>
               )}
 
