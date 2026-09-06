@@ -1,0 +1,154 @@
+{
+  "version": "v1.0-simulator-schema",
+  "instruments": {
+    "ES": {
+      "symbol": "ES",
+      "name": "E-mini S&P 500",
+      "type": "future",
+      "tickSize": 0.25,
+      "tickValue": 12.50,
+      "pointValue": 50.00,
+      "priceDecimals": 2
+    },
+    "MES": {
+      "symbol": "MES",
+      "name": "Micro E-mini S&P 500",
+      "type": "future",
+      "tickSize": 0.25,
+      "tickValue": 1.25,
+      "pointValue": 5.00,
+      "priceDecimals": 2
+    },
+    "NQ": {
+      "symbol": "NQ",
+      "name": "E-mini Nasdaq 100",
+      "type": "future",
+      "tickSize": 0.25,
+      "tickValue": 5.00,
+      "pointValue": 20.00,
+      "priceDecimals": 2
+    },
+    "MNQ": {
+      "symbol": "MNQ",
+      "name": "Micro E-mini Nasdaq 100",
+      "type": "future",
+      "tickSize": 0.25,
+      "tickValue": 0.50,
+      "pointValue": 2.00,
+      "priceDecimals": 2
+    },
+    "YM": {
+      "symbol": "YM",
+      "name": "E-mini Dow ($5)",
+      "type": "future",
+      "tickSize": 1.00,
+      "tickValue": 5.00,
+      "pointValue": 5.00,
+      "priceDecimals": 0
+    },
+    "GC": {
+      "symbol": "GC",
+      "name": "Gold Futures",
+      "type": "future",
+      "tickSize": 0.10,
+      "tickValue": 10.00,
+      "pointValue": 100.00,
+      "priceDecimals": 1
+    },
+    "MGC": {
+      "symbol": "MGC",
+      "name": "Micro Gold Futures",
+      "type": "future",
+      "tickSize": 0.10,
+      "tickValue": 1.00,
+      "pointValue": 10.00,
+      "priceDecimals": 1
+    },
+    "CL": {
+      "symbol": "CL",
+      "name": "Crude Oil Futures",
+      "type": "future",
+      "tickSize": 0.01,
+      "tickValue": 10.00,
+      "pointValue": 1000.00,
+      "priceDecimals": 2
+    },
+    "MCL": {
+      "symbol": "MCL",
+      "name": "Micro Crude Oil Futures",
+      "type": "future",
+      "tickSize": 0.01,
+      "tickValue": 1.00,
+      "pointValue": 100.00,
+      "priceDecimals": 2
+    },
+    "SPY": {
+      "symbol": "SPY",
+      "name": "SPDR S&P 500 ETF Trust",
+      "type": "etf",
+      "tickSize": 0.01,
+      "tickValue": 0.01,
+      "pointValue": 1.00,
+      "priceDecimals": 2
+    },
+    "QQQ": {
+      "symbol": "QQQ",
+      "name": "Invesco QQQ Trust",
+      "type": "etf",
+      "tickSize": 0.01,
+      "tickValue": 0.01,
+      "pointValue": 1.00,
+      "priceDecimals": 2
+    }
+  },
+  "scenarios": [
+    {
+      "id": "scenario-es-001",
+      "instrumentSymbol": "ES",
+      "title": "High 2 Pullback at the 20-Period EMA",
+      "timeframe": "5m",
+      "difficulty": "Intermediate",
+      "curriculumModuleRef": "tier1-mod-1.5",
+      "marketContext": {
+        "dominantTrend": "Bull Trend",
+        "alwaysInStatus": "AIL",
+        "marketState": "Broad Channel",
+        "setupType": "High 2 Bull Flag",
+        "setupDescription": "Following a morning bull spike, price pulls back in two distinct legs to test the rising 20-period EMA. Bar 12 forms a strong bull reversal bar closing near its high, acting as the Signal Bar."
+      },
+      "canonicalMetrics": {
+        "direction": "LONG",
+        "orderType": "STOP",
+        "suggestedEntry": 5022.50,
+        "suggestedStop": 5018.50,
+        "suggestedTarget": 5030.50,
+        "estimatedProbability": 0.60,
+        "notes": "Entry is placed 1 tick (0.25) above the Signal Bar high (5022.25). Protective stop is placed 1 tick below the Signal Bar low (5018.75). Target is a 2:1 reward-to-risk ratio testing prior swing high resistance."
+      },
+      "signalBarIndex": 11,
+      "bars": [
+        { "barNumber": 1, "time": "09:30", "open": 5000.00, "high": 5006.50, "low": 4998.50, "close": 5005.00, "volume": 14200 },
+        { "barNumber": 2, "time": "09:35", "open": 5005.25, "high": 5012.00, "low": 5004.50, "close": 5011.50, "volume": 18500 },
+        { "barNumber": 3, "time": "09:40", "open": 5011.75, "high": 5018.00, "low": 5010.25, "close": 5017.25, "volume": 16900 },
+        { "barNumber": 4, "time": "09:45", "open": 5017.50, "high": 5024.50, "low": 5016.00, "close": 5023.75, "volume": 21000 },
+        { "barNumber": 5, "time": "09:50", "open": 5024.00, "high": 5028.50, "low": 5022.50, "close": 5027.00, "volume": 19400 },
+        { "barNumber": 6, "time": "09:55", "open": 5027.25, "high": 5031.00, "low": 5025.00, "close": 5029.50, "volume": 15800 },
+        { "barNumber": 7, "time": "10:00", "open": 5029.50, "high": 5031.50, "low": 5024.00, "close": 5024.50, "volume": 13200 },
+        { "barNumber": 8, "time": "10:05", "open": 5024.25, "high": 5025.00, "low": 5019.50, "close": 5020.25, "volume": 14100 },
+        { "barNumber": 9, "time": "10:10", "open": 5020.50, "high": 5023.75, "low": 5020.00, "close": 5023.00, "volume": 11500 },
+        { "barNumber": 10, "time": "10:15", "open": 5023.25, "high": 5023.50, "low": 5017.50, "close": 5018.00, "volume": 12800 },
+        { "barNumber": 11, "time": "10:20", "open": 5018.00, "high": 5019.25, "low": 5016.00, "close": 5017.50, "volume": 10900 },
+        { "barNumber": 12, "time": "10:25", "open": 5017.50, "high": 5022.25, "low": 5018.75, "close": 5021.75, "volume": 17300 },
+        { "barNumber": 13, "time": "10:30", "open": 5022.00, "high": 5026.00, "low": 5021.50, "close": 5025.50, "volume": 16400 },
+        { "barNumber": 14, "time": "10:35", "open": 5025.75, "high": 5029.00, "low": 5024.75, "close": 5028.25, "volume": 15200 },
+        { "barNumber": 15, "time": "10:40", "open": 5028.50, "high": 5032.00, "low": 5027.50, "close": 5031.25, "volume": 18100 },
+        { "barNumber": 16, "time": "10:45", "open": 5031.50, "high": 5034.00, "low": 5030.00, "close": 5033.50, "volume": 14900 }
+      ],
+      "postTradeDebrief": {
+        "summary": "Textbook High 2 pullback in a strong Always In Long market.",
+        "institutionalAnalysis": "Institutions used the 2-legged pullback to the 20-period EMA to reload long positions. Entering 1 tick above Bar 12 confirmed that buyers took control of the auction. The protective stop below Bar 12 was never challenged, and the trade reached the 2:1 target at 5030.50 on Bar 15.",
+        "brooksTakeaway": "Never sell the first test of the 20-period EMA in a strong bull trend. Look for a two-legged pullback and enter on a stop above the bull signal bar."
+      }
+    }
+  ]
+}
