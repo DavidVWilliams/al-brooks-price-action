@@ -1,11 +1,8 @@
-// Version: v4.4 - Mounted BodyRangeRatioLab for Module 1.2
+// Version: v5.0 - Dynamic Lab Rendering via Centralized LabRegistry
 
 import { useState, useRef } from 'react';
 import { curriculumData as data } from '../data/curriculumData.js';
-import BarLifecycleScrubber from './interactive/BarLifecycleScrubber.jsx';
-import DOMOrderBookSimulator from './interactive/DOMOrderBookSimulator.jsx';
-import DualEngineArchitectureDiagram from './interactive/DualEngineArchitectureDiagram.jsx';
-import BodyRangeRatioLab from './interactive/BodyRangeRatioLab.jsx';
+import { getInteractiveLab } from './interactive/LabRegistry.jsx';
 
 // High-contrast markdown text and bullet parser
 function FormattedSectionContent({ content }) {
@@ -151,6 +148,9 @@ export default function LearnView() {
       setQuizCompleted(true);
     }
   };
+
+  // Dynamic lookup via Registry
+  const ActiveInteractiveLab = getInteractiveLab(selectedModule.id);
 
   return (
     <div className="absolute inset-0 flex flex-col md:flex-row bg-slate-950 font-sans text-slate-100 overflow-hidden">
@@ -520,29 +520,10 @@ export default function LearnView() {
                 </article>
               ))}
 
-              {/* 3. PRACTICE (INTERACTIVE MICRO-LABS MOUNTED AT THE BOTTOM) */}
-              {selectedModule.id === 'tier0-mod-0.1' && (
+              {/* 3. PRACTICE (DYNAMICALLY RENDERED FROM LAB REGISTRY) */}
+              {ActiveInteractiveLab && (
                 <section className="mt-8 animate-fadeIn">
-                  <DOMOrderBookSimulator />
-                </section>
-              )}
-
-              {selectedModule.id === 'tier0-mod-0.2' && (
-                <section className="mt-8 animate-fadeIn">
-                  <DualEngineArchitectureDiagram />
-                </section>
-              )}
-
-              {selectedModule.id === 'tier1-mod-1.1' && (
-                <section className="mt-8 animate-fadeIn">
-                  <BarLifecycleScrubber />
-                </section>
-              )}
-
-              {/* NEW: Module 1.2 Interactive Lab */}
-              {selectedModule.id === 'tier1-mod-1.2' && (
-                <section className="mt-8 animate-fadeIn">
-                  <BodyRangeRatioLab />
+                  <ActiveInteractiveLab />
                 </section>
               )}
 
