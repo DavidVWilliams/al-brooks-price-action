@@ -1,4 +1,4 @@
-// Version: v1.2 - Centralized Interactive Lab Registry (Tiers 0, 1, & 2 Complete)
+// Version: v1.3 - Centralized Interactive Lab Registry (Tiers 0, 1, 2, & 3 Complete)
 // Maps curriculum module IDs to their respective interactive micro-labs.
 
 // Tier 0 Labs
@@ -21,6 +21,13 @@ import SpikeAndChannelLifecycle from './SpikeAndChannelLifecycle.jsx';
 import EightyPercentRuleSimulator from './EightyPercentRuleSimulator.jsx';
 import MeasuredMoveRuler from './MeasuredMoveRuler.jsx';
 
+// Tier 3 Labs
+import High1High2BarCounter from './High1High2BarCounter.jsx';
+import Low1Low2BearCounter from './Low1Low2BearCounter.jsx';
+import MovingAverageGapBarLab from './MovingAverageGapBarLab.jsx';
+import WedgePullbackIdentifier from './WedgePullbackIdentifier.jsx';
+import BarbWireTradingRangeLab from './BarbWireTradingRangeLab.jsx';
+
 const LAB_REGISTRY = {
   // Tier 0: Orientation & Microstructure
   'tier0-mod-0.1': DOMOrderBookSimulator,
@@ -41,6 +48,13 @@ const LAB_REGISTRY = {
   'tier2-mod-2.2': SpikeAndChannelLifecycle,
   'tier2-mod-2.3': EightyPercentRuleSimulator,
   'tier2-mod-2.4': MeasuredMoveRuler,
+
+  // Tier 3: Setup Engines (Pullbacks, Bar Counting & Ranges)
+  'tier3-mod-3.1': High1High2BarCounter,
+  'tier3-mod-3.2': Low1Low2BearCounter,
+  'tier3-mod-3.3': MovingAverageGapBarLab,
+  'tier3-mod-3.4': WedgePullbackIdentifier,
+  'tier3-mod-3.5': BarbWireTradingRangeLab,
 };
 
 export function getInteractiveLab(moduleId) {
