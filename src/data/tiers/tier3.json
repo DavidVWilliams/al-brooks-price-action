@@ -1,0 +1,156 @@
+{
+  "tier": "tier3",
+  "title": "Tier 3: The Engine Room (Pullbacks & Ranges)",
+  "modules": [
+    {
+      "id": "tier3-mod-3.1",
+      "title": "3.1 Pullback Anatomy & First Pullback Sequences (EMA Tests & Gap Bars)",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "26 mins",
+      "sections": [
+        {
+          "heading": "1. The Microstructure of a Pullback",
+          "content": "In Al Brooks methodology, a pullback is any pause or countertrend move that lasts from one tick to dozens of bars. Pullbacks are not reversals; they are areas where strong institutions take partial profits and reload positions at better prices (value). In a bull trend, every bar whose low is at or below the prior bar's low is part of a pullback.",
+          "keyRule": "In a strong trend, the first pullback is almost always bought by institutions. Never short the first pullback in a bull trend, even if it looks like a sharp drop."
+        },
+        {
+          "heading": "2. The 20-Period Exponential Moving Average (EMA) as a Dynamic Magnet",
+          "content": "On the 5-minute chart, the 20-period EMA serves as the institutional baseline. When a strong trend pushes far away from the EMA, price becomes overextended. Eventually, profit-taking pulls price back to test the moving average.\n\n- EMA Touch: The first test of the 20 EMA after a trend has been underway for 20 or more bars is one of the highest-probability with-trend setups in trading.\n- Institutional Behavior: Smart money places limit orders to buy at or just below the EMA, expecting the trend to resume.",
+          "barBreakdownExample": {
+            "scenario": "A 5-minute bull trend runs 30 bars above the 20 EMA. Bar 31 finally pulls back and touches the moving average, forming a bull hammer.",
+            "psychology": "Bears think the trend is over and short the break of the EMA. Institutions who missed the early move view this as their first chance to buy at fair value. Massive buy orders absorb the bears and launch the next rally."
+          }
+        },
+        {
+          "heading": "3. 20 EMA Gap Bars (Moving Average Gap Bars - MAGBs)",
+          "content": "A 20 EMA Gap Bar occurs when a bar's entire range (including wicks) stays completely on the other side of the moving average. In a bull trend, a bar whose high fails to touch the 20 EMA is a bear gap bar.\n\n- What It Signals: It proves that bears had enough strength to push the entire price bar below the moving average. This is the first structural sign of institutional trend exhaustion.\n- The Rule: The first 20 EMA Gap Bar in a bull trend almost always leads to a test of the trend high, followed by a transition into a trading range or a Major Trend Reversal (MTR).",
+          "keyRule": "When you see the first 20 EMA Gap Bar, look to take profits on the next rally to the high. The trend is transitioning into a trading range."
+        }
+      ]
+    },
+    {
+      "id": "tier3-mod-3.2",
+      "title": "3.2 Bar Counting Mechanics: High 1 / High 2 and Low 1 / Low 2",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "28 mins",
+      "sections": [
+        {
+          "heading": "1. What is Bar Counting?",
+          "content": "Bar counting is Al Brooks' precise systematic framework for identifying when a two-legged pullback has ended and the main trend is resuming.\n\n- High 1: In a bull trend pullback, the first bar that has a high above the prior bar's high.\n- High 2: The second attempt to resume the bull trend after a second minor dip. A High 2 completes an ABC two-legged pullback.\n- Low 1 / Low 2: The exact bear trend equivalent. A Low 2 is the second attempt by bears to short after two minor upward bounces.",
+          "keyRule": "The High 2 in a bull trend and the Low 2 in a bear trend are the single most reliable setup engines in price action trading."
+        },
+        {
+          "heading": "2. Why the Second Entry (High 2 / Low 2) Works: Trapping the Trappers",
+          "content": "The High 1 is frequently a trap because aggressive counter-trend traders still have enough energy to push price down for one more leg. When the High 1 fails, novice bulls panic and sell.\n\nHowever, when the market drops to create a second leg and forms a High 2 signal bar, bears have exhausted their ammunition. Sidelined institutions step in with buy stops 1 tick above the High 2 bar. When the High 2 triggers, bears are completely trapped, and their buy-stops to cover fuel a sharp surge.",
+          "barBreakdownExample": {
+            "scenario": "In a bull trend, the market pulls back for 3 bars. Bar 4 ticks 1 tick above Bar 3 (High 1). Bar 5 immediately drops below Bar 4. Bar 6 is a bull reversal bar. Bar 7 ticks above Bar 6 (High 2).",
+            "psychology": "Bears who shorted the High 1 thought they had control when Bar 5 dropped. But when Bar 7 triggers the High 2, bears realize they are trapped in a two-legged trap. They panic-buy to exit, while trend-followers buy aggressively."
+          }
+        },
+        {
+          "heading": "3. Resetting the Count",
+          "content": "A bar count resets back to zero whenever price breaks out to a new extreme in the direction of the trend, or whenever the pullback becomes so large and complex that the market enters a trading range or flips the Always In direction.",
+          "keyRule": "If a pullback exceeds 3 legs (High 3 / High 4), it is no longer a simple pullback—it is a wedge flag or a trading range. Stop counting and trade range tactics."
+        }
+      ]
+    },
+    {
+      "id": "tier3-mod-3.3",
+      "title": "3.3 Complex Corrections: High 3 / Low 3 & Wedge Flags",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "25 mins",
+      "sections": [
+        {
+          "heading": "1. When Two Legs Aren't Enough: The Three-Legged Correction",
+          "content": "While simple pullbacks end after two legs (High 2 or Low 2), strong trends frequently encounter deeper profit-taking that unfolds across three distinct pushes. In Al Brooks terminology, a three-legged pullback is called a High 3 (in a bull trend) or Low 3 (in a bear trend).\n\nGeometrically, almost every High 3 or Low 3 is a Wedge Flag. The converging slope of the three pushes reveals that counter-trend momentum is decelerating with each subsequent push.",
+          "keyRule": "A High 3 or Low 3 pullback that converges into three pushes is a Wedge Flag. Treat it as a high-probability continuation setup."
+        },
+        {
+          "heading": "2. Institutional Mechanics of Wedge Flags",
+          "content": "Why do wedge flags work so consistently?\n\n- In a bull trend wedge bull flag, bears attempt three separate times to reverse the market (Push 1, Push 2, Push 3).\n- By the third push, each downward leg travels less distance than the prior leg, showing exhaustion of selling pressure.\n- When the third push fails to break down, bears give up entirely. Institutional algorithms trigger buy stop orders 1 tick above the signal bar of the third push.",
+          "barBreakdownExample": {
+            "scenario": "A 5-minute bull trend pulls back over 15 bars, forming three distinct downward swings with higher swing highs and shallow lower lows (Wedge Bull Flag).",
+            "psychology": "Bears tried three distinct times to take over. Each attempt was weaker than the last. When the third push triggers a bull reversal bar, bears are trapped and must liquidate, sparking an explosive resumption of the bull trend."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tier3-mod-3.4",
+      "title": "3.4 Trading Range Dynamics & The 80% Rule Mechanics",
+      "type": "comprehensive_lesson",
+      "estimatedReadTime": "26 mins",
+      "sections": [
+        {
+          "heading": "1. The Anatomy of a Trading Range: BLSHS",
+          "content": "Markets spend 60% to 70% of their time trapped inside trading ranges. In a trading range, all trend-following strategies fail. Stop orders get slaughtered by whipsaws.\n\nTo survive and profit in a trading range, you must adopt the core Al Brooks trading range mantra: BLSHS (Buy Low, Sell High, and Scalp).\n\n- Buy the lower third of the range with limit orders or strong reversal signal bars.\n- Sell short the upper third of the range.\n- Never take trades in the middle third—the middle is pure 50/50 noise where institutions harvest beginner capital.",
+          "keyRule": "In a trading range: Buy low, sell high, and scalp. Never buy at the top or sell at the bottom expecting a trend breakout."
+        },
+        {
+          "heading": "2. The 80% Rule in Real-Time Action",
+          "content": "Al Brooks' 80% Rule states that 80% of all breakout attempts from a trading range fail.\n\n- When price races toward the top of a trading range with a large green trend bar, novice traders get FOMO and buy the breakout.\n- Smart institutions do the exact opposite: they place limit sell orders right at resistance and above the breakout bar, fading the retail buying.\n- As soon as the momentum stalls, the breakout buyers panic, sell their losing longs, and the market collapses back to the middle or opposite side of the range.",
+          "barBreakdownExample": {
+            "scenario": "A 12-point ES trading range forms over 2 hours. A big bull bar closes 1 point above range resistance. The next bar is an inside bear bar.",
+            "psychology": "Breakout traders were sucked in on the bull bar. Institutions supplied the contracts by shorting. The bear inside bar confirms the breakout has failed. Those bulls are trapped, and their sell-stops will accelerate the drop back to range support."
+          }
+        },
+        {
+          "heading": "3. Barb Wire: The Deadliest Trap in Trading",
+          "content": "Barb Wire is a tight trading range of 3 or more bars that have mostly overlapping bodies, long tails, and doji closes, often straddling the 20-period EMA.\n\nIn Barb Wire, the market is in extreme stalemate. Buying the high of a bar or selling the low on stop orders has an 80%+ loss rate.\n\n- The Rule of Barb Wire: Do not trade. Step aside, sit on your hands, and wait for a clear breakout and follow-through bar before entering.",
+          "keyRule": "If you see 3 consecutive bars with heavy overlap, long wicks, and doji bodies crossing the 20 EMA, you are in Barb Wire. Stop trading immediately."
+        }
+      ]
+    },
+    {
+      "id": "tier3-mod-3.5",
+      "title": "3.5 Milestone Gate 3: Tier 3 Certification Quiz",
+      "type": "quiz",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "In a strong, established bull trend, what is the institutional probability associated with the very first pullback to the 20-period EMA?",
+          "options": [
+            "It will immediately reverse the entire market into a bear trend.",
+            "It will almost certainly be bought by institutions, making shorting it low probability.",
+            "It signals an immediate transition into Barb Wire."
+          ],
+          "correctIndex": 1,
+          "explanation": "Institutions who missed the initial move use the first touch of the 20 EMA as fair value to enter with-trend positions."
+        },
+        {
+          "id": "q2",
+          "prompt": "Why is a High 2 setup in a bull trend considered significantly higher probability than a High 1 setup?",
+          "options": [
+            "Because High 1 setups are illegal on futures exchanges.",
+            "Because a High 2 completes a two-legged ABC pullback where bears have exhausted their counter-trend selling, trapping them when price breaks the high of the second signal bar.",
+            "Because High 2 setups always guarantee a 100% win rate."
+          ],
+          "correctIndex": 1,
+          "explanation": "The High 1 frequently traps early buyers. The High 2 exhausts the counter-trend bears and traps them into panic-covering."
+        },
+        {
+          "id": "q3",
+          "prompt": "What does the presence of the first 20 EMA Gap Bar in a mature trend indicate to a price action trader?",
+          "options": [
+            "The trend is stronger than ever and leverage should be doubled.",
+            "Counter-trend participants had enough conviction to keep an entire bar on the other side of the moving average, warning of trend exhaustion and an upcoming trading range.",
+            "The market has crashed and trading should be halted."
+          ],
+          "correctIndex": 1,
+          "explanation": "A gap bar proves opposing strength. In a bull trend, a bar staying entirely below the EMA warns that the trend is aging and transitioning into a range."
+        },
+        {
+          "id": "q4",
+          "prompt": "What should a disciplined price action trader do when the market enters 'Barb Wire' (tight trading range with overlapping doji bars and tails)?",
+          "options": [
+            "Place aggressive breakout market orders on every bar.",
+            "Sit on hands and refrain from trading until a decisive breakout and follow-through bar occurs.",
+            "Use maximum leverage to scalp inside the bodies."
+          ],
+          "correctIndex": 1,
+          "explanation": "Barb Wire has an 80%+ failure rate for breakout attempts. The only professional response is patience and waiting for clarity."
+        }
+      ]
+    }
+  ]
+}
