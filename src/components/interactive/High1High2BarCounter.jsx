@@ -1,294 +1,319 @@
-// Version: v1.0 - Tier 3 High 1 / High 2 Pullback Practice Trainer
-// Changelog:
-// - v1.0: Interactive bar counting trainer testing H1, inside-bar pause, and H2 classification.
-
+// Version: v2.0 - Fixed Candlestick Coordinates and Brooks Bar Counting Truth
 import { useState } from 'react';
 
 const PULLBACK_SEQUENCE = [
-  { id: 1, open: 5015.0, high: 5025.0, low: 5014.5, close: 5024.5, type: 'bull', label: 'Trend High', correctType: 'none', note: 'Bull Trend Bar printing swing high at 5025.00. Pullback begins on Bar 2.' },
-  { id: 2, open: 5024.5, high: 5024.0, low: 5020.0, close: 5020.5, type: 'bear', label: 'Leg 1 Down', correctType: 'none', note: 'First bar of pullback. Lower high, lower low. Awaiting first attempt to break prior high.' },
-  { id: 3, open: 5020.5, high: 5022.5, low: 5019.5, close: 5022.0, type: 'bull', label: 'High 1 (H1)', correctType: 'H1', note: 'HIGH 1 (H1): First bar whose high exceeds the prior bar high (5022.50 > 5022.00). Leg 1 pause.' },
-  { id: 4, open: 5022.0, high: 5021.5, low: 5018.0, close: 5018.5, type: 'bear', label: 'Leg 2 Down', correctType: 'none', note: 'H1 fails to produce trend resumption. Bears drive price lower, creating Leg 2 down.' },
-  { id: 5, open: 5018.5, high: 5019.5, low: 5017.0, close: 5018.0, type: 'bear', label: 'Push 2 Extension', correctType: 'none', note: 'Continued downward probe testing 20 EMA support.' },
-  { id: 6, open: 5017.5, high: 5018.5, low: 5017.5, close: 5018.0, type: 'doji', label: 'Inside Bar (Pause)', correctType: 'PAUSE', note: 'INSIDE BAR: High is lower, low is higher than Bar 5. Inside bars pause the count and do not reset or increment it.' },
-  { id: 7, open: 5018.0, high: 5022.0, low: 5016.5, close: 5021.5, type: 'bull', label: 'High 2 (H2 Trigger)', correctType: 'H2', note: 'HIGH 2 (H2): Second time price breaks above the prior bar high. Two-legged pullback complete! ~60% Win Rate Setup.' },
+  {
+    id: 1,
+    name: 'Bar 1',
+    open: 5016.0,
+    high: 5025.0,
+    low: 5015.5,
+    close: 5024.75,
+    type: 'bull',
+    classification: 'Trend High',
+    explanation: 'The swing high of the bull spike. The bar count starts on the first pullback bar after this extreme.',
+  },
+  {
+    id: 2,
+    name: 'Bar 2',
+    open: 5024.5,
+    high: 5024.0,
+    low: 5020.0,
+    close: 5020.5,
+    type: 'bear',
+    classification: 'Down Leg Bar',
+    explanation: 'First bar of the pullback. High is lower than Bar 1 (5024.00 < 5025.00). Leg 1 down begins.',
+  },
+  {
+    id: 3,
+    name: 'Bar 3',
+    open: 5020.75,
+    high: 5023.0,
+    low: 5021.0,
+    close: 5022.5,
+    type: 'bull',
+    classification: 'Inside Bar (Pause)',
+    explanation: 'Inside Bar: High (5023.00) is below Bar 2 high (5024.00), and Low (5021.00) is above Bar 2 low (5020.00). Pauses the count without triggering an H1.',
+  },
+  {
+    id: 4,
+    name: 'Bar 4',
+    open: 5022.5,
+    high: 5024.25,
+    low: 5021.5,
+    close: 5023.5,
+    type: 'bull',
+    classification: 'High 1 (H1)',
+    explanation: 'HIGH 1 (H1): First bar in the pullback whose high extends at least 1 tick above the prior bar (5024.25 > 5023.00). Ends Leg 1.',
+  },
+  {
+    id: 5,
+    name: 'Bar 5',
+    open: 5023.25,
+    high: 5023.5,
+    low: 5017.5,
+    close: 5018.0,
+    type: 'bear',
+    classification: 'Down Leg Bar',
+    explanation: 'Leg 2 Down: Strong bear bar trades below Bar 4 low, failing the H1 and initiating the second leg of the correction.',
+  },
+  {
+    id: 6,
+    name: 'Bar 6',
+    open: 5018.0,
+    high: 5019.0,
+    low: 5016.0,
+    close: 5018.75,
+    type: 'bull',
+    classification: 'Down Leg Bar',
+    explanation: 'Tests the rising 20 EMA support. Lower high than Bar 5 (5019.00 < 5023.50). Prepares the High 2 signal.',
+  },
+  {
+    id: 7,
+    name: 'Bar 7',
+    open: 5018.75,
+    high: 5022.0,
+    low: 5018.5,
+    close: 5021.5,
+    type: 'bull',
+    classification: 'High 2 (H2)',
+    explanation: 'HIGH 2 (H2): High breaks above Bar 6 high (5022.00 > 5019.00) near the 20 EMA. High-probability institutional long entry (~60% win rate).',
+  },
 ];
 
 export default function High1High2BarCounter() {
-  const [currentStep, setCurrentStep] = useState(2); // Start inspecting Bar 3 (H1)
-  const [userChoice, setUserChoice] = useState(null);
+  const [currentStep, setCurrentStep] = useState(2); // start inspecting Bar 3 (index 2)
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [feedback, setFeedback] = useState(null);
 
   const activeBar = PULLBACK_SEQUENCE[currentStep];
+  const priorBar = PULLBACK_SEQUENCE[currentStep - 1];
 
-  const handleClassify = (choice) => {
-    setUserChoice(choice);
-    const isCorrect = choice === activeBar.correctType;
-
-    if (isCorrect) {
+  const handleSelectClassification = (choice) => {
+    setSelectedAnswer(choice);
+    if (choice === activeBar.classification) {
       setFeedback({
-        correct: true,
-        title: `✓ Correct Classification: ${choice === 'H1' ? 'High 1' : choice === 'H2' ? 'High 2 (A-Grade Setup)' : choice === 'PAUSE' ? 'Inside Bar (Pause)' : 'Correct Read'}`,
-        text: activeBar.note
+        isCorrect: true,
+        message: `CORRECT: ${activeBar.explanation}`,
       });
     } else {
       setFeedback({
-        correct: false,
-        title: `✕ Miscount on Bar ${activeBar.id}`,
-        text: activeBar.note
+        isCorrect: false,
+        message: `MISCOUNT ON ${activeBar.name}: Correct is "${activeBar.classification}". ${activeBar.explanation}`,
       });
     }
   };
 
-  const handleNext = () => {
+  const handleNextBar = () => {
     if (currentStep < PULLBACK_SEQUENCE.length - 1) {
       setCurrentStep((prev) => prev + 1);
-      setUserChoice(null);
+      setSelectedAnswer(null);
       setFeedback(null);
     }
   };
 
   const handleReset = () => {
     setCurrentStep(2);
-    setUserChoice(null);
+    setSelectedAnswer(null);
     setFeedback(null);
   };
 
-  // SVG Geometry
-  const minP = 5013.0;
-  const maxP = 5027.0;
-  const svgH = 220;
-  const getY = (p) => svgH - 20 - ((p - minP) / (maxP - minP)) * (svgH - 40);
+  // SVG coordinate helpers (scale 5014-5026 to height 180)
+  const priceToY = (price) => {
+    const minP = 5014;
+    const maxP = 5026;
+    return 180 - ((price - minP) / (maxP - minP)) * 160 - 10;
+  };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 md:p-6 shadow-2xl space-y-6 text-slate-100">
+    <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-6 shadow-xl text-slate-100">
       
       {/* HEADER */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-slate-800 gap-2">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded bg-blue-950 text-blue-400 font-mono text-xs font-semibold border border-blue-900/60">
-              Interactive Micro-Lab
-            </span>
-            <h3 className="text-base md:text-lg font-bold text-white">
-              High 1 / High 2 Pullback Practice Trainer
-            </h3>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest bg-blue-950/60 px-2.5 py-0.5 rounded border border-blue-900/60">
+            Interactive Capstone Lab 3.1
+          </span>
+          <h3 className="text-lg font-bold text-slate-100 mt-1">
+            High 1 / High 2 Pullback Practice Trainer
+          </h3>
+          <p className="text-xs text-slate-400">
             Master the Brooks bar counting methodology: identify H1, inside-bar pauses, and high-probability H2 entries.
           </p>
         </div>
-        <div className="font-mono text-xs text-slate-400 bg-slate-950 px-3 py-1.5 rounded border border-slate-800 self-start sm:self-auto">
-          Inspecting: <span className="text-blue-400 font-bold">Bar {activeBar.id}</span> / {PULLBACK_SEQUENCE.length}
-        </div>
+        <span className="text-xs font-mono font-bold px-3 py-1 bg-slate-950 rounded border border-slate-800 self-start md:self-auto">
+          Inspecting: <strong className="text-blue-400">{activeBar.name}</strong> / 7
+        </span>
       </div>
 
-      {/* LAB INSTRUCTIONS */}
-      <div className="bg-blue-950/20 border border-blue-900/50 rounded-lg p-4 space-y-2">
-        <strong className="text-blue-400 text-sm font-bold flex items-center gap-2 uppercase tracking-wider">
-          <span>🧪</span> Lab Exercise
-        </strong>
-        <ol className="list-decimal pl-5 text-sm text-slate-300 space-y-1">
-          <li>Examine the pullback from the swing high on Bar 1.</li>
-          <li>For the highlighted bar, determine whether it represents a <strong className="text-blue-400">High 1 (H1)</strong>, an <strong className="text-amber-400">Inside Bar Pause</strong>, or a <strong className="text-emerald-400">High 2 (H2)</strong>.</li>
-          <li>Click your classification to verify against institutional rules, then use <strong className="text-blue-400">Step Next Bar ➔</strong> to progress through the two-legged correction.</li>
+      {/* LAB EXERCISE GUIDANCE CARD */}
+      <div className="p-4 bg-blue-950/20 border border-blue-900/50 rounded-lg space-y-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
+          <span>🧪</span> Lab Exercise: Precision Bar Counting
+        </div>
+        <ol className="text-xs text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed font-sans">
+          <li><strong>Examine the Current Bar:</strong> Compare the high of the highlighted bar against the high of the immediately preceding bar.</li>
+          <li><strong>Apply the Rule:</strong> If the high exceeds the prior high, it is a <strong>High 1</strong> (or <strong>High 2</strong> if after Leg 1). If the high is lower and range is contained, it is an <strong>Inside Bar (Pause)</strong>.</li>
+          <li><strong>Click Your Classification:</strong> Verify against institutional execution rules, then click <strong>Step Next Bar ➔</strong>.</li>
         </ol>
       </div>
 
-      {/* 2-COLUMN WORKSPACE */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+      {/* MAIN LAB WORKSPACE */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* LEFT: CANDLESTICK CANVAS */}
-        <div className="md:col-span-7 bg-slate-950 rounded-xl border border-slate-800/90 p-4 relative flex flex-col items-center justify-center">
-          <span className="absolute top-3 left-3 text-[10px] font-mono text-slate-500 uppercase tracking-widest">
-            Pullback Structure (ES 5-Min)
-          </span>
+        {/* CHART DISPLAY (7 cols) */}
+        <div className="lg:col-span-7 bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div className="flex justify-between text-[11px] font-mono text-slate-500 mb-2">
+            <span>PULLBACK STRUCTURE (ES 5-MIN)</span>
+            <span>20 EMA PULLBACK BENCHMARK</span>
+          </div>
 
-          <svg className="w-full h-56 select-none" viewBox="0 0 320 220">
-            {/* Price Grid */}
-            {[5015, 5020, 5025].map((p) => (
-              <g key={p}>
-                <line x1="15" y1={getY(p)} x2="305" y2={getY(p)} stroke="#1e293b" strokeWidth="1" strokeDasharray="3 3" />
-                <text x="310" y={getY(p) + 3} fill="#475569" fontSize="8" fontFamily="monospace" textAnchor="end">
-                  {p}
-                </text>
-              </g>
-            ))}
+          <div className="w-full h-64 flex items-center justify-center relative">
+            <svg className="w-full h-full" viewBox="0 0 380 190">
+              {/* Grid Lines */}
+              <line x1="20" y1={priceToY(5025)} x2="360" y2={priceToY(5025)} stroke="#334155" strokeDasharray="3 3" strokeWidth="0.75" />
+              <text x="362" y={priceToY(5025) + 3} fill="#64748b" fontSize="8" fontFamily="monospace">5025</text>
 
-            {/* 20 EMA Support Line */}
-            <path
-              d="M 20 180 Q 150 175, 300 170"
-              stroke="#64748b"
-              strokeWidth="1.5"
-              strokeDasharray="4 2"
-              fill="none"
-            />
-            <text x="295" y="162" fill="#94a3b8" fontSize="7" fontFamily="monospace" textAnchor="end">
-              20 EMA Support
-            </text>
+              <line x1="20" y1={priceToY(5020)} x2="360" y2={priceToY(5020)} stroke="#334155" strokeDasharray="3 3" strokeWidth="0.75" />
+              <text x="362" y={priceToY(5020) + 3} fill="#64748b" fontSize="8" fontFamily="monospace">5020</text>
 
-            {/* Bars up to currentStep */}
-            {PULLBACK_SEQUENCE.slice(0, currentStep + 1).map((b, i) => {
-              const x = 30 + i * 38;
-              const isBull = b.type === 'bull';
-              const isDoji = b.type === 'doji';
-              const openY = getY(b.open);
-              const closeY = getY(b.close);
-              const highY = getY(b.high);
-              const lowY = getY(b.low);
-              const bodyTop = Math.min(openY, closeY);
-              const bodyH = Math.max(3, Math.abs(openY - closeY));
-              const isCurrent = i === currentStep;
+              {/* 20 EMA line at 5016.5 */}
+              <path d="M 20 170 Q 180 168 360 162" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 4" />
+              <text x="260" y="156" fill="#38bdf8" fontSize="8" fontFamily="monospace">20 EMA Support</text>
 
-              return (
-                <g key={b.id}>
-                  {/* Focus Marker */}
-                  {isCurrent && (
-                    <circle cx={x} cy={highY - 8} r="3.5" fill="#38bdf8" />
-                  )}
+              {/* Render Bars up to currentStep */}
+              {PULLBACK_SEQUENCE.slice(0, currentStep + 1).map((bar, idx) => {
+                const x = 40 + idx * 45;
+                const openY = priceToY(bar.open);
+                const closeY = priceToY(bar.close);
+                const highY = priceToY(bar.high);
+                const lowY = priceToY(bar.low);
+                const bodyTop = Math.min(openY, closeY);
+                const bodyHeight = Math.max(Math.abs(closeY - openY), 3);
+                const isBull = bar.type === 'bull';
+                const isCurrent = idx === currentStep;
 
-                  {/* Wick */}
-                  <line
-                    x1={x}
-                    y1={highY}
-                    x2={x}
-                    y2={lowY}
-                    stroke={isDoji ? '#94a3b8' : isBull ? '#10b981' : '#f43f5e'}
-                    strokeWidth={isCurrent ? '2.5' : '1.5'}
-                  />
-                  {/* Body */}
-                  <rect
-                    x={x - 11}
-                    y={bodyTop}
-                    width="22"
-                    height={bodyH}
-                    fill={isDoji ? '#475569' : isBull ? '#065f46' : '#881337'}
-                    stroke={isDoji ? '#94a3b8' : isBull ? '#10b981' : '#f43f5e'}
-                    strokeWidth={isCurrent ? '2' : '1'}
-                    rx="1.5"
-                  />
-                  {/* Bar Number */}
-                  <text
-                    x={x}
-                    y={svgH - 5}
-                    fill={isCurrent ? '#38bdf8' : '#64748b'}
-                    fontSize="8"
-                    fontFamily="monospace"
-                    fontWeight={isCurrent ? 'bold' : 'normal'}
-                    textAnchor="middle"
-                  >
-                    B{b.id}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
+                return (
+                  <g key={bar.id}>
+                    {/* Wick */}
+                    <line
+                      x1={x + 10}
+                      y1={highY}
+                      x2={x + 10}
+                      y2={lowY}
+                      stroke={isBull ? '#10b981' : '#f43f5e'}
+                      strokeWidth="2"
+                    />
+                    {/* Body */}
+                    <rect
+                      x={x}
+                      y={bodyTop}
+                      width="20"
+                      height={bodyHeight}
+                      fill={isBull ? '#065f46' : '#4c0519'}
+                      stroke={isBull ? '#10b981' : '#f43f5e'}
+                      strokeWidth="1.5"
+                      rx="1"
+                    />
+                    {/* Current Highlight Marker */}
+                    {isCurrent && (
+                      <circle cx={x + 10} cy={highY - 10} r="3.5" fill="#38bdf8" />
+                    )}
+                    {/* Bar Label */}
+                    <text
+                      x={x + 10}
+                      y="185"
+                      fill={isCurrent ? '#38bdf8' : '#64748b'}
+                      fontSize="9"
+                      fontFamily="monospace"
+                      fontWeight={isCurrent ? 'bold' : 'normal'}
+                      textAnchor="middle"
+                    >
+                      B{bar.id}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+          </div>
 
-          <div className="w-full flex justify-between text-[10px] font-mono text-slate-400 mt-2 border-t border-slate-800/80 pt-2">
-            <span>Inspecting: <strong className="text-white">Bar {activeBar.id}</strong></span>
-            <span>High: <strong className="text-slate-200">{activeBar.high.toFixed(2)}</strong></span>
-            <span>Prior High: <strong className="text-slate-400">{PULLBACK_SEQUENCE[currentStep - 1].high.toFixed(2)}</strong></span>
+          <div className="flex justify-between items-center text-xs font-mono text-slate-400 pt-2 border-t border-slate-900">
+            <span>Inspecting: <strong className="text-slate-200">{activeBar.name}</strong></span>
+            <span>High: <strong className="text-blue-300">{activeBar.high.toFixed(2)}</strong></span>
+            <span>Prior High: <strong className="text-slate-300">{priorBar.high.toFixed(2)}</strong></span>
           </div>
         </div>
 
-        {/* RIGHT: CLASSIFICATION TERMINAL */}
-        <div className="md:col-span-5 space-y-4 flex flex-col justify-between">
-          
-          <div className="space-y-3">
-            <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold block">
-                Bar Counting Terminal
-              </span>
-              <h4 className="text-base font-bold text-white">
-                How is Bar {activeBar.id} classified in this pullback?
-              </h4>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Compare Bar {activeBar.id}'s high against Bar {activeBar.id - 1}'s high. Does it create an attempt to resume the trend, pause the count, or continue downward?
-              </p>
-
-              {/* Classification Buttons */}
-              <div className="grid grid-cols-2 gap-2 pt-1">
-                <button
-                  onClick={() => handleClassify('H1')}
-                  className={`p-2.5 rounded-lg border text-xs font-mono font-bold transition-all ${
-                    userChoice === 'H1'
-                      ? 'bg-blue-950 border-blue-500 text-blue-300 shadow-md'
-                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-blue-500'
-                  }`}
-                >
-                  High 1 (H1)
-                </button>
-                <button
-                  onClick={() => handleClassify('H2')}
-                  className={`p-2.5 rounded-lg border text-xs font-mono font-bold transition-all ${
-                    userChoice === 'H2'
-                      ? 'bg-emerald-950 border-emerald-500 text-emerald-300 shadow-md'
-                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-emerald-500'
-                  }`}
-                >
-                  High 2 (H2)
-                </button>
-                <button
-                  onClick={() => handleClassify('PAUSE')}
-                  className={`p-2.5 rounded-lg border text-xs font-mono font-bold transition-all ${
-                    userChoice === 'PAUSE'
-                      ? 'bg-amber-950 border-amber-500 text-amber-300 shadow-md'
-                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-amber-500'
-                  }`}
-                >
-                  Inside Bar (Pause)
-                </button>
-                <button
-                  onClick={() => handleClassify('none')}
-                  className={`p-2.5 rounded-lg border text-xs font-mono font-bold transition-all ${
-                    userChoice === 'none'
-                      ? 'bg-slate-800 border-slate-500 text-white shadow-md'
-                      : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500'
-                  }`}
-                >
-                  Down Leg Bar
-                </button>
-              </div>
-            </div>
-
-            {/* Real-time Feedback Banner */}
-            {feedback && (
-              <div
-                className={`p-3.5 rounded-xl border animate-fadeIn space-y-1 ${
-                  feedback.correct
-                    ? 'bg-emerald-950/40 border-emerald-900 text-emerald-200'
-                    : 'bg-rose-950/40 border-rose-900 text-rose-200'
-                }`}
-              >
-                <span className="text-xs font-mono font-bold uppercase block">
-                  {feedback.title}
-                </span>
-                <p className="text-xs leading-relaxed">{feedback.text}</p>
-              </div>
-            )}
+        {/* CLASSIFICATION TERMINAL (5 cols) */}
+        <div className="lg:col-span-5 bg-slate-950/60 p-5 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block">
+              BAR COUNTING TERMINAL
+            </span>
+            <h4 className="text-base font-bold text-slate-100">
+              How is {activeBar.name} classified in this pullback?
+            </h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Compare {activeBar.name}&apos;s high against {priorBar.name}&apos;s high. Does it create an attempt to resume the trend, pause the count, or continue downward?
+            </p>
           </div>
 
-          {/* CONTROLS */}
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
+          {/* Classification Options */}
+          <div className="grid grid-cols-2 gap-2.5">
+            {[
+              'High 1 (H1)',
+              'High 2 (H2)',
+              'Inside Bar (Pause)',
+              'Down Leg Bar',
+            ].map((option) => (
+              <button
+                key={option}
+                onClick={() => handleSelectClassification(option)}
+                className={`py-3 px-2 rounded-lg border text-xs font-mono font-semibold transition-all ${
+                  selectedAnswer === option
+                    ? 'bg-blue-600/30 border-blue-500 text-blue-200 shadow-md'
+                    : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+
+          {/* Feedback Area */}
+          {feedback && (
+            <div
+              className={`p-4 rounded-lg border text-xs leading-relaxed font-mono ${
+                feedback.isCorrect
+                  ? 'bg-emerald-950/40 border-emerald-500/80 text-emerald-200'
+                  : 'bg-rose-950/40 border-rose-500/80 text-rose-200'
+              }`}
+            >
+              {feedback.message}
+            </div>
+          )}
+
+          {/* Navigation Controls */}
+          <div className="flex gap-2 pt-2 border-t border-slate-800/80">
             <button
               onClick={handleReset}
-              className="text-xs font-mono text-slate-500 hover:text-slate-300 transition-colors"
+              className="py-2 px-3 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg text-xs font-mono transition-colors"
             >
               ↺ Reset
             </button>
-
             <button
-              onClick={handleNext}
+              onClick={handleNextBar}
               disabled={currentStep >= PULLBACK_SEQUENCE.length - 1}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white rounded text-xs font-mono font-semibold transition-colors"
+              className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-500 disabled:opacity-30 disabled:hover:bg-blue-600 text-white rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 shadow"
             >
-              Step Next Bar ➔
+              {currentStep < PULLBACK_SEQUENCE.length - 1 ? 'Step Next Bar ➔' : 'Pullback Sequence Complete ✓'}
             </button>
           </div>
 
         </div>
 
       </div>
+
     </div>
   );
 }
